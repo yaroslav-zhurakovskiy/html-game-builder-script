@@ -1,4 +1,28 @@
 PODS:
+  - Google-Mobile-Ads-SDK (7.53.0):
+    - GoogleAppMeasurement (~> 6.0)
+  - GoogleAppMeasurement (6.1.6):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - GoogleUtilities/AppDelegateSwizzler (6.3.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.3.2)
+  - GoogleUtilities/Logger (6.3.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.3.2):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.3.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.3.2)"
+  - GoogleUtilities/Reachability (6.3.2):
+    - GoogleUtilities/Logger
   - MintegralAdSDK (5.8.8.0):
     - MintegralAdSDK/NativeAd (= 5.8.8.0)
   - MintegralAdSDK/BannerAd (5.8.8.0):
@@ -6,19 +30,33 @@ PODS:
   - MintegralAdSDK/InterstitialVideoAd (5.8.8.0):
     - MintegralAdSDK/NativeAd
   - MintegralAdSDK/NativeAd (5.8.8.0)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
 
 DEPENDENCIES:
+  - Google-Mobile-Ads-SDK
   - MintegralAdSDK
   - MintegralAdSDK/BannerAd
   - MintegralAdSDK/InterstitialVideoAd
 
 SPEC REPOS:
   trunk:
+    - Google-Mobile-Ads-SDK
+    - GoogleAppMeasurement
+    - GoogleUtilities
     - MintegralAdSDK
+    - nanopb
 
 SPEC CHECKSUMS:
+  Google-Mobile-Ads-SDK: 4b855e61f9c5a1a97cb55734ea372a4c36d00242
+  GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
+  GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
   MintegralAdSDK: 48a4d3a17cb3fedf21a2d381944078688a427e88
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
 
-PODFILE CHECKSUM: a016b2554de88f9dacf237846338225f43ee7df3
+PODFILE CHECKSUM: 24616035e6c0ac52b67350f6f386c8b59bd08181
 
 COCOAPODS: 1.8.4

@@ -139,15 +139,12 @@ class XcodeProjectGenerator
         project_name = params[:name]
         target_name = params[:name]
         ios_sdk = params[:sdk]
-        bundle_id_prefix = params[:bundleIdPrefix]
         game_src = File.basename(params[:gameSrc])
         target_src = params[:name]
         dev_team_id = params[:developmentTeam]
         
         <<-YML_FILE
         name: #{project_name}
-        options:
-            bundleIdPrefix: #{bundle_id_prefix}
         targets:
             #{target_name}:
                 type: application

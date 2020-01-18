@@ -3,6 +3,8 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
     
     init() {
         
+        handler.register(GoogleAdmob())
+        
         
         handler.register(MintegralBanner())
         handler.register(MintegralInterstitialVideoAd())

@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		080E453A30509E5E1DE0B03C /* NSObject+Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1DE94D34E851D323E7F01 /* NSObject+Logging.m */; };
 		09638A751791AE54EFA1D900 /* SandboxObjectRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AA07082ED22678B17E770C /* SandboxObjectRequestHandler.swift */; };
+		0BE5C6AAC13D83C3C9B918EC /* GoogleAdmob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667A342DD413929F83E3781 /* GoogleAdmob.swift */; };
 		42533AB114476C75A636806C /* WebGameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A5A959FA98655940FFF200A /* WebGameController.xib */; };
-		53F068BD60D1639BB2C113E5 /* Pods_Game.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA66977682B4A6D97AE6C0C5 /* Pods_Game.framework */; };
 		544E28A1FC074425256673AD /* MTGBannerAdViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCAD292EDD5B8BB45C761B /* MTGBannerAdViewPresenter.m */; };
 		6490445EBD5BEE8923FE0A84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A0FC673489A25CD0A07E17B /* Assets.xcassets */; };
 		689B8833F25D652905F5B3DA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E1EC10DEACFA04F8F3F09 /* Helpers.swift */; };
@@ -23,6 +23,8 @@
 		D61D83778878C5EAD292BD48 /* html-game in Resources */ = {isa = PBXBuildFile; fileRef = 43CA120E63F5CC80A31F2557 /* html-game */; };
 		DFEB568AA98E11F42B6E337E /* SandboxURLRequestDecomposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F97AC658B73D4CC7990066 /* SandboxURLRequestDecomposer.swift */; };
 		F32A55D692743286125688FA /* MintegralBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADD45A123BE477BE9519A0 /* MintegralBanner.swift */; };
+		FA549282C284630C382E2D5D /* Pods_Game.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213914B22474EE5B4011FFAE /* Pods_Game.framework */; };
+		FAFE2E835B083CA7A7094A50 /* GoogleInterstitialPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B8F729B3D83FBAD90D8DE /* GoogleInterstitialPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,35 +33,37 @@
 		09AA07082ED22678B17E770C /* SandboxObjectRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxObjectRequestHandler.swift; sourceTree = "<group>"; };
 		0A0FC673489A25CD0A07E17B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E311619BCD19CA765BB5FBA /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		1A827EA7B17B9CF4414DE019 /* Pods-Game.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Game.debug.xcconfig"; path = "Target Support Files/Pods-Game/Pods-Game.debug.xcconfig"; sourceTree = "<group>"; };
+		213914B22474EE5B4011FFAE /* Pods_Game.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Game.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5A959FA98655940FFF200A /* WebGameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebGameController.xib; sourceTree = "<group>"; };
 		2D349DCD66FCED08EA23D353 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31EBEC245C234046115274B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		43CA120E63F5CC80A31F2557 /* html-game */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "html-game"; sourceTree = SOURCE_ROOT; };
-		4BE566BE3F5E1C5EEFFE7369 /* Pods-Game.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Game.release.xcconfig"; path = "Target Support Files/Pods-Game/Pods-Game.release.xcconfig"; sourceTree = "<group>"; };
 		569F980CBD0FF7AF2A1F9D3A /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		5C949DCB0F8BC5AF39401F1F /* Pods-Game.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Game.release.xcconfig"; path = "Target Support Files/Pods-Game/Pods-Game.release.xcconfig"; sourceTree = "<group>"; };
 		653816A26ABE1CF13879130C /* MTGInterstitialVideoAdPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTGInterstitialVideoAdPresenter.h; sourceTree = "<group>"; };
 		76E03B74915112FA950FDD4E /* WebGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebGameController.swift; sourceTree = "<group>"; };
 		905E17F216BA7E5AC028AD64 /* NSObject+Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Logging.h"; sourceTree = "<group>"; };
 		910520D070434978F00383E7 /* WebGameControllerDelegateImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebGameControllerDelegateImpl.swift; sourceTree = "<group>"; };
 		B8643191D81983565DB563F7 /* MTGInterstitialVideoAdPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTGInterstitialVideoAdPresenter.m; sourceTree = "<group>"; };
+		B95B8F729B3D83FBAD90D8DE /* GoogleInterstitialPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleInterstitialPresenter.swift; sourceTree = "<group>"; };
 		BB540E980BD25C234953BC5B /* MTGBannerAdViewPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTGBannerAdViewPresenter.h; sourceTree = "<group>"; };
 		C05341FFCA2F8D49B106199F /* SandboxObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxObject.swift; sourceTree = "<group>"; };
 		C2F97AC658B73D4CC7990066 /* SandboxURLRequestDecomposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxURLRequestDecomposer.swift; sourceTree = "<group>"; };
+		C667A342DD413929F83E3781 /* GoogleAdmob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdmob.swift; sourceTree = "<group>"; };
 		DA4786C21F9FB97FE6D8A6B4 /* MintegralInterstitialVideoAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintegralInterstitialVideoAd.swift; sourceTree = "<group>"; };
-		DA66977682B4A6D97AE6C0C5 /* Pods_Game.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Game.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E318D934AA43F04F08FA57B1 /* Game.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E87202F325C3CA0C9EB8CB33 /* AppBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppBridgingHeader.h; sourceTree = "<group>"; };
-		EDE45279301E37D008A103D5 /* Pods-Game.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Game.debug.xcconfig"; path = "Target Support Files/Pods-Game/Pods-Game.debug.xcconfig"; sourceTree = "<group>"; };
 		F3FCAD292EDD5B8BB45C761B /* MTGBannerAdViewPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTGBannerAdViewPresenter.m; sourceTree = "<group>"; };
 		FDADD45A123BE477BE9519A0 /* MintegralBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintegralBanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6127063CFA02581E7D02F827 /* Frameworks */ = {
+		4D4B480932CA6FF8EDC33AD7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53F068BD60D1639BB2C113E5 /* Pods_Game.framework in Frameworks */,
+				FA549282C284630C382E2D5D /* Pods_Game.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,14 +98,6 @@
 			path = Sandbox;
 			sourceTree = "<group>";
 		};
-		2649162E2CD9C8EFE6986F4F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DA66977682B4A6D97AE6C0C5 /* Pods_Game.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3AF57F02C129FF28A8BA5E04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,19 +110,27 @@
 			isa = PBXGroup;
 			children = (
 				023E1EC10DEACFA04F8F3F09 /* Helpers.swift */,
+				82D40A072A48EAD7220CB089 /* Google Admob */,
 				C91B61380F77931BEE77FFB4 /* Mintegral */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		A5182CA1E290AE9B29270551 /* Pods */ = {
+		82D40A072A48EAD7220CB089 /* Google Admob */ = {
 			isa = PBXGroup;
 			children = (
-				EDE45279301E37D008A103D5 /* Pods-Game.debug.xcconfig */,
-				4BE566BE3F5E1C5EEFFE7369 /* Pods-Game.release.xcconfig */,
+				C667A342DD413929F83E3781 /* GoogleAdmob.swift */,
+				B95B8F729B3D83FBAD90D8DE /* GoogleInterstitialPresenter.swift */,
 			);
-			name = Pods;
-			path = Pods;
+			path = "Google Admob";
+			sourceTree = "<group>";
+		};
+		964C9798FCB54C7AA8D6EBBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				213914B22474EE5B4011FFAE /* Pods_Game.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C91B61380F77931BEE77FFB4 /* Mintegral */ = {
@@ -152,14 +156,24 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		FF54754FFADC7100DE078BDD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A827EA7B17B9CF4414DE019 /* Pods-Game.debug.xcconfig */,
+				5C949DCB0F8BC5AF39401F1F /* Pods-Game.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FFB3AEB8AA693BD6BF292FF3 = {
 			isa = PBXGroup;
 			children = (
 				43CA120E63F5CC80A31F2557 /* html-game */,
 				0B0620658748047430E3992A /* Game */,
 				3AF57F02C129FF28A8BA5E04 /* Products */,
-				A5182CA1E290AE9B29270551 /* Pods */,
-				2649162E2CD9C8EFE6986F4F /* Frameworks */,
+				FF54754FFADC7100DE078BDD /* Pods */,
+				964C9798FCB54C7AA8D6EBBA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,10 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2362605ADCA813FBF5E41075 /* Build configuration list for PBXNativeTarget "Game" */;
 			buildPhases = (
-				2678CD9E1D201B645D1B3A9C /* [CP] Check Pods Manifest.lock */,
+				53CB9539DDCA748096EE7719 /* [CP] Check Pods Manifest.lock */,
 				1B4623F40F525B592441F977 /* Sources */,
 				C9F3F82388187466FFB42603 /* Resources */,
-				6127063CFA02581E7D02F827 /* Frameworks */,
+				4D4B480932CA6FF8EDC33AD7 /* Frameworks */,
+				D69E9E6678A7DAA963DAB103 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,7 +244,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2678CD9E1D201B645D1B3A9C /* [CP] Check Pods Manifest.lock */ = {
+		53CB9539DDCA748096EE7719 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,6 +266,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D69E9E6678A7DAA963DAB103 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Game/Pods-Game-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Game/Pods-Game-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Game/Pods-Game-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -259,6 +291,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB387152F9EE6A114C4C47F4 /* AppDelegate.swift in Sources */,
+				0BE5C6AAC13D83C3C9B918EC /* GoogleAdmob.swift in Sources */,
+				FAFE2E835B083CA7A7094A50 /* GoogleInterstitialPresenter.swift in Sources */,
 				689B8833F25D652905F5B3DA /* Helpers.swift in Sources */,
 				544E28A1FC074425256673AD /* MTGBannerAdViewPresenter.m in Sources */,
 				82F6E9BA591B325A8C746EF8 /* MTGInterstitialVideoAdPresenter.m in Sources */,
@@ -347,7 +381,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.company-name.Game";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,7 +398,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.company-name.Game";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -15,7 +15,7 @@ class BuildGameUtil
         required_params = [
             :templatePath,
             :gameSrc,
-            :bundleIdPrefix,
+            :bundleId,
             :version,
             :buildNumber,
             :appiconsetSrc,
