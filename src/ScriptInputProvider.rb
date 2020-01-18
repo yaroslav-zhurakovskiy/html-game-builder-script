@@ -5,15 +5,14 @@ class ScriptInputProvider
     end
 
     def get_coniguration_file_name
-        input_file_name = @arguments[:config]
-        if input_file_name.nil?
-          input_file_name = 'Game.yml'
+        if @arguments.key?(:config)
+            @arguments[:config]
+        else
+            'Game.yml'
         end
-        input_file_name
     end
 
-    def action
-
+    def get_action
         if @arguments.key?(:action)
             @arguments[:action]
         else

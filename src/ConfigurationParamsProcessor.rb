@@ -1,11 +1,11 @@
 class ConfigurationParamsProcessor
     def process(params)
         final_params = fill_in_empty_values(params)
-        check_params(final_params)
+        check_for_required_params(final_params)
         final_params
     end
 
-    private def check_params(params)
+    private def check_for_required_params(params)
         required_params = [
             :templatePath,
             :gameSrc,

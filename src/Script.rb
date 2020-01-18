@@ -9,7 +9,7 @@ class Script
     end
 
     def run()
-        if @input_provider.action == :help
+        if @input_provider.get_action == :help
             @input_parser.print_help
             exit
         end
@@ -17,14 +17,14 @@ class Script
         loaded_params = @params_loader.load(@input_provider)
         final_params = @configuration_params_processor.process(loaded_params)
 
-        if @input_provider.action == :generate
+        if @input_provider.get_action == :generate
             @generator.regenerate(final_params)
-        elsif @input_provider.action == :build
-            @generator.regenerate(final_params)
-            @builder.build(final_params)
-        elsif @input_provider.action == :upload
+        elsif @input_provider.get_action == :build
             @generator.regenerate(final_params)
             @builder.build(final_params)
+        elsif @input_provider.get_action == :upload
+            @generator.regenerate(final_params)
+            @builder.upload(final_params)
         end
     end
 end
