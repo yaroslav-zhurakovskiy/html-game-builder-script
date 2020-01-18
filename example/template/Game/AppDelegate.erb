@@ -1,0 +1,22 @@
+import UIKit
+
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+    let webGameControllerDelegateImpl = WebGameControllerDelegateImpl()
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        <% if !@MintegralApiKey.nil? && !@MintegralAppID.nil? %>
+            MTGSDK.sharedInstance().setAppID("<%=@MintegralAppID%>", apiKey: "<%=@MintegralApiKey%>")
+        <% end %>
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let rootURL = Bundle.main.bundleURL.appendingPathComponent("html-game")
+        let controller = WebGameController(rootURL: rootURL, startingPage: "index.html")
+        controller.delegate = webGameControllerDelegateImpl
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
+        
+        return true
+    }
+}

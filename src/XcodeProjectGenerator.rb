@@ -10,41 +10,95 @@ class XcodeProjectGenerator
     end
 
     def generate(params)  
-        out_dir = get_xcode_project_out_dir(params)
-        templatePath = params[:templatePath]
-
-        copy_tempalte(templatePath, out_dir)  
-        copy_game(params[:gameSrc], templatePath, out_dir)
-        copy_icon(params)
-        copy_launch_image(params)
-        compie_info_plist(params)
-        compile_app_delegate(params)
-        compile_podfile(params)
+        copy_files(params)
+        compile_templates(params)
         generate_xcode_project(params)
-        install_pods(out_dir)
+        install_pods(params)
     end
 
-    def compile_app_delegate(params)
+    private def copy_files(params)
+        copy_template(params)
+        delete_unused_plugins(params)
+        copy_game(params)
+        copy_icon(params)
+        copy_launch_image(params)
+    end
+
+    private def compile_templates(params)
+        compie_info_plist(params)
+        compile_app_delegate(params)
+        compile_web_game_controller_delegate(params)
+        compile_podfile(params)
+        compile_bridging_header(params)
+    end
+
+    private def compile_bridging_header(params)
         compiler = ERBCompiler.new()
         compiler.compile(
-        erb_file_path: target_file_path(params, 'AppDelegate.erb'),
-        result_file_path: target_file_path(params, 'AppDelegate.swift'),
-        input: AppDelegateInput.new(params)
+            erb_file_path: target_file_path(params, 'AppBridgingHeader.erb'),
+            result_file_path: target_file_path(params, 'AppBridgingHeader.h'),
+            input: PofileInput.new(params)
         )
     end
 
-    def target_file_path(params, file)
+    private def copy_template(params)
+        out_dir = get_xcode_project_out_dir(params)
+        templatePath = params[:templatePath]
+        if !templatePath.nil?
+            FileUtils.cp_r(templatePath, out_dir)
+        end
+    end
+
+    private def delete_unused_plugins(params)
+        input = PofileInput.new(params)
+        if !input.google_ads
+            plugin_path = target_file_path(params, 'Plugins/Google Admob')
+            FileUtils.rm_rf(plugin_path)
+        end
+
+        if !input.mintegral_ads
+            plugin_path = target_file_path(params, 'Plugins/Mintegral')
+            FileUtils.rm_rf(plugin_path)
+        end
+    end
+
+    private def copy_game(params)
+        out_dir = get_xcode_project_out_dir(params)
+        game_src = params[:gameSrc]
+        if !game_src.nil?
+            FileUtils.cp_r(game_src, out_dir)
+        end
+    end
+
+    private def compile_web_game_controller_delegate(params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, 'WebGameControllerDelegateImpl.erb'),
+            result_file_path: target_file_path(params, 'WebGameControllerDelegateImpl.swift'),
+            input: PofileInput.new(params)
+        )
+    end
+
+    private def compile_app_delegate(params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, 'AppDelegate.erb'),
+            result_file_path: target_file_path(params, 'AppDelegate.swift'),
+            input: AppDelegateInput.new(params)
+        )
+    end
+
+    private def target_file_path(params, file)
         out_dir = params[:xcodeProjectDir]
         File.expand_path("Game/#{file}", out_dir)
     end
 
-
     private def compie_info_plist(params)
         compiler = ERBCompiler.new()
         compiler.compile(
-        erb_file_path: target_file_path(params, 'Info.erb'),
-        result_file_path: target_file_path(params, 'Info.plist'),
-        input: InfoPlistInput.new(params)
+            erb_file_path: target_file_path(params, 'Info.erb'),
+            result_file_path: target_file_path(params, 'Info.plist'),
+            input: InfoPlistInput.new(params)
         )
     end
 
@@ -57,26 +111,15 @@ class XcodeProjectGenerator
 
     private def copy_icon(params)
         if params.key?(:appiconsetSrc)
-        xcassets_path = target_file_path(params, 'Assets.xcassets')
-        FileUtils.cp_r(params[:appiconsetSrc], xcassets_path)
+            xcassets_path = target_file_path(params, 'Assets.xcassets')
+            FileUtils.cp_r(params[:appiconsetSrc], xcassets_path)
         end
     end
 
-    private def install_pods(xcodeProjectOutDir)
-        Dir.chdir(xcodeProjectOutDir) do
-        system("pod install")
-        end
-    end
-
-    private def copy_tempalte(templatePath, out_path)
-        if !templatePath.nil?
-        FileUtils.cp_r(templatePath, out_path)
-        end
-    end
-
-    private def copy_game(game_src, templatePath, out_path)
-        if !templatePath.nil?
-        FileUtils.cp_r(game_src, out_path)
+    private def install_pods(params)
+        out_dir = get_xcode_project_out_dir(params)
+        Dir.chdir(out_dir) do
+            system("pod install")
         end
     end
 
@@ -107,22 +150,21 @@ class XcodeProjectGenerator
             bundleIdPrefix: #{bundle_id_prefix}
         targets:
             #{target_name}:
-            type: application
-            platform: iOS
-            deploymentTarget: #{ios_sdk}
-            sources:
+                type: application
+                platform: iOS
+                deploymentTarget: #{ios_sdk}
+                sources:
                 - path: #{target_src}
                 - path: #{game_src}
-                type: folder
-                name: html-game
-            configFiles:
-                Debug: #{target_src}/debug.xcconfig
-                Release: #{target_src}/release.xcconfig
-            attributes:
-                DevelopmentTeam: #{dev_team_id}
+                  type: folder
+                  name: html-game
+                configFiles:
+                    Debug: #{target_src}/debug.xcconfig
+                    Release: #{target_src}/release.xcconfig
+                attributes:
+                    DevelopmentTeam: #{dev_team_id}
         YML_FILE
     end
-
 
     private def compile_podfile(params)
         xcodeProjectOutDir = get_xcode_project_out_dir(params)

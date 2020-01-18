@@ -1,7 +1,7 @@
 class XcodeProjecBuilder
-    def build(params)
-      Dir.chdir(params[:xcodeProjectDir]) do
-        system("fastlane build_game")
-      end
+  def build(params)
+    Dir.chdir(params[:xcodeProjectDir]) do
+      system("fastlane build_game")
     end
   end
+end

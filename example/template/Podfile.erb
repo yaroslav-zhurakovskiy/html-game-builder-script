@@ -1,0 +1,14 @@
+platform :ios, '<%= @ios_sdk_version %>'
+supports_swift_versions '>= 5.0'
+use_frameworks!
+
+target '<%= @target_name %>' do
+  <% if @google_ads %>
+  pod 'Google-Mobile-Ads-SDK'
+  <% end %>
+  <% if @mintegral_ads %>
+  pod 'MintegralAdSDK'
+  pod 'MintegralAdSDK/BannerAd'
+  pod 'MintegralAdSDK/InterstitialVideoAd'
+  <% end %>
+end

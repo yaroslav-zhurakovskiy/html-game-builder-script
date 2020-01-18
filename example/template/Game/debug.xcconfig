@@ -1,0 +1,2 @@
+#include "Pods/Target Support Files/Pods-Game/Pods-Game.debug.xcconfig"
+SWIFT_OBJC_BRIDGING_HEADER = ${SRCROOT}/Game/AppBridgingHeader.h

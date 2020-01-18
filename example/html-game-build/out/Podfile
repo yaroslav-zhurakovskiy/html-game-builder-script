@@ -1,0 +1,12 @@
+platform :ios, '8.0'
+supports_swift_versions '>= 5.0'
+use_frameworks!
+
+target 'Game' do
+  
+  
+  pod 'MintegralAdSDK'
+  pod 'MintegralAdSDK/BannerAd'
+  pod 'MintegralAdSDK/InterstitialVideoAd'
+  
+end
