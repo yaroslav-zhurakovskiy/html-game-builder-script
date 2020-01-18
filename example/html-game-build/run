@@ -5,5 +5,5 @@ cd ../../
 sh compile.sh
 cp build $current_dir
 cd $current_dir
-./build
+./build $1
 rm build

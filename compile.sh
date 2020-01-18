@@ -2,7 +2,6 @@
 
 BUILD_FILE="build"
 FILE_LIST=(
-    header.rb
     AppfileInput.rb
     AppDelegateInput.rb
     ERBCompiler.rb
@@ -10,19 +9,36 @@ FILE_LIST=(
     PofileInput.rb
     XcodeProjectGenerator.rb
     XcodeProjecBuilder.rb
-    BuildGameUtil.rb
+    ScriptInputParser.rb
+    ScriptInputProvider.rb
+    BuildParamsLoader.rb
+    ConfigurationParamsProcessor.rb
+    Script.rb
     main.rb
 )
 
+insert_file_content()
+{
+    FILE=$1
+    BUILD_FILE=$2
+    cat $FILE >> $BUILD_FILE
+    echo "\n" >> $BUILD_FILE
+}
+
 # Clean and build
 
-rm $BUILD_FILE
+if [[ -f "$BUILD_FILE" ]]; then
+    rm $BUILD_FILE
+fi
 
-for FILE in "${FILE_LIST[@]}"
+insert_file_content "src/header.rb" $BUILD_FILE
+
+echo "SCRIPT_NAME = '${BUILD_FILE}'\n" >> $BUILD_FILE
+
+for FILE in "${FILE_LIST[@]}" 
 do
 :
-cat "src/${FILE}" >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
+insert_file_content "src/${FILE}" $BUILD_FILE
 done
 
 chmod +x $BUILD_FILE
