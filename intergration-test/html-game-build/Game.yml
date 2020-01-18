@@ -9,8 +9,8 @@ buildNumber: 10
 appiconsetSrc: "AppIcon.appiconset"
 developmentTeam: "FSX848FP3F"
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
-MintegralApiKey: "123727"
-MintegralAppID: "fb1eba8f974622524f29bc12bc8cb6e5"
+MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
+MintegralAppID: "123727"
 fastlane:
     appleID: "yaroslav.zhurakovskiy@gmail.com"
     teamID: "FSX848FP3F"
