@@ -4,6 +4,7 @@ class InfoPlistInput
         @bundle_id=params[:bundleId]
         @version=params[:version]
         @build=params[:buildNumber]
+        @bundle_name=params[:name]
     end
 
     def get_binding

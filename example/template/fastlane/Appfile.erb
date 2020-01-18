@@ -1,0 +1,10 @@
+app_identifier("<%= @bundle_id %>") # The bundle identifier of your app
+<%if !@apple_id.nil? %>
+apple_id("<%= @apple_id %>") # Your Apple email address
+<% end %>
+<%if !@team_id.nil? %>
+team_id("<%= @team_id%>") # Developer Portal Team ID
+<% end %>
+<%if !@itc_team_id.nil? %>
+itc_team_id("<%=@itc_team_id%>") # Itunes Connect Team ID
+<% end %>

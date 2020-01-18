@@ -1,26 +1,28 @@
 #!/bin/sh
 
 BUILD_FILE="build"
+FILE_LIST=(
+    header.rb
+    AppfileInput.rb
+    AppDelegateInput.rb
+    ERBCompiler.rb
+    InfoPlistInput.rb
+    PofileInput.rb
+    XcodeProjectGenerator.rb
+    XcodeProjecBuilder.rb
+    BuildGameUtil.rb
+    main.rb
+)
+
+# Clean and build
 
 rm $BUILD_FILE
 
-cat src/header.rb >> $BUILD_FILE
+for FILE in "${FILE_LIST[@]}"
+do
+:
+cat "src/${FILE}" >> $BUILD_FILE
 echo "\n" >> $BUILD_FILE
-cat src/AppDelegateInput.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/ERBCompiler.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/InfoPlistInput.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/PofileInput.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/XcodeProjectGenerator.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/XcodeProjecBuilder.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/BuildGameUtil.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
-cat src/main.rb >> $BUILD_FILE
-echo "\n" >> $BUILD_FILE
+done
 
 chmod +x $BUILD_FILE

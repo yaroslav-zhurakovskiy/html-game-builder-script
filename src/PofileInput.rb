@@ -4,7 +4,7 @@ class PofileInput
 
     def initialize(params)
         @ios_sdk_version = params[:sdk]
-        @target_name = params[:name]
+        @target_name = "Game"
         @google_ads = params.key?(:GADApplicationIdentifier)
         @mintegral_ads = params.key?(:MintegralApiKey) && params.key?(:MintegralAppID)
     end
