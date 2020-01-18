@@ -21,7 +21,6 @@ class XcodeProjectGenerator
         delete_unused_plugins(params)
         copy_game(params)
         copy_icon(params)
-        copy_launch_image(params)
     end
 
     private def compile_templates(params)
@@ -78,10 +77,9 @@ class XcodeProjectGenerator
     end
 
     private def copy_game(params)
-        out_dir = get_xcode_project_out_dir(params)
         game_src = params[:gameSrc]
         if !game_src.nil?
-            FileUtils.cp_r(game_src, out_dir)
+            FileUtils.cp_r(game_src, game_directory(params))
         end
     end
 
@@ -154,7 +152,7 @@ class XcodeProjectGenerator
         project_name = "Game"
         target_name = "Game"
         ios_sdk = params[:sdk]
-        game_src = File.basename(params[:gameSrc])
+        game_directory = File.basename(game_directory(params))
         target_src = "Game"
         dev_team_id = params[:developmentTeam]
         
@@ -167,7 +165,7 @@ class XcodeProjectGenerator
                 deploymentTarget: #{ios_sdk}
                 sources:
                 - path: #{target_src}
-                - path: #{game_src}
+                - path: #{game_directory}
                   type: folder
                   name: html-game
                 configFiles:
@@ -176,6 +174,10 @@ class XcodeProjectGenerator
                 attributes:
                     DevelopmentTeam: #{dev_team_id}
         YML_FILE
+    end
+
+    private def game_directory(params)
+        File.expand_path("html-game", params[:xcodeProjectDir])
     end
 
     private def compile_podfile(params)

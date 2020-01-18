@@ -7,7 +7,6 @@ sdk: "8.0"
 version: "1.0.0"
 buildNumber: 10
 appiconsetSrc: "AppIcon.appiconset"
-launchImageSrc: "Launch Images.launchimage"
 developmentTeam: "FSX848FP3F"
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 MintegralApiKey: "123727"

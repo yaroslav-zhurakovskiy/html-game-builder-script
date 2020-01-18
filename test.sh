@@ -28,7 +28,7 @@ run_integration_test()
 }
 
 
-OPTION_LIST=("-h" "-g" "-b" "-u")
+OPTION_LIST=("-h" "-g" "-b")
 
 for OPTION in "${OPTION_LIST[@]}" 
 do

@@ -12,8 +12,7 @@ class ConfigurationParamsProcessor
             :bundleId,
             :version,
             :buildNumber,
-            :appiconsetSrc,
-            :launchImageSrc
+            :appiconsetSrc
         ]
 
         required_params.each do | param|
