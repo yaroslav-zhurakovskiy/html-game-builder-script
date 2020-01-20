@@ -160,6 +160,7 @@ class XcodeProjectGenerator
         game_directory = File.basename(game_directory(params))
         target_src = "Game"
         dev_team_id = params[:developmentTeam]
+        bundle_id = params[:bundleId]
         
         <<-YML_FILE
         name: #{project_name}
@@ -178,6 +179,9 @@ class XcodeProjectGenerator
                     Release: #{target_src}/release.xcconfig
                 attributes:
                     DevelopmentTeam: #{dev_team_id}
+                settings:
+                    base:
+                        PRODUCT_BUNDLE_IDENTIFIER: #{bundle_id}
         YML_FILE
     end
 

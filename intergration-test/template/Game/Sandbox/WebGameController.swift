@@ -66,3 +66,24 @@ extension WebGameController: UIWebViewDelegate {
         return false
     }
 }
+
+extension WebGameController {
+    @discardableResult
+    func notifyObservers(withEvent event: String, data: Any?) -> String? {
+        let params = buildParams(withEvent: event, data: data)
+        let code = "window.GlobalSandboxBridgeNotificationCenter.notify(\(params))"
+        return webView.stringByEvaluatingJavaScript(from: code)
+    }
+    
+    private func buildParams(withEvent event: String, data: Any?) -> String {
+        guard
+            let data = data,
+            let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []),
+            let jsonString = String(data: jsonData, encoding: .utf8)
+        else {
+            return "\(event)"
+        }
+        
+        return "\(event), \(jsonString)"
+    }
+}
