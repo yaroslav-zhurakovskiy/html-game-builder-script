@@ -1,10 +1,10 @@
 ## Example uage
-### Geneation an Xcode Project
+### Generating an Xcode Project
 ``` sh
 sandbox-build -g
 ```
 
-### Geneation an ipa file
+### Generating an ipa file
 ``` sh
 sandbox-build -b
 ```
@@ -14,7 +14,7 @@ sandbox-build -b
 sandbox-build -u
 ```
 
-### Changing configurarion file name
+### Changing the configurarion file name
 By default the script will search for Game.yml file. You can alter by using the folowwing command.
 ```
 sandbox-build -c <FILE_NAME> -g
@@ -42,7 +42,7 @@ fastlane:
     itcTeamID: "98037968"
 ```
 
-### Required fields
+#### Required fields
 ``` yml
 templatePath: <VALUE>
 gameSrc: <VALUE>
