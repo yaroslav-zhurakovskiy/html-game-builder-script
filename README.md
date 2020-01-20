@@ -3,6 +3,7 @@
 - Ruby 2.4+
 - Xcode 11+
 - Xcode Command Line Tools (xcode-select --install)
+- [Cocoapods](https://cocoapods.org/)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 - [Fastlane](https://fastlane.tools/)
 
