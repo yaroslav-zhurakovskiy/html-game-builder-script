@@ -12,7 +12,7 @@ class ScriptInputParser
               @args[:action] = :generate
             end
       
-            opts.on("-u", "--upload", "Generates an xcode project, builds it and upload the build to Testflight") do |n|
+            opts.on("-u", "--upload", "Generates an xcode project, builds it and uploads the build to Testflight") do |n|
               @args[:action] = :upload
             end
       
