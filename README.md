@@ -12,6 +12,10 @@
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
 ```
 
+## Fastlane authentication
+https://github.com/fastlane/fastlane/tree/master/credentials_manager
+
+
 ## Example uage
 ### Generating an Xcode Project
 ``` sh
