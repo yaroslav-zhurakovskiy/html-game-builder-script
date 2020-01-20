@@ -7,6 +7,11 @@
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 - [Fastlane](https://fastlane.tools/)
 
+## Troubleshooting
+``` sh
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
+```
+
 ## Example uage
 ### Generating an Xcode Project
 ``` sh
