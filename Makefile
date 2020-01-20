@@ -17,5 +17,5 @@ install:
 	cp ${EXECUTABLE_NAME} ${INSTALLATION_PATH}
 	rm ${EXECUTABLE_NAME}
 	
-generate-tempalte:
+generate-template:
 	./generate-template.sh
