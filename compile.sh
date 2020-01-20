@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_FILE="build"
+BUILD_FILE=$1
 FILE_LIST=(
     AppfileInput.rb
     AppDelegateInput.rb

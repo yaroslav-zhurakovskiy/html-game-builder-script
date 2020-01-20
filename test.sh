@@ -1,5 +1,7 @@
 #!/bin/sh
 
+EXECUTABLE_NAME="build"
+
 cleanup()
 {
     destination_dir=$1
@@ -15,7 +17,7 @@ run_integration_test()
     echo "\n\n======== Running integration with param '${1}' ========\n\n"
     destination_dir=./intergration-test/html-game-build
     current_dir=`pwd`
-    sh compile.sh
+    sh compile.sh ${EXECUTABLE_NAME}
     cp build $destination_dir
     cd $destination_dir
     ./build $1

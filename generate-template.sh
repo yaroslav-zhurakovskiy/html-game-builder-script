@@ -1,11 +1,13 @@
 #!/bin/sh
 
+EXECUTABLE_NAME="build"
+
 destination_dir=./intergration-test/html-game-build
 current_dir=`pwd`
-sh compile.sh
-cp build $destination_dir
+sh compile.sh $EXECUTABLE_NAME
+cp ${EXECUTABLE_NAME} $destination_dir
 cd $destination_dir
-./build -g
-rm build
+./${EXECUTABLE_NAME} -g
+rm ${EXECUTABLE_NAME}
 cd $current_dir
-rm build
+rm ${EXECUTABLE_NAME}
