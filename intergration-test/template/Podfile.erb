@@ -11,5 +11,7 @@ target '<%= @target_name %>' do
   pod 'MintegralAdSDK/BannerAd'
   pod 'MintegralAdSDK/InterstitialVideoAd'
   <% end %>
+  <% if @bytedance_ads %>
   pod 'Bytedance-UnionAD', '2.5.1.2'
+  <% end %>
 end

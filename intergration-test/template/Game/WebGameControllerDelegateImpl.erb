@@ -9,6 +9,10 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
         handler.register(MintegralBanner())
         handler.register(MintegralInterstitialVideoAd())
         <% end %>
+        <% if @bytedance_ads %>
+        handler.register(BytedanceBanner())
+        handler.register(BytedanceVideo())
+        <% end %>
     }
     
     func webGameConroller(_ controller: WebGameController, didReceiveRequest request: SandboxObjectRequest) {   

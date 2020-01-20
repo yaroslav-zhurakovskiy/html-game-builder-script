@@ -1,5 +1,7 @@
 import UIKit
+<% if !@BytedanceAppID.nil? %>
 import BUAdSDK
+<% end %>
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,7 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         <% if !@MintegralApiKey.nil? && !@MintegralAppID.nil? %>
             MTGSDK.sharedInstance().setAppID("<%=@MintegralAppID%>", apiKey: "<%=@MintegralApiKey%>")
         <% end %>
-        BUAdSDKManager.setAppID("5047875")
+        <% if !@BytedanceAppID.nil?  %>
+        BUAdSDKManager.setAppID("<%= @BytedanceAppID %>")
+        <% end %>
         window = UIWindow(frame: UIScreen.main.bounds)
         let rootURL = Bundle.main.bundleURL.appendingPathComponent("html-game")
         let controller = WebGameController(rootURL: rootURL, startingPage: "index.html")

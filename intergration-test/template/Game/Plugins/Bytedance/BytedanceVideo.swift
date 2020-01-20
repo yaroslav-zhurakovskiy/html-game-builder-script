@@ -13,7 +13,7 @@ class BytedanceVideo: NSObject, SandboxObject, BUNativeAdsManagerDelegate {
         if self.nativeAD == nil {
             let slot1 = BUAdSlot()
             slot1.id = slotID;
-            slot1.adType = .
+            slot1.adType = .drawVideo
             slot1.position = .top;
             slot1.imgSize = BUSize(by: .drawFullScreen)
             slot1.isSupportDeepLink = true;

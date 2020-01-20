@@ -74,6 +74,11 @@ class XcodeProjectGenerator
             plugin_path = target_file_path(params, 'Plugins/Mintegral')
             FileUtils.rm_rf(plugin_path)
         end
+
+        if !input.bytedance_ads
+            plugin_path = target_file_path(params, 'Plugins/Bytedance')
+            FileUtils.rm_rf(plugin_path)
+        end
     end
 
     private def copy_game(params)
