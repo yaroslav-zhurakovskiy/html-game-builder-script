@@ -1,3 +1,10 @@
+
+## Requirements
+- Ruby 2.4+
+- Xcode 11+
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+- [Fastlane](https://fastlane.tools/)
+
 ## Example uage
 ### Generating an Xcode Project
 ``` sh
@@ -15,7 +22,7 @@ sandbox-build -u
 ```
 
 ### Changing the configurarion file name
-By default the script will search for Game.yml file. You can alter by using the folowwing command.
+By default the script will search for Game.yml file. You can alter it by using the following command.
 ```
 sandbox-build -c <FILE_NAME> -g
 ```
