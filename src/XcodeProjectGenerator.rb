@@ -182,6 +182,7 @@ class XcodeProjectGenerator
                 settings:
                     base:
                         PRODUCT_BUNDLE_IDENTIFIER: #{bundle_id}
+                        VERSIONING_SYSTEM: "apple-generic"
         YML_FILE
     end
 

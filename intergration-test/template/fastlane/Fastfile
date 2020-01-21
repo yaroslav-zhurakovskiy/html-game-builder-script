@@ -2,6 +2,8 @@ default_platform(:ios)
 
 platform :ios do
   lane :build_game do |options|
+    cert
+    sigh
     cocoapods
     build_app(
       export_method: "app-store",
@@ -9,11 +11,23 @@ platform :ios do
     )
   end
   lane :upload_game do |options|
+    cert
+    sigh
     cocoapods
     build_app(
       export_method: "app-store",
       export_xcargs: "-allowProvisioningUpdates"
     )
-    upload_to_testflight
+    upload_to_testflight(skip_waiting_for_build_processing: true)
   end
+end
+
+def increment_build_number_if_local_is_lower_than_testflight
+  testflight_build_number = latest_testflight_build_number
+  local_build_number = get_build_number.to_i
+  if local_build_number <= testflight_build_number
+    commit_build_number(testflight_build_number + 1)
+  else
+    puts "No version bump is required"
+  end  
 end
