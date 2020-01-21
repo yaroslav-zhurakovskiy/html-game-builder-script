@@ -12,13 +12,29 @@
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
 ```
 
-## Read bout Fastlane authentication
+## Read about Fastlane authentication
 https://github.com/fastlane/fastlane/tree/master/credentials_manager
 
 ## Read about Fastlane codesigning
 https://docs.fastlane.tools/codesigning/getting-started/
 
+## Installation
+- Download this git project
+- Open the terminal and run the following commands
+- cd <PROJECT_DIRECTORY>
+- make
+
+Now you should be able to run 
+``` sh
+sandbox-build -h
+```
+Note: If 'sandbox-build' command cannot be found just reload your terminal.
+
 ## Example uage
+### Printing help
+``` sh
+sandbox-build -h
+```
 ### Generating an Xcode Project
 ``` sh
 sandbox-build -g
