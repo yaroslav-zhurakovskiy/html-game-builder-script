@@ -1,8 +1,87 @@
 <html>
 <head>
     <title>Test</title>
+    <style type="text/css">
+        input {
+            width: 100%;
+        }
+        .center {
+            margin: auto;
+            text-align: center;
+            width: 50%;
+        }
+        .border {
+            border: 3px solid green;
+            padding: 10px;
+        }
+        .spacer {
+            background-color: transparent;;
+            height: 44px;
+        }
+    </style>
+    <script type="text/javascript">
+    function buildQueryPairsFromArguments(args) {
+        if (!args) {
+            return [];
+        }
+
+        let pairs = [];
+
+        for (const name in args) {
+            var dict = args;
+            var value = dict[name];
+            var pair = name + "=" + value;
+            pairs.push(pair);
+        }
+
+        return pairs;
+    }
+
+     function invokeMethod(objectName, functionName, args) {
+        if (!functionName) {
+            throw new Error("Missing function name");
+        }
+
+        const urlBase = `sandbox://${objectName}/${functionName}`;
+        const pairs = buildQueryPairsFromArguments(args);
+        if (pairs.length > 0) {
+            this.openSandboxURL(urlBase + "?" + pairs.join("&"));
+        } else {
+            this.openSandboxURL(urlBase);
+        }
+    }
+
+    function openSandboxURL(src) {
+        var newFrameElm = document.createElement("IFRAME");
+        //    var request = new XMLHttpRequest();
+        //    request.open("POST", src);
+        //    request.send();
+        var rootElm = document.documentElement;
+        newFrameElm.setAttribute("src", src);
+        rootElm.appendChild(newFrameElm);
+        //remove the frame now
+        // newFrameElm.parentNode.removeChild(newFrameElm);
+        console.log(src);
+    }
+    </script>
 </head>
 <body>
-    <H1>Test</H1>
+    <div class="center border">
+        <H1>Test, pick your action:</H1>
+        <div class="center">
+            <input id="btnGoogleAds" type="button" value="Show Google Ads"></input>
+            <div class="spacer"></div>
+            <input id="btnShowMintegralVideo" type="button" value="Show Mintegral Video ad"></input>
+            <div class="spacer"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("btnGoogleAds").addEventListener('click', function() {
+            invokeMethod("GoogleAdmob", "present");
+        });
+        document.getElementById("btnShowMintegralVideo").addEventListener('click', function() {
+            invokeMethod("MintegralInterstitialVideoAd", "show");
+        });
+    </script>
 </body>
 </html>

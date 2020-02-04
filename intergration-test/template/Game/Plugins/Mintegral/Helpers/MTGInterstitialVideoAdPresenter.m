@@ -19,8 +19,9 @@
         self.ivAdManager = [[MTGInterstitialVideoAdManager alloc] initWithUnitID:unitID
                                                                         delegate:self];
         self.ivAdManager.delegate = self;
-        [self.ivAdManager loadAd];
     }
+    
+    [self.ivAdManager loadAd];
 }
 
 - (void)onInterstitialAdLoadSuccess:(MTGInterstitialVideoAdManager *)adManager {

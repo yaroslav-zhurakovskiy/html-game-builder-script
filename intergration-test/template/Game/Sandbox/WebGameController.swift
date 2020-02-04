@@ -1,6 +1,7 @@
 import UIKit
 
 protocol WebGameControllerDelegate: class {
+    func webGameWilLoad(_ controller: WebGameController)
     func webGameConroller(_ controller: WebGameController, didReceiveRequest: SandboxObjectRequest)
 }
 
@@ -27,6 +28,8 @@ class WebGameController: UIViewController {
         super.viewDidLoad()
         
         webView.delegate = self
+        
+        delegate?.webGameWilLoad(self)
         
         let indexHTML = rootURL.appendingPathComponent(startingPage)
         let content = try! String(contentsOf: indexHTML)
