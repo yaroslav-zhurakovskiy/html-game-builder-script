@@ -10,9 +10,13 @@ appiconsetSrc: "AppIcon.appiconset"
 developmentTeam: "FSX848FP3F"
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 GADAdUnitID: "ca-app-pub-3940256099942544/4411468910"
+
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
 MintegralVideoAdUnitID: "193835"
+MintegralBannerAdUnitID: "193837"
+MintegralBannerSize: "largeBannerType320x90"
+
 BytedanceAppID: "5047875"
 fastlane:
     appleID: "yaroslav.zhurakovskiy@gmail.com"

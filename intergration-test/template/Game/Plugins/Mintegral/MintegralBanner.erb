@@ -1,4 +1,12 @@
 public class MintegralBanner: SandboxObject {
+    <% if !@MintegralBannerAdUnitID.nil? && !@MintegralBannerSize.nil? %>
+    private static let defaultAdUnitID: String? = "<%= @MintegralBannerAdUnitID %>"
+    private static let defaultSize: String? = "<%= @MintegralBannerSize %>"
+    <% else %>
+    private static let defaultAdUnitID: String? = nil
+    private static let defaultSize: String? = nil
+    <% end %>
+
     enum Method: String {
         case show
         case hide
@@ -34,8 +42,16 @@ public class MintegralBanner: SandboxObject {
     }
     
     private func show(from viewController: UIViewController, with input: [Argument: String]) {
+        var unitID: String!
+        var size: String!
 
-        guard let unitID = input[.unitID], let size = input[.size] else {
+        if let unitIDInput = input[.unitID], let sizeInput = input[.size] {
+            unitID = unitIDInput
+            size = sizeInput
+        } else if let defaultAdUnitID = Self.defaultAdUnitID, let defaultSize = Self.defaultSize {
+            unitID = defaultAdUnitID
+            size = defaultSize
+        } else {
             return
         }
         

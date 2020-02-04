@@ -13,18 +13,17 @@
                              size:(MTGBannerSizeType)size
                   autoRefreshTime:(NSNumber *)autoRefreshTime
                            unitID:(nonnull NSString *)unitID {
-    if (!self.bannerAdView) {
-        self.bannerAdView = [[MTGBannerAdView alloc] initBannerAdViewWithBannerSizeType:size
-                                                                                 unitId:unitID rootViewController:controller];
-        
-        if (autoRefreshTime) {
-            self.bannerAdView.autoRefreshTime = [autoRefreshTime integerValue];
-        }
-        
-        self.bannerAdView.delegate = self;
-        [controller.view addSubview:self.bannerAdView];
-        [self.bannerAdView loadBannerAd];
+    [self dismiss];
+    self.bannerAdView = [[MTGBannerAdView alloc] initBannerAdViewWithBannerSizeType:size
+                                                                             unitId:unitID rootViewController:controller];
+    
+    if (autoRefreshTime) {
+        self.bannerAdView.autoRefreshTime = [autoRefreshTime integerValue];
     }
+    
+    self.bannerAdView.delegate = self;
+    [controller.view addSubview:self.bannerAdView];
+    [self.bannerAdView loadBannerAd];
 }
 
 - (void)dismiss {

@@ -69,9 +69,13 @@
     <div class="center border">
         <H1>Test, pick your action:</H1>
         <div class="center">
-            <input id="btnGoogleAds" type="button" value="Show Google Ads"></input>
+            <input id="btnGoogleAds" type="button" value="Google Ads"></input>
             <div class="spacer"></div>
-            <input id="btnShowMintegralVideo" type="button" value="Show Mintegral Video ad"></input>
+            <input id="btnShowMintegralVideo" type="button" value="Mintegral Video"></input>
+            <div class="spacer"></div>
+            <input id="btnShowMintegralBanner" type="button" value="Show Mintegral Banner"></input>
+            <div class="spacer"></div>
+            <input id="btnHideMintegralBanner" type="button" value="Hide Mintegral Video"></input>
             <div class="spacer"></div>
         </div>
     </div>
@@ -81,6 +85,12 @@
         });
         document.getElementById("btnShowMintegralVideo").addEventListener('click', function() {
             invokeMethod("MintegralInterstitialVideoAd", "show");
+        });
+        document.getElementById("btnShowMintegralBanner").addEventListener('click', function() {
+            invokeMethod("MintegralBanner", "show");
+        });
+        document.getElementById("btnHideMintegralBanner").addEventListener('click', function() {
+            invokeMethod("MintegralBanner", "hide");
         });
     </script>
 </body>
