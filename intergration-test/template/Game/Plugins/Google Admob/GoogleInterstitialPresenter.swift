@@ -29,15 +29,23 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
     }
     
     func interstitialDidDismissScreen(_ interstitial: GADInterstitial) {
-        if let adUnitID = adUnitID {
-            self.interstitial = createAndLoadInterstitial(delegate: self, adUnitID: adUnitID)
-        }
+        reloadAd()
+    }
+    
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        reloadAd()
     }
     
     func interstitialDidReceiveAd(_ interstitial: GADInterstitial) {
         if let controller = viewControllerToPresentIn {
             viewControllerToPresentIn = nil
             interstitial.present(fromRootViewController: controller)
+        }
+    }
+    
+    private func reloadAd() {
+        if let adUnitID = adUnitID {
+            self.interstitial = createAndLoadInterstitial(delegate: self, adUnitID: adUnitID)
         }
     }
 }
