@@ -1,6 +1,7 @@
 class PluginFileInput
     def initialize(params)
-        @GADAdUnitID=params[:GADAdUnitID]
+        @GADAdUnitID = params[:GADAdUnitID]
+        @MintegralVideoAdUnitID = params[:MintegralVideoAdUnitID]
     end
 
     def get_binding

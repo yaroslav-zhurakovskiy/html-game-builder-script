@@ -34,6 +34,11 @@ class XcodeProjectGenerator
     end
 
     private def compile_plugins(params)
+        compile_google_admob_plugin(params)
+        compile_mintegral_plugin(params)
+    end
+
+    private def compile_google_admob_plugin(params)
         file_name = "GoogleAdmob"
         compiler = ERBCompiler.new()
         compiler.compile(
@@ -43,6 +48,15 @@ class XcodeProjectGenerator
         )
     end
 
+    private def compile_mintegral_plugin(params)
+        file_name = "MintegralInterstitialVideoAd"
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, "Plugins/Mintegral/#{file_name}.erb"),
+            result_file_path: target_file_path(params, "Plugins/Mintegral/#{file_name}.swift"),
+            input: PluginFileInput.new(params)
+        )
+    end
 
     private def compile_fastlane_files(params)
         compiler = ERBCompiler.new()

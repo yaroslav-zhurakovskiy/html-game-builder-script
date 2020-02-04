@@ -1,4 +1,10 @@
 class MintegralInterstitialVideoAd: SandboxObject {
+    <% if !@MintegralVideoAdUnitID.nil? %>
+    private static let defaultAdUnitID: String? = "<%= @MintegralVideoAdUnitID %>"
+    <% else %>
+    private static let defaultAdUnitID: String? = nil
+    <% end %>
+    
     enum Method: String {
         case show
     }
@@ -19,6 +25,8 @@ class MintegralInterstitialVideoAd: SandboxObject {
         switch method {
         case .show:
             if let unitID = input[.unitID] {
+                presenter.present(from: viewController, unitID: unitID)
+            } else if let unitID = Self.defaultAdUnitID {
                 presenter.present(from: viewController, unitID: unitID)
             }
         }

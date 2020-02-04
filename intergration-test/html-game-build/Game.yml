@@ -12,6 +12,7 @@ GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 GADAdUnitID: "xxx"
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
+MintegralVideoAdUnitID: "yyyy"
 BytedanceAppID: "5047875"
 fastlane:
     appleID: "yaroslav.zhurakovskiy@gmail.com"
