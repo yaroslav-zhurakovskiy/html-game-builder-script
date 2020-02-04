@@ -1,3 +1,106 @@
+#!/usr/bin/ruby
+
+require 'fileutils'
+require 'erb'
+require 'yaml'
+require "pp"
+require 'optparse'
+
+SCRIPT_NAME = 'sandbox-build'
+
+class AppFileInput
+    def initialize(params)
+        @bundle_id=params[:bundleId]
+
+        if params.key?(:fastlane)
+            fastlane = params[:fastlane]
+
+            @apple_id=fastlane["appleID"]
+            @team_id=fastlane["teamID"]
+            @itc_team_id=fastlane["itcTeamID"]
+        end
+    end
+
+    def get_binding
+        return binding()
+    end
+end
+
+
+class PluginFileInput
+    def initialize(params)
+        @GADAdUnitID=params[:GADAdUnitID]
+    end
+
+    def get_binding
+        return binding()
+    end
+end
+
+
+class AppDelegateInput
+    def initialize(params)
+        @MintegralApiKey = params[:MintegralApiKey]
+        @MintegralAppID = params[:MintegralAppID]
+        @BytedanceAppID = params[:BytedanceAppID]
+    end
+
+    def get_binding
+        binding
+    end
+end
+
+
+class ERBCompiler
+    def compile(params)
+        erb_file_path = params[:erb_file_path]
+        result_file_path = params[:result_file_path]
+        input = params[:input]
+        
+        template_text = File.read(erb_file_path)
+        template_binding = input.get_binding()
+        result = ERB.new(template_text).result(template_binding)
+        
+        File.write(result_file_path, result)
+        File.delete(erb_file_path)
+    end
+end
+
+
+class InfoPlistInput
+    def initialize(params)
+        @GADApplicationIdentifier=params[:GADApplicationIdentifier]
+        @bundle_id=params[:bundleId]
+        @version=params[:version]
+        @build=params[:buildNumber]
+        @bundle_name=params[:name]
+    end
+
+    def get_binding
+        return binding()
+    end
+end
+
+
+class PofileInput
+    attr_reader :google_ads
+    attr_reader :mintegral_ads
+    attr_reader :bytedance_ads
+
+    def initialize(params)
+        @ios_sdk_version = params[:sdk]
+        @target_name = "Game"
+        @google_ads = params.key?(:GADApplicationIdentifier)
+        @mintegral_ads = params.key?(:MintegralApiKey) && params.key?(:MintegralAppID)
+        @bytedance_ads = params.key?(:BytedanceAppID)
+    end
+
+    def get_binding
+        return binding()
+    end
+end
+
+
 class XcodeProjectGenerator
     def regenerate(params)
         clean(params)
@@ -217,3 +320,178 @@ class XcodeProjectGenerator
         return params[:xcodeProjectDir]
     end
 end
+
+
+class XcodeProjecBuilder
+  def build(params)
+    Dir.chdir(params[:xcodeProjectDir]) do
+      system("fastlane build_game")
+    end
+  end
+
+  def upload(params)
+    Dir.chdir(params[:xcodeProjectDir]) do
+      system("fastlane upload_game")
+    end
+  end
+end
+
+
+class ScriptInputParser
+    def initialize()
+        @args = {}
+        @opt_parser = OptionParser.new do |opts|
+            opts.banner = "Usage: #{SCRIPT_NAME} [options]"
+      
+            opts.on("-cNAME", "--config=NAME", "Specify a custom config file, by default Game.yml is used") do |n|
+              @args[:config] = n
+            end
+      
+            opts.on("-g", "--generate", "Generates an xcode project") do |n|
+              @args[:action] = :generate
+            end
+      
+            opts.on("-u", "--upload", "Generates an xcode project, builds it and uploads the build to Testflight") do |n|
+              @args[:action] = :upload
+            end
+      
+            opts.on("-b", "--build", "Generates an xcode project and builds an ipa file") do |n|
+              @args[:action] = :build
+            end
+      
+            opts.on("-h", "--help", "Prints this help") do
+              @args[:action] = :help
+            end
+        end
+    end
+
+  def parse(options)
+    @opt_parser.parse!(options)
+    @args
+  end
+
+  def print_help
+    puts @opt_parser
+  end
+end
+
+
+class ScriptInputProvider
+    def initialize(parser)
+        @parser = parser
+        @arguments = @parser.parse(ARGV)
+    end
+
+    def get_coniguration_file_name
+        if @arguments.key?(:config)
+            @arguments[:config]
+        else
+            'Game.yml'
+        end
+    end
+
+    def get_action
+        if @arguments.key?(:action)
+            @arguments[:action]
+        else
+            :generate
+        end
+    end
+end
+
+
+class BuildParamsLoader
+    def load(input_provider)
+        file_name = input_provider.get_coniguration_file_name
+        check_yml_file_presence(file_name)
+        file = File.open(file_name)
+        yaml_file_content = YAML::load(file)
+        params = yaml_file_content.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        params
+    end
+
+    private def check_yml_file_presence(file_name)
+        if !File.exist?(file_name)
+          puts "Configuration file #{file_name} was not found!"
+          exit(-1)
+        end
+    end
+end
+
+
+class ConfigurationParamsProcessor
+    def process(params)
+        final_params = fill_in_empty_values(params)
+        check_for_required_params(final_params)
+        final_params
+    end
+
+    private def check_for_required_params(params)
+        required_params = [
+            :templatePath,
+            :gameSrc,
+            :bundleId,
+            :version,
+            :buildNumber,
+            :appiconsetSrc
+        ]
+
+        required_params.each do | param|
+            if !params.key?(param)
+                puts("Missing '#{param}' in the configuration file")
+                exit(-1)
+            end
+        end
+    end
+
+    private def fill_in_empty_values(params)
+        default_values = {
+            xcodeProjectDir: "Xcode Project",
+            sdk: "8.0",
+            developmentTeam: ""
+        }
+        default_values.each do |key, value|
+            if !params.key?(key)
+                params[key] = value
+            end
+        end
+        params
+    end
+end
+
+class Script
+    def initialize()
+        @builder = XcodeProjecBuilder.new
+        @generator = XcodeProjectGenerator.new
+        @params_loader = BuildParamsLoader.new
+        @input_parser = ScriptInputParser.new
+        @input_provider = ScriptInputProvider.new(@input_parser)
+        @configuration_params_processor = ConfigurationParamsProcessor.new
+    end
+
+    def run()
+        if @input_provider.get_action == :help
+            @input_parser.print_help
+            exit
+        end
+
+        loaded_params = @params_loader.load(@input_provider)
+        final_params = @configuration_params_processor.process(loaded_params)
+
+        if @input_provider.get_action == :generate
+            @generator.regenerate(final_params)
+        elsif @input_provider.get_action == :build
+            @generator.regenerate(final_params)
+            @builder.build(final_params)
+        elsif @input_provider.get_action == :upload
+            @generator.regenerate(final_params)
+            @builder.upload(final_params)
+        end
+    end
+end
+
+
+script = Script.new
+script.run()
+
+

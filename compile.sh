@@ -3,6 +3,7 @@
 BUILD_FILE=$1
 FILE_LIST=(
     AppfileInput.rb
+    PluginFileInput.rb
     AppDelegateInput.rb
     ERBCompiler.rb
     InfoPlistInput.rb
