@@ -1,0 +1,65 @@
+import Foundation
+
+class Bytedance: SandboxObject {
+    <% if !@BytedanceBannerAdUnitID.nil? %>
+    private static let defaultBannerAdUnitID: String? = "<%= @BytedanceBannerAdUnitID %>"
+    <% else %>
+    private static let defaultBannerAdUnitID: String? = nil
+    <% end %>
+
+    <% if !@BytedanceVideoAdUnitID.nil? %>
+    private static let defaultVideoAdUnitID: String? = "<%= @BytedanceVideoAdUnitID %>"
+    <% else %>
+    private static let defaultVideoAdUnitID: String? = nil
+    <% end %>
+    
+    <% if !@BytedanceRewardedVideoAdUnitID.nil? %>
+    private static let defaultRewardedAdUnitID: String? = "<%= @BytedanceRewardedVideoAdUnitID %>"
+    <% else %>
+    private static let defaultRewardedAdUnitID: String? = nil
+    <% end %>
+    
+    enum Method: String {
+        case showVideo
+        case showBanner
+        case showRewarded
+    }
+    
+    enum Argument: String, Hashable {
+        case adUnitID
+    }
+    
+    private let bannerPresenter = BytedanceBannerPresenter()
+    private let videoPresenter = BytedanceVideoPresenter()
+    private let rewardedVideoPresenter = BytedanceRewardedPresenter()
+    
+    func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
+     
+        guard let result: (Method, [Argument: String]) = convertToTypedValues(method: method, arguments: args) else {
+            return
+        }
+        
+        let (method, input) = result
+        
+        switch method {
+        case .showBanner:
+            if let unitID = input[.adUnitID] {
+                bannerPresenter.present(withSlotID: unitID, from: viewController)
+            } else if let unitID = Self.defaultBannerAdUnitID {
+                bannerPresenter.present(withSlotID: unitID, from: viewController)
+            }
+        case .showVideo:
+            if let unitID = input[.adUnitID] {
+                videoPresenter.present(withSlotID: unitID, from: viewController)
+            } else if let unitID = Self.defaultVideoAdUnitID {
+                videoPresenter.present(withSlotID: unitID, from: viewController)
+            }
+        case .showRewarded:
+            if let unitID = input[.adUnitID] {
+                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController)
+            } else if let unitID = Self.defaultRewardedAdUnitID {
+                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController)
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import BUAdSDK
 
-class BytedanceVideoPresenter: NSObject,  BUNativeAdsManagerDelegate {
+class BytedanceRewardedPresenter: NSObject,  BUNativeAdsManagerDelegate {
     let adManager = BUNativeAdsManager()
     private var nativeAD: BUNativeAd?
     
@@ -8,9 +8,8 @@ class BytedanceVideoPresenter: NSObject,  BUNativeAdsManagerDelegate {
         if self.nativeAD == nil {
             let slot1 = BUAdSlot()
             slot1.id = slotID;
-            slot1.adType = .fullscreenVideo
+            slot1.adType = .rewardVideo
             slot1.position = .fullscreen
-            slot1.imgSize = BUSize(by: .drawFullScreen)
             slot1.isSupportDeepLink = true;
             slot1.isOriginAd = true
             
@@ -25,7 +24,7 @@ class BytedanceVideoPresenter: NSObject,  BUNativeAdsManagerDelegate {
 }
 
 
-extension BytedanceVideoPresenter: BUNativeAdDelegate {
+extension BytedanceRewardedPresenter: BUNativeAdDelegate {
     func nativeAdDidLoad(_ nativeAd: BUNativeAd) {
         
     }

@@ -1,15 +1,13 @@
 import BUAdSDK
 
-class BytedanceBanner: NSObject, SandboxObject, BUNativeAdsManagerDelegate {
+class BytedanceBannerPresenter: NSObject,  BUNativeAdsManagerDelegate {
     let adManager = BUNativeAdsManager()
     private var controller: UIViewController?
     private var nativeAD: BUNativeAd?
-    
-    func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
-        controller = viewController
-    }
+     
+    func present(withSlotID slotID: String, from viewController: UIViewController) {
+        self.controller = viewController
         
-    func load(slotID: String, controller: UIViewController) {
         if self.nativeAD == nil {
             let slot1 = BUAdSlot()
             slot1.id = slotID;
@@ -20,7 +18,7 @@ class BytedanceBanner: NSObject, SandboxObject, BUNativeAdsManagerDelegate {
             slot1.isOriginAd = true
             
             let nativeAD = BUNativeAd(slot: slot1)
-            nativeAD.rootViewController = controller
+            nativeAD.rootViewController = viewController
             nativeAD.delegate = self
             self.nativeAD = nativeAD
         }
@@ -60,7 +58,7 @@ class BytedanceBanner: NSObject, SandboxObject, BUNativeAdsManagerDelegate {
 
 
 
-extension BytedanceBanner: BUNativeAdDelegate {
+extension BytedanceBannerPresenter: BUNativeAdDelegate {
     func nativeAdDidLoad(_ nativeAd: BUNativeAd) {
         
     }

@@ -8,6 +8,10 @@ class PluginFileInput
         @MintegralInterstitialAdUnitID = params[:MintegralInterstitialAdUnitID]
         @MintegralBannerAdUnitID = params[:MintegralBannerAdUnitID]
         @MintegralBannerSize = params[:MintegralBannerSize]
+
+        @BytedanceBannerAdUnitID = params[:BytedanceBannerAdUnitID]
+        @BytedanceVideoAdUnitID = params[:BytedanceVideoAdUnitID]
+        @BytedanceRewardedVideoAdUnitID = params[:BytedanceRewardedVideoAdUnitID]
     end
 
     def get_binding

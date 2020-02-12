@@ -9,8 +9,7 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
         handler.register(Mintegral())
         <% end %>
         <% if @bytedance_ads %>
-        handler.register(BytedanceBanner())
-        handler.register(BytedanceVideo(controller: controller))
+        handler.register(Bytedance())
         <% end %>
     }
     

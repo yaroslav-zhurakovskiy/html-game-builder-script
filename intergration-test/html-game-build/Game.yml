@@ -21,6 +21,10 @@ MintegralBannerAdUnitID: "193837"
 MintegralBannerSize: "largeBannerType320x90"
 
 BytedanceAppID: "5047875"
+BytedanceBannerAdUnitID: "banner"
+BytedanceVideoAdUnitID: "video"
+BytedanceRewardedVideoAdUnitID: "rewarded"
+
 fastlane:
     appleID: "yaroslav.zhurakovskiy@gmail.com"
     teamID: "FSX848FP3F"
