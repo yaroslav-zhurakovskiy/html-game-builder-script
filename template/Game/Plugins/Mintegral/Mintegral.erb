@@ -1,0 +1,58 @@
+class Mintegral: SandboxObject {
+    <% if !@MintegralVideoAdUnitID.nil? %>
+    private static let videoInterstitialDefaultAdUnitID: String? = "<%= @MintegralVideoAdUnitID %>"
+    <% else %>
+    private static let videoInterstitialDefaultAdUnitID: String? = nil
+    <% end %>
+
+    <% if !@MintegralInterstitialAdUnitID.nil? %>
+    private static let staticInterstitialDefaultAdUnitID: String? = "<%= @MintegralInterstitialAdUnitID %>"
+    <% else %>
+    private static let staticInterstitialDefaultAdUnitID: String? = nil
+    <% end %>
+    
+    
+    enum Method: String {
+        case showVideoInterstitial
+        case showStaticInterstitial
+        case showBanner
+        case hideBanner
+    }
+    
+    enum Argument: String, Hashable {
+        case unitID
+        case size
+        case autoRefreshTime
+    }
+    
+    private let interstitialVideoAdPresenter = MTGInterstitialVideoAdPresenter()
+    private let interstitialStaticAdPresenter = MTGInterstitialAdPresenter()
+    private let bannerPresenter = MintegralBanner()
+    
+    func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
+        guard let result: (Method, [Argument: String]) = convertToTypedValues(method: method, arguments: args) else {
+            return
+        }
+        
+        let (method, input) = result
+        
+        switch method {
+        case .showVideoInterstitial:
+            if let unitID = input[.unitID] {
+                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID)
+            } else if let unitID = Self.videoInterstitialDefaultAdUnitID {
+                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID)
+            }
+        case .showStaticInterstitial:
+            if let unitID = input[.unitID] {
+                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID)
+            } else if let unitID = Self.staticInterstitialDefaultAdUnitID {
+                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID)
+            }
+        case .showBanner:
+            bannerPresenter.invoke(MintegralBanner.Method.show.rawValue, with: args, from: viewController)
+        case .hideBanner:
+            bannerPresenter.invoke(MintegralBanner.Method.hide.rawValue, with: args, from: viewController)
+        }
+    }
+}

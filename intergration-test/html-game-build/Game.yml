@@ -16,6 +16,7 @@ GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
 MintegralVideoAdUnitID: "193835"
+MintegralInterstitialUnitID: "?"
 MintegralBannerAdUnitID: "193837"
 MintegralBannerSize: "largeBannerType320x90"
 

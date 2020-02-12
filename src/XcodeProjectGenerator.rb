@@ -54,7 +54,7 @@ class XcodeProjectGenerator
     end
 
     private def compile_mintegral_video_plugin(params)
-        file_name = "MintegralInterstitialVideoAd"
+        file_name = "Mintegral"
         compiler = ERBCompiler.new()
         compiler.compile(
             erb_file_path: target_file_path(params, "Plugins/Mintegral/#{file_name}.erb"),

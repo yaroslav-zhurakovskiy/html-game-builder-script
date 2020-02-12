@@ -6,8 +6,7 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
         handler.register(GoogleAdmob())
         <% end %>
         <% if @mintegral_ads %>
-        handler.register(MintegralBanner())
-        handler.register(MintegralInterstitialVideoAd())
+        handler.register(Mintegral())
         <% end %>
         <% if @bytedance_ads %>
         handler.register(BytedanceBanner())

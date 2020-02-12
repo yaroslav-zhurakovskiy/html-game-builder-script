@@ -3,7 +3,9 @@ class PluginFileInput
         @GADInterstitialAdUnitID = params[:GADInterstitialAdUnitID]
         @GADBannerAdUnitID = params[:GADBannerAdUnitID]
         @GADRewardedAdUnitID = params[:GADRewardedAdUnitID]
+
         @MintegralVideoAdUnitID = params[:MintegralVideoAdUnitID]
+        @MintegralInterstitialAdUnitID = params[:MintegralInterstitialAdUnitID]
         @MintegralBannerAdUnitID = params[:MintegralBannerAdUnitID]
         @MintegralBannerSize = params[:MintegralBannerSize]
     end

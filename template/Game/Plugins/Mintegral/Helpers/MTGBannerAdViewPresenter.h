@@ -1,11 +1,3 @@
-//
-//  MTGBannerAdViewPresenter.h
-//  TestWebKit
-//
-//  Created by Yaroslav Zhurakovskiy on 16.01.2020.
-//  Copyright © 2020 Yaroslav Zhurakovskiy. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <MTGSDK/MTGSDK.h>
 #import <MTGSDKBanner/MTGBannerAdView.h>
