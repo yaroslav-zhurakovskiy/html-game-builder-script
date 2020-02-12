@@ -6,9 +6,6 @@ typealias SandboxMethodName = SandboxNameRepresentable
 typealias SandboxArgumentName = SandboxNameRepresentable & Hashable
 
 protocol SandboxObject: class {
-//    associatedtype Method: SandboxMethodName
-//    associatedtype Argument: SandboxArgumentName
-    
     static var name: String { get }
     
     func invoke(
@@ -16,8 +13,16 @@ protocol SandboxObject: class {
         with args: [String: Any],
         from viewController: WebGameController
     )
+    
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
 }
 
 extension SandboxObject {
     static var name: String { "\(self)" }
+}
+
+extension SandboxObject {
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+    }
 }

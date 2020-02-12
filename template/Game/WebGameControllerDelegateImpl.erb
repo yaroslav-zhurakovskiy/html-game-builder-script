@@ -18,4 +18,8 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
     func webGameConroller(_ controller: WebGameController, didReceiveRequest request: SandboxObjectRequest) {   
         handler.handle(request, from: controller)
     }
+
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        handler.viewWillTransition(view, to: size, with: coordinator)
+    }
 }

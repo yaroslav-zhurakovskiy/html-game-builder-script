@@ -13,4 +13,7 @@ public class SandboxObjectRequestHandler {
             object.invoke(request.method, with: request.arguments, from: viewController)
         }
     }
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        handlers.values.forEach { $0.viewWillTransition(view, to: size, with: coordinator) }
+    }
 }

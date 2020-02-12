@@ -1,0 +1,71 @@
+import UIKit
+
+class GoogleAdmob: SandboxObject {
+    <% if !@GADInterstitialAdUnitID.nil? %>
+    private static let defaultInterstitialAdUnitID: String? = "<%= @GADInterstitialAdUnitID %>"
+    <% else %>
+    private static let defaultInterstitialAdUnitID: String? = nil
+    <% end %>
+    <% if !@GADBannerAdUnitID.nil? %>
+    private static let defaultBannerAdUnitID: String? = "<%= @GADBannerAdUnitID %>"
+    <% else %>
+    private static let defaultBannerAdUnitID: String? = nil
+    <% end %>
+    
+     <% if !@GADRewardedAdUnitID.nil? %>
+    private static let defaultRewardedAdUnitID: String? = "<%= @GADRewardedAdUnitID %>"
+    <% else %>
+    private static let defaultRewardedAdUnitID: String? = nil
+    <% end %>
+    
+    enum Method: String {
+        case showInterstitial
+        case initializeInterstitial
+        case showBanner
+        case showRewarded
+    }
+
+    enum Argument: String, Hashable {
+        case adUnitID
+    }
+
+    private let presenter = GoogleInterstitialPresenter()
+    private let bannerPresenter = GoogleBannerPresenter()
+    private let rewardedPresenter = GoogleRewardedBannerPresenter()
+
+    func invoke(_ method: String, with args: [String : Any], from controller: WebGameController) {
+        guard let result: (Method, [Argument: String]) = convertToTypedValues(method: method, arguments: args) else {
+            return
+        }
+
+        let (method, input) = result
+
+        switch method {
+        case .initializeInterstitial:
+            if let adUnitID = input[.adUnitID] {
+                presenter.initialize(withAdUnitID: adUnitID)
+            }
+        case .showInterstitial:
+            if let adUnitID = Self.defaultInterstitialAdUnitID {
+                presenter.initialize(withAdUnitID: adUnitID)
+            }
+            presenter.present(from: controller)
+        case .showBanner:
+            if let adUnitID = input[.adUnitID] {
+                bannerPresenter.present(from: controller, withAdUnitID: adUnitID)
+            } else if let adUnit = Self.defaultBannerAdUnitID {
+                bannerPresenter.present(from: controller, withAdUnitID: adUnit)
+            }
+        case .showRewarded:
+            if let adUnitID = input[.adUnitID] {
+                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID)
+            } else if let adUnitID = Self.defaultRewardedAdUnitID {
+                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID)
+            }
+        }
+    }
+    
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        bannerPresenter.viewWillTransition(view, to: size, with: coordinator)
+    }
+}

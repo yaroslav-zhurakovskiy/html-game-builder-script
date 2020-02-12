@@ -1,15 +1,17 @@
 xcodeProjectDir: "out"
-templatePath: "../template"
+templatePath: "../../template"
 gameSrc: "../html-game"
 name: "My super Game"
 bundleId: "com.company-name.my-game"
 sdk: "8.0"
 version: "1.0.0"
-buildNumber: 10
+buildNumber: 1
 appiconsetSrc: "AppIcon.appiconset"
 developmentTeam: "FSX848FP3F"
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
-GADAdUnitID: "ca-app-pub-3940256099942544/4411468910"
+GADInterstitialAdUnitID: "ca-app-pub-3940256099942544/4411468910"
+GADBannerAdUnitID: "ca-app-pub-3940256099942544/2435281174"
+GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"

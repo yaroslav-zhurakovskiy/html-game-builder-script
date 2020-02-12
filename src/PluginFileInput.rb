@@ -1,6 +1,8 @@
 class PluginFileInput
     def initialize(params)
-        @GADAdUnitID = params[:GADAdUnitID]
+        @GADInterstitialAdUnitID = params[:GADInterstitialAdUnitID]
+        @GADBannerAdUnitID = params[:GADBannerAdUnitID]
+        @GADRewardedAdUnitID = params[:GADRewardedAdUnitID]
         @MintegralVideoAdUnitID = params[:MintegralVideoAdUnitID]
         @MintegralBannerAdUnitID = params[:MintegralBannerAdUnitID]
         @MintegralBannerSize = params[:MintegralBannerSize]

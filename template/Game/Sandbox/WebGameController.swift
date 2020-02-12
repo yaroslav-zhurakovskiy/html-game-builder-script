@@ -3,6 +3,7 @@ import UIKit
 protocol WebGameControllerDelegate: class {
     func webGameWilLoad(_ controller: WebGameController)
     func webGameConroller(_ controller: WebGameController, didReceiveRequest: SandboxObjectRequest)
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) 
 }
 
 class WebGameController: UIViewController {
@@ -34,6 +35,10 @@ class WebGameController: UIViewController {
         let indexHTML = rootURL.appendingPathComponent(startingPage)
         let content = try! String(contentsOf: indexHTML)
         webView.loadHTMLString(content, baseURL: rootURL)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        delegate?.viewWillTransition(view, to: size, with: coordinator)
     }
 }
 
