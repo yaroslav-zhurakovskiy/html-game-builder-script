@@ -1,0 +1,7 @@
+#include "Pods/Target Support Files/Pods-Game/Pods-Game.debug.xcconfig"
+SWIFT_OBJC_BRIDGING_HEADER = ${SRCROOT}/Game/AppBridgingHeader.h
+PRODUCT_BUNDLE_IDENTIFIER = <%= @bundleId %>
+VERSIONING_SYSTEM = apple-generic
+<% if !@launchImageSrc.nil? %>
+ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage
+<% end %>

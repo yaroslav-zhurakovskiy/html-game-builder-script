@@ -1,6 +1,8 @@
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '<%= @ios_sdk_version %>'
-supports_swift_versions '>= 5.0'
+supports_swift_versions '>= 4.2'
 use_frameworks!
+inhibit_all_warnings!
 
 target '<%= @target_name %>' do
   <% if @google_ads %>
@@ -13,6 +15,6 @@ target '<%= @target_name %>' do
   pod 'MintegralAdSDK/InterstitialAd'
   <% end %>
   <% if @bytedance_ads %>
-  pod 'Bytedance-UnionAD', '2.5.1.2'
+  pod 'Bytedance-UnionAD', "2.8.0.1"
   <% end %>
 end

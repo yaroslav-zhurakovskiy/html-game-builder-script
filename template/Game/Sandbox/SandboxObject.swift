@@ -1,3 +1,5 @@
+import UIKit
+
 protocol SandboxNameRepresentable: RawRepresentable where RawValue == String {
     
 }
@@ -15,14 +17,26 @@ protocol SandboxObject: class {
     )
     
     func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
-}
-
-extension SandboxObject {
-    static var name: String { "\(self)" }
+    
+    func viewDidLayoutSubviews(_ view: UIView)
 }
 
 extension SandboxObject {
     func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
     }
+    
+    func viewDidLayoutSubviews(_ view: UIView) {
+        
+    }
+}
+
+protocol SandboxAdObject: SandboxObject {
+    
+}
+
+let sandboxAdObjectSystemName = "$Ads"
+
+extension SandboxObject {
+    static var name: String { "\(self)" }
 }

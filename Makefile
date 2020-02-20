@@ -1,4 +1,5 @@
 EXECUTABLE_NAME=sandbox-build
+
 INSTALLATION_PATH=/usr/local/bin/${EXECUTABLE_NAME}
 
 .DEFAULT_GOAL := install
@@ -16,6 +17,7 @@ install:
 	./compile.sh ${EXECUTABLE_NAME}
 	cp ${EXECUTABLE_NAME} ${INSTALLATION_PATH}
 	rm ${EXECUTABLE_NAME}
+	./install-template.sh ${EXECUTABLE_NAME}
 	
 generate-template:
 	./generate-template.sh

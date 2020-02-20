@@ -1,11 +1,22 @@
 public class MintegralBanner: SandboxObject {
-    <% if !@MintegralBannerAdUnitID.nil? && !@MintegralBannerSize.nil? %>
+    <% if !@MintegralBannerAdUnitID.nil? %>
     private static let defaultAdUnitID: String? = "<%= @MintegralBannerAdUnitID %>"
-    private static let defaultSize: String? = "<%= @MintegralBannerSize %>"
     <% else %>
     private static let defaultAdUnitID: String? = nil
+    <% end %>
+
+    <% if !@MintegralBannerSize.nil? %>
+    private static let defaultSize: String? = "<%= @MintegralBannerSize %>"
+    <% else %>
     private static let defaultSize: String? = nil
     <% end %>
+
+    <% if !@MintegralBannerPlacement.nil? %>
+    private static let defaultPlacement: BannerPlacement? = .<%= @MintegralBannerPlacement %>
+    <% else %>
+    private static let defaultPlacement: BannerPlacement? = nil
+    <% end %>
+    
 
     enum Method: String {
         case show
@@ -15,6 +26,7 @@ public class MintegralBanner: SandboxObject {
     enum Argument: String, Hashable {
         case size
         case unitID
+        case placement
         case autoRefreshTime
     }
     
@@ -42,33 +54,59 @@ public class MintegralBanner: SandboxObject {
     }
     
     private func show(from viewController: UIViewController, with input: [Argument: String]) {
-        var unitID: String!
-        var size: String!
-
-        if let unitIDInput = input[.unitID], let sizeInput = input[.size] {
-            unitID = unitIDInput
-            size = sizeInput
-        } else if let defaultAdUnitID = Self.defaultAdUnitID, let defaultSize = Self.defaultSize {
-            unitID = defaultAdUnitID
-            size = defaultSize
-        } else {
-            return
+        if let unitID = input[.unitID]{
+            presenter.present(
+                from: viewController,
+                size: resolveSize(input: input),
+                placement: resolvePlacement(input: input).rawValue,
+                autoRefreshTime: resolveAutorefresh(input: input),
+                unitID: unitID
+            )
+        } else if let unitID = Self.defaultAdUnitID {
+            presenter.present(
+                from: viewController,
+                size: resolveSize(input: input),
+                placement: resolvePlacement(input: input).rawValue,
+                autoRefreshTime: resolveAutorefresh(input: input),
+                unitID: unitID
+            )
         }
-        
-        let autoRefreshTime: NSNumber?
+    }
+    
+    private func resolveAutorefresh(input: [Argument: String]) -> NSNumber? {
         if let value = input[.autoRefreshTime] {
             let formatter = NumberFormatter()
-            autoRefreshTime = formatter.number(from: value)
+            return formatter.number(from: value)
         } else {
-            autoRefreshTime = nil
+            return nil
+        }
+    }
+    
+    private func resolveSize(input: [Argument: String]) -> MTGBannerSizeType {
+        if let size = input[.size] {
+            return convertSizeStringToBannerSizeType(size)
         }
         
-        presenter.present(
-            from: viewController,
-            size: convertSizeStringToBannerSizeType(size),
-            autoRefreshTime: autoRefreshTime,
-            unitID: unitID
-        )
+        if let size = Self.defaultSize {
+            return convertSizeStringToBannerSizeType(size)
+        } else {
+            return .smartBannerType
+        }
+    }
+    
+    private func resolvePlacement(input: [Argument: String]) -> BannerPlacement {
+        if let placement = input[.placement] {
+            switch placement {
+            case "top":
+                return .top
+            case "bottom":
+                return .bottom
+            default:
+                return .top
+            }
+        }
+        
+        return Self.defaultPlacement ?? .top
     }
     
     private func convertSizeStringToBannerSizeType(_ size: String) -> MTGBannerSizeType {

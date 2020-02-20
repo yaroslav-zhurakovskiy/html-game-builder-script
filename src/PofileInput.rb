@@ -9,6 +9,7 @@ class PofileInput
         @google_ads = params.key?(:GADApplicationIdentifier)
         @mintegral_ads = params.key?(:MintegralApiKey) && params.key?(:MintegralAppID)
         @bytedance_ads = params.key?(:BytedanceAppID)
+        @autoshowBanner = params[:autoshowBanner] == true
     end
 
     def get_binding

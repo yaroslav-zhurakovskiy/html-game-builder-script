@@ -10,24 +10,50 @@ class GoogleBannerPresenter: NSObject {
         super.init()
     }
     
-    func present(from viewController: UIViewController, withAdUnitID adUnitID: String) {
+    func present(
+        from viewController: UIViewController,
+        placement: BannerPlacement,
+        withAdUnitID adUnitID: String
+    ) {
         bannerView.adUnitID = adUnitID
         bannerView.rootViewController = viewController
         
         if bannerView.superview == nil {
             viewController.view.addSubview(bannerView)
             if #available(iOS 11.0, *) {
-                NSLayoutConstraint.activate([
-                    bannerView.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor),
-                    bannerView.leftAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.leftAnchor),
-                    bannerView.rightAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.rightAnchor)
-                ])
+                NSLayoutConstraint.activate({
+                    var constraints = [
+                        bannerView.centerXAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.centerXAnchor),
+                    ]
+                    switch placement {
+                    case .top:
+                        constraints.append(bannerView.topAnchor.constraint(
+                            equalTo: viewController.view.safeAreaLayoutGuide.topAnchor
+                        ))
+                    case .bottom:
+                        constraints.append(bannerView.bottomAnchor.constraint(
+                            equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor
+                        ))
+                    }
+                    return constraints
+                }())
             } else if #available(iOS 9, *) {
-                NSLayoutConstraint.activate([
-                    bannerView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
-                    bannerView.leftAnchor.constraint(equalTo: viewController.view.leftAnchor),
-                    bannerView.rightAnchor.constraint(equalTo: viewController.view.rightAnchor)
-                ])
+                NSLayoutConstraint.activate({
+                    var constraints = [
+                        bannerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+                    ]
+                    switch placement {
+                    case .top:
+                        constraints.append(bannerView.topAnchor.constraint(
+                            equalTo: viewController.view.topAnchor
+                        ))
+                    case .bottom:
+                        constraints.append(bannerView.bottomAnchor.constraint(
+                            equalTo: viewController.view.bottomAnchor
+                        ))
+                    }
+                    return constraints
+                }())
             }
         }
         

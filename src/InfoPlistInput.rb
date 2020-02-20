@@ -5,6 +5,12 @@ class InfoPlistInput
         @version=params[:version]
         @build=params[:buildNumber]
         @bundle_name=params[:name]
+        
+        @UISupportedInterfaceOrientations=params[:supportedInterfaceOrientations]
+        @UISupportedInterfaceOrientationsIPad=params[:supportedInterfaceOrientationsIPad]
+        @UISupportedInterfaceOrientationsIPad=params[:supportedInterfaceOrientationsIPad]
+        @UIStatusBar=params[:statusBar]
+        @launchImageSrc=params.key?(:launchImageSrc)
     end
 
     def get_binding

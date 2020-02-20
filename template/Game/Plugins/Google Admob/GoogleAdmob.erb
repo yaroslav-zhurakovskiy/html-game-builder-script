@@ -1,6 +1,6 @@
 import UIKit
 
-class GoogleAdmob: SandboxObject {
+class GoogleAdmob: SandboxAdObject {
     <% if !@GADInterstitialAdUnitID.nil? %>
     private static let defaultInterstitialAdUnitID: String? = "<%= @GADInterstitialAdUnitID %>"
     <% else %>
@@ -10,6 +10,11 @@ class GoogleAdmob: SandboxObject {
     private static let defaultBannerAdUnitID: String? = "<%= @GADBannerAdUnitID %>"
     <% else %>
     private static let defaultBannerAdUnitID: String? = nil
+    <% end %>
+    <% if !@GADBannerPlacement.nil? %>
+    private static let defaultBannerPlacement: BannerPlacement? = .<%= @GADBannerPlacement %>
+    <% else %>
+    private static let defaultBannerPlacement: BannerPlacement? = nil
     <% end %>
     
      <% if !@GADRewardedAdUnitID.nil? %>
@@ -27,6 +32,7 @@ class GoogleAdmob: SandboxObject {
 
     enum Argument: String, Hashable {
         case adUnitID
+        case placement
     }
 
     private let presenter = GoogleInterstitialPresenter()
@@ -52,9 +58,17 @@ class GoogleAdmob: SandboxObject {
             presenter.present(from: controller)
         case .showBanner:
             if let adUnitID = input[.adUnitID] {
-                bannerPresenter.present(from: controller, withAdUnitID: adUnitID)
+                bannerPresenter.present(
+                    from: controller,
+                    placement: resolvePlacement(input: input),
+                    withAdUnitID: adUnitID
+                )
             } else if let adUnit = Self.defaultBannerAdUnitID {
-                bannerPresenter.present(from: controller, withAdUnitID: adUnit)
+                bannerPresenter.present(
+                    from: controller,
+                    placement: resolvePlacement(input: input),
+                    withAdUnitID: adUnit
+                )
             }
         case .showRewarded:
             if let adUnitID = input[.adUnitID] {
@@ -62,6 +76,25 @@ class GoogleAdmob: SandboxObject {
             } else if let adUnitID = Self.defaultRewardedAdUnitID {
                 rewardedPresenter.present(from: controller, withAdUnitID: adUnitID)
             }
+        }
+    }
+    
+    private func resolvePlacement(input: [Argument: String]) -> BannerPlacement {
+        if let value = Self.defaultBannerPlacement {
+            return value
+        }
+        
+        guard let value = input[.placement] else {
+            return .top
+        }
+        
+        switch value {
+        case "top":
+            return .top
+        case "bottom":
+            return .bottom
+        default:
+            return .top
         }
     }
     

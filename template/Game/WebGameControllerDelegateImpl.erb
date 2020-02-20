@@ -1,3 +1,5 @@
+import UIKit
+
 class WebGameControllerDelegateImpl: WebGameControllerDelegate {
     private let handler = SandboxObjectRequestHandler()
     
@@ -19,5 +21,9 @@ class WebGameControllerDelegateImpl: WebGameControllerDelegate {
 
     func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         handler.viewWillTransition(view, to: size, with: coordinator)
+    }
+
+     func viewDidLayoutSubviews(_ view: UIView) {
+        handler.viewDidLayoutSubviews(view)
     }
 }

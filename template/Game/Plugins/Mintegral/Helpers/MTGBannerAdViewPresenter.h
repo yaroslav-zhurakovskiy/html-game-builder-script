@@ -9,6 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentFromViewController:(UIViewController *)controller
                              size:(MTGBannerSizeType)size
+                        placement:(NSInteger)placement
                   autoRefreshTime:(nullable NSNumber *)autoRefreshTime
                            unitID:(NSString *)unitID;
 

@@ -1,10 +1,21 @@
 import Foundation
+import BUAdSDK
 
-class Bytedance: SandboxObject {
+class Bytedance: SandboxAdObject {
     <% if !@BytedanceBannerAdUnitID.nil? %>
     private static let defaultBannerAdUnitID: String? = "<%= @BytedanceBannerAdUnitID %>"
     <% else %>
     private static let defaultBannerAdUnitID: String? = nil
+    <% end %>
+    <% if !@BytedanceBannerSize.nil? %>
+    private static let defaultBannerSize: BUProposalSize? = .banner<%= @BytedanceBannerSize %>
+    <% else %>
+    private static let defaultBannerSize: BUProposalSize? = nil
+    <% end %>
+    <% if !@BytedanceBannerPlacement.nil? %>
+    private static let defaultBannerPlacement: BannerPlacement? = .<%= @BytedanceBannerPlacement %>
+    <% else %>
+    private static let defaultBannerPlacement: BannerPlacement? = nil
     <% end %>
 
     <% if !@BytedanceVideoAdUnitID.nil? %>
@@ -27,6 +38,8 @@ class Bytedance: SandboxObject {
     
     enum Argument: String, Hashable {
         case adUnitID
+        case size
+        case placement
     }
     
     private let bannerPresenter = BytedanceBannerPresenter()
@@ -44,9 +57,19 @@ class Bytedance: SandboxObject {
         switch method {
         case .showBanner:
             if let unitID = input[.adUnitID] {
-                bannerPresenter.present(withSlotID: unitID, from: viewController)
+                bannerPresenter.present(
+                    withSlotID: unitID,
+                    size: resolveBannerSize(input: input),
+                    placement: resolvePlacement(input: input),
+                    from: viewController
+                )
             } else if let unitID = Self.defaultBannerAdUnitID {
-                bannerPresenter.present(withSlotID: unitID, from: viewController)
+                bannerPresenter.present(
+                    withSlotID: unitID,
+                    size: resolveBannerSize(input: input),
+                    placement: resolvePlacement(input: input),
+                    from: viewController
+                )
             }
         case .showVideo:
             if let unitID = input[.adUnitID] {
@@ -60,6 +83,56 @@ class Bytedance: SandboxObject {
             } else if let unitID = Self.defaultRewardedAdUnitID {
                 rewardedVideoPresenter.present(withSlotID: unitID, from: viewController)
             }
+        }
+    }
+    
+    private func resolveBannerSize(input: [Argument: String]) -> BUProposalSize {
+        if let value = Self.defaultBannerSize {
+            return value
+        }
+        
+        guard let value = input[.size] else {
+            return .banner600_90
+        }
+        
+        switch value {
+        case "600_90":
+            return .banner600_90
+        case "600_100":
+            return .banner600_100
+        case "600_150":
+            return .banner600_150
+        case "600_260":
+            return .banner600_260
+        case "600_286":
+            return .banner600_286
+        case "600_300":
+            return .banner600_300
+        case "600_388":
+            return .banner600_388
+        case "600_400":
+            return .banner600_400
+        default:
+            return .banner600_90
+        }
+    }
+    
+    private func resolvePlacement(input: [Argument: String]) -> BannerPlacement {
+        if let value = Self.defaultBannerPlacement {
+            return value
+        }
+        
+        guard let value = input[.placement] else {
+            return .top
+        }
+        
+        switch value {
+        case "top":
+            return .top
+        case "bottom":
+            return .bottom
+        default:
+            return .top
         }
     }
 }

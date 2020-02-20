@@ -8,6 +8,7 @@ FILE_LIST=(
     ERBCompiler.rb
     InfoPlistInput.rb
     PofileInput.rb
+    XCConfigInput.rb
     XcodeProjectGenerator.rb
     XcodeProjecBuilder.rb
     ScriptInputParser.rb

@@ -3,7 +3,8 @@ import UIKit
 protocol WebGameControllerDelegate: class {
     func webGameWilLoad(_ controller: WebGameController)
     func webGameConroller(_ controller: WebGameController, didReceiveRequest: SandboxObjectRequest)
-    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) 
+    func viewWillTransition(_ view: UIView, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    func viewDidLayoutSubviews(_ view: UIView)
 }
 
 class WebGameController: UIViewController {
@@ -40,6 +41,10 @@ class WebGameController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         delegate?.viewWillTransition(view, to: size, with: coordinator)
     }
+
+    override func viewDidLayoutSubviews() {
+        delegate?.viewDidLayoutSubviews(view)
+    }
 }
 
 extension WebGameController: UIWebViewDelegate {
@@ -54,7 +59,10 @@ extension WebGameController: UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        
+<% if @autoshowBanner %>
+        let request = SandboxObjectRequest(object: sandboxAdObjectSystemName, method: "showBanner", arguments: [:])
+        delegate?.webGameConroller(self, didReceiveRequest: request)
+<% end %>
     }
     
     func webView(

@@ -21,16 +21,33 @@ class XcodeProjectGenerator
         delete_unused_plugins(params)
         copy_game(params)
         copy_icon(params)
+        copy_launch_image(params)
     end
 
     private def compile_templates(params)
-        compie_info_plist(params)
+        compile_info_plist(params)
         compile_app_delegate(params)
+        compile_web_game_controller(params)
         compile_web_game_controller_delegate(params)
         compile_podfile(params)
         compile_bridging_header(params)
         compile_fastlane_files(params)
         compile_plugins(params)
+        compile_xcconfig_files(params)
+    end
+
+    private def compile_xcconfig_files(params)
+        compile_xcconfig_file("debug", params)
+        compile_xcconfig_file("release", params)
+    end
+
+    private def compile_xcconfig_file(file_name, params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, "#{file_name}.xcconfig.erb"),
+            result_file_path: target_file_path(params, "#{file_name}.xcconfig"),
+            input: XCConfigInput.new(params)
+        )
     end
 
     private def compile_plugins(params)
@@ -109,10 +126,25 @@ class XcodeProjectGenerator
 
     private def copy_template(params)
         out_dir = get_xcode_project_out_dir(params)
-        templatePath = params[:templatePath]
-        if !templatePath.nil?
-            FileUtils.cp_r(templatePath, out_dir)
+        template_path = params[:templatePath]
+        if !template_path.nil?
+            FileUtils.cp_r(template_path, out_dir)
+        else
+            if Dir.exists?(system_template_path)
+                copy_template_from_system_dir(out_dir)
+            else
+                puts "'#{system_template_path}' does not exist. Please install it."
+                exit(-1)
+            end
         end
+    end
+
+    private def copy_template_from_system_dir(out_dir)
+        FileUtils.cp_r(system_template_path, out_dir)
+    end
+
+    private def system_template_path()
+        File.expand_path(".#{SCRIPT_NAME}/template", ENV['HOME'])
     end
 
     private def delete_unused_plugins(params)
@@ -140,6 +172,15 @@ class XcodeProjectGenerator
         end
     end
 
+    private def compile_web_game_controller(params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, 'Sandbox/WebGameController.swift.erb'),
+            result_file_path: target_file_path(params, 'Sandbox/WebGameController.swift'),
+            input: PofileInput.new(params)
+        )
+    end
+
     private def compile_web_game_controller_delegate(params)
         compiler = ERBCompiler.new()
         compiler.compile(
@@ -163,20 +204,13 @@ class XcodeProjectGenerator
         File.expand_path("Game/#{file}", out_dir)
     end
 
-    private def compie_info_plist(params)
+    private def compile_info_plist(params)
         compiler = ERBCompiler.new()
         compiler.compile(
             erb_file_path: target_file_path(params, 'Info.erb'),
             result_file_path: target_file_path(params, 'Info.plist'),
             input: InfoPlistInput.new(params)
         )
-    end
-
-    private def copy_launch_image(params)
-        if params.key?(:launchImageSrc)
-            xcassets_path = target_file_path(params, 'Assets.xcassets')
-            FileUtils.cp_r(params[:launchImageSrc], xcassets_path)
-        end
     end
 
     private def copy_icon(params)
@@ -186,6 +220,18 @@ class XcodeProjectGenerator
         end
     end
 
+    private def copy_launch_image(params)
+        if params.key?(:launchImageSrc)
+            xcassets_path = target_file_path(params, 'Assets.xcassets')
+            launch_image_src = params[:launchImageSrc]
+            FileUtils.cp_r(launch_image_src, xcassets_path)
+            File.rename(
+                File.expand_path(launch_image_src, xcassets_path),
+                File.expand_path("LaunchImage.launchimage", xcassets_path), 
+            )
+        end
+    end
+    
     private def install_pods(params)
         out_dir = get_xcode_project_out_dir(params)
         Dir.chdir(out_dir) do
@@ -213,6 +259,7 @@ class XcodeProjectGenerator
         target_src = "Game"
         dev_team_id = params[:developmentTeam]
         bundle_id = params[:bundleId]
+        launch_image_name = params.key?(:launchImageSrc) ? "LaunchImage" : ""
         
         <<-YML_FILE
         name: #{project_name}
@@ -226,15 +273,14 @@ class XcodeProjectGenerator
                 - path: #{game_directory}
                   type: folder
                   name: html-game
-                configFiles:
-                    Debug: #{target_src}/debug.xcconfig
-                    Release: #{target_src}/release.xcconfig
                 attributes:
                     DevelopmentTeam: #{dev_team_id}
                 settings:
                     base:
                         PRODUCT_BUNDLE_IDENTIFIER: #{bundle_id}
-                        VERSIONING_SYSTEM: "apple-generic"
+                        VERSIONING_SYSTEM: apple-generic
+                        ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME: #{launch_image_name}
+                        SWIFT_OBJC_BRIDGING_HEADER: ${SRCROOT}/Game/AppBridgingHeader.h
         YML_FILE
     end
 

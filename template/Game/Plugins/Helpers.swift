@@ -27,4 +27,8 @@ func typedArguments<T: RawRepresentable>(
     
     return input
 }
-    
+
+@objc(SandboxBannerPlacement) enum BannerPlacement: Int {
+    case top
+    case bottom
+}
