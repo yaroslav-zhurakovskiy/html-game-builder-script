@@ -6,6 +6,7 @@
 - [Cocoapods](https://cocoapods.org/)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 - [Fastlane](https://fastlane.tools/)
+- [Git LFS](https://git-lfs.github.com/)
 
 ## Troubleshooting
 ``` sh
