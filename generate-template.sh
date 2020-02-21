@@ -1,6 +1,6 @@
 #!/bin/sh
 
-EXECUTABLE_NAME="build"
+EXECUTABLE_NAME=$1
 
 destination_dir=./intergration-test/html-game-build
 current_dir=`pwd`

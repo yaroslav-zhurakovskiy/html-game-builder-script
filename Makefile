@@ -20,4 +20,4 @@ install:
 	./install-template.sh ${EXECUTABLE_NAME}
 	
 generate-template:
-	./generate-template.sh
+	./generate-template.sh ${EXECUTABLE_NAME}

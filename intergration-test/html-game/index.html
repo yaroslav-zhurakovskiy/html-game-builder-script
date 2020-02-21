@@ -69,28 +69,72 @@
     <div class="center border">
         <H1>Test, pick your action:</H1>
         <div class="center">
-            <input id="btnGoogleAds" type="button" value="Google Ads"></input>
+            <!-- Google Ads -->
+            <div>
+                <H2>Google Ads</H2>
+                <input id="btnGoogleAdsBanner" type="button" value="Google Ads Banner"></input>
+                <div class="spacer"></div>
+                <input id="btnGoogleAdsInterstitial" type="button" value="Google AdMob Interstitial"></input>
+                <div class="spacer"></div>
+                <input id="btnGoogleAdsRewardVideo" type="button" value="Google AdMob Reward Video"></input>
+            </div>
+            
+            <!-- Mintegral -->
+            <div>
+                <H2>Mintegral</H2>
+                <input id="btnShowMintegralBanner" type="button" value="Mintegral Banner"></input>
+                <div class="spacer"></div>
+                <input id="btnShowVideoInterstitial" type="button" value="Mintegral Video Interstitial"></input>
+                <div class="spacer"></div>
+                <input id="btnShowStaticInterstitial" type="button" value="Mintegral Static Interstitial"></input>
+            </div>
+
+            <!-- Bytedance -->
+            <div>
+                <H2>Bytedance</H2>
+                <input id="btnShowBytedanceBanner" type="button" value="Bytedance Banner"></input>
+                <div class="spacer"></div>
+                <input id="btnShowBytedancVideo" type="button" value="Bytedance Video"></input>
+                <div class="spacer"></div>
+                <input id="btnShowBytedancRewarded" type="button" value="Bytedance Rewarded"></input>
+            </div>
             <div class="spacer"></div>
-            <input id="btnShowMintegralVideo" type="button" value="Mintegral Video"></input>
             <div class="spacer"></div>
-            <input id="btnShowMintegralBanner" type="button" value="Show Mintegral Banner"></input>
-            <div class="spacer"></div>
-            <input id="btnHideMintegralBanner" type="button" value="Hide Mintegral Video"></input>
-            <div class="spacer"></div>
+            <div class="spacer"></div>  
         </div>
     </div>
     <script type="text/javascript">
-        document.getElementById("btnGoogleAds").addEventListener('click', function() {
-            invokeMethod("GoogleAdmob", "present");
+        // Google
+        document.getElementById("btnGoogleAdsBanner").addEventListener('click', function() {
+            invokeMethod("GoogleAdmob", "showBanner");
         });
-        document.getElementById("btnShowMintegralVideo").addEventListener('click', function() {
-            invokeMethod("MintegralInterstitialVideoAd", "show");
+        document.getElementById("btnGoogleAdsInterstitial").addEventListener('click', function() {
+            invokeMethod("GoogleAdmob", "showInterstitial");
         });
+        document.getElementById("btnGoogleAdsRewardVideo").addEventListener('click', function() {
+            invokeMethod("GoogleAdmob", "showRewarded");
+        });
+
+        // Mintegral
         document.getElementById("btnShowMintegralBanner").addEventListener('click', function() {
-            invokeMethod("MintegralBanner", "show");
+            invokeMethod("Mintegral", "showBanner");
         });
-        document.getElementById("btnHideMintegralBanner").addEventListener('click', function() {
-            invokeMethod("MintegralBanner", "hide");
+        document.getElementById("btnShowVideoInterstitial").addEventListener('click', function() {
+            invokeMethod("Mintegral", "showVideoInterstitial");
+        });
+        document.getElementById("btnShowStaticInterstitial").addEventListener('click', function() {
+            invokeMethod("Mintegral", "showStaticInterstitial");
+        });
+
+        // Bytedance
+        document.getElementById("btnShowBytedanceBanner").addEventListener('click', function() {
+            invokeMethod("Bytedance", "showBanner");
+        });
+        document.getElementById("btnShowBytedancVideo").addEventListener('click', function() {
+            invokeMethod("Bytedance", "showVideo");
+        });
+        document.getElementById("btnShowBytedancRewarded").addEventListener('click', function() {
+            invokeMethod("Bytedance", "showRewarded");
         });
     </script>
 </body>

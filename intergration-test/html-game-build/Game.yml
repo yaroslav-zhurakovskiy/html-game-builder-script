@@ -1,31 +1,48 @@
 xcodeProjectDir: "out"
-templatePath: "../../template"
 gameSrc: "../html-game"
-name: "My super Game"
-bundleId: "com.company-name.my-game"
+name: "Sandbox test"
+bundleId: "com.anne-kwong.sandbox-test"
 sdk: "8.0"
 version: "1.0.0"
 buildNumber: 1
 appiconsetSrc: "AppIcon.appiconset"
-developmentTeam: "FSX848FP3F"
+launchImageSrc: "LaunchImage.launchimage"
+developmentTeam: "T3PG25UCZT"
+
+supportedInterfaceOrientations:
+    - portrait
+    - portraitUpsideDown
+    - landscapeLeft
+    - landspaceRight
+supportedInterfaceOrientationsIPad:
+    - landscapeLeft
+    - landspaceRight
+
+statusBar: "hidden"
+autoshowBanner: false
+
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 GADInterstitialAdUnitID: "ca-app-pub-3940256099942544/4411468910"
 GADBannerAdUnitID: "ca-app-pub-3940256099942544/2435281174"
+GADBannerPlacement: "bottom"
 GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
 MintegralVideoAdUnitID: "193835"
-MintegralInterstitialUnitID: "?"
+MintegralInterstitialAdUnitID: "?"
 MintegralBannerAdUnitID: "193837"
 MintegralBannerSize: "largeBannerType320x90"
+MintegralBannerPlacement: "bottom"
 
-BytedanceAppID: "5047875"
-BytedanceBannerAdUnitID: "banner"
-BytedanceVideoAdUnitID: "video"
-BytedanceRewardedVideoAdUnitID: "rewarded"
+BytedanceAppID: "5000546"
+BytedanceBannerAdUnitID: "900546198"
+BytedanceBannerPlacement: "bottom"
+BytedanceBannerSize: "600_150"
+BytedanceVideoAdUnitID: "900546831"
+BytedanceRewardedVideoAdUnitID: "900546566"
 
 fastlane:
-    appleID: "yaroslav.zhurakovskiy@gmail.com"
-    teamID: "FSX848FP3F"
+    appleID: "anne.denovolab@gmail.com"
+    teamID: "T3PG25UCZT"
     itcTeamID: "98037968"
