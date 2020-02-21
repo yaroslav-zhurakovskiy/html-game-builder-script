@@ -6,7 +6,7 @@
 - [Cocoapods](https://cocoapods.org/)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 - [Fastlane](https://fastlane.tools/)
-- [Git LFS](https://git-lfs.github.com/)
+- [Git LFS](https://git-lfs.github.com/) (Required for Bytedance)
 
 ## Troubleshooting
 ``` sh
@@ -58,37 +58,66 @@ sandbox-build -c <FILE_NAME> -g
 ```
 
 ### Configuration file format Game.yml
+#### Required fields
 ```yml
-xcodeProjectDir: "out"
-templatePath: "../template"
 gameSrc: "../html-game"
-name: "My super Game"
 bundleId: "com.company-name.my-game"
-sdk: "8.0"
-version: "1.0.0"
-buildNumber: 10
+version: "1.0.0" 
+buildNumber: 1
 appiconsetSrc: "AppIcon.appiconset"
-developmentTeam: "FSX848FP3F"
+developmentTeam: "FSX848FP3F" // Apple dev team id
+```
+
+#### Optional fields
+```yml
+name: "My super Game"
+xcodeProjectDir: "out" 
+templatePath: "../template" // If note speciied it will use the one that was installed during "make install" or "make"
+sdk: "9.0" // Minimum allowed version is 9.0
+launchImageSrc: "LaunchImage.launchimage"
+
+supportedInterfaceOrientations: // iPhone
+    - portrait
+    - portraitUpsideDown
+    - landscapeLeft
+    - landspaceRight
+supportedInterfaceOrientationsIPad: // iPad
+    - landscapeLeft
+    - landspaceRight
+
+statusBar: "hidden" | "light" | "dark"
+autoshowBanner: true // Automatically shows banner on launch. You need to have only one active ad banner id, otherwise it will use the first it finds.
+
+// Google Admob plugin
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
+GADInterstitialAdUnitID: "ca-app-pub-3940256099942544/4411468910"
+GADBannerAdUnitID: "ca-app-pub-3940256099942544/2435281174"
+GADBannerPlacement: "top" | "bottom"
+GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
+
+// Mintegral plugin
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
-BytedanceAppID: "5047875"
+MintegralVideoAdUnitID: "193835"
+MintegralInterstitialAdUnitID: "193836"
+MintegralBannerAdUnitID: "193837"
+MintegralBannerSize: "mediumRectangularBanner300x250" | "largeBannerType320x90" | "smartBannerType" | "standardBannerType320x50"
+MintegralBannerPlacement: "top" | "bottom"
+
+
+// Bytedance plugin
+BytedanceAppID: "5000546"
+BytedanceBannerAdUnitID: "900546198"
+BytedanceBannerPlacement: "top" | "bottom"
+BytedanceBannerSize: "600_90" | "600_100" | "600_150" | "600_260" | "600_286" | "600_300" | "600_388" | "600_400"
+BytedanceVideoAdUnitID: "900546831"
+BytedanceRewardedVideoAdUnitID: "900546566"
+
 fastlane:
-    appleID: "yaroslav.zhurakovskiy@gmail.com"
-    teamID: "FSX848FP3F"
-    itcTeamID: "98037968"
+    appleID: "YOUR APPLE ID"
+    teamID: "APPLE DEVELOPER TEAM ID"
+    itcTeamID: "ITUNES CONNECT TEAM ID"
 ```
-
-#### Required fields
-``` yml
-templatePath: <VALUE>
-gameSrc: <VALUE>
-bundleId: <VALUE>
-version: <VALUE>
-buildNumber: <VALUE>
-appiconsetSrc: <VALUE>
-```
-
 
 ## Using make
 ```sh
