@@ -1,3 +1,5 @@
+import Foundation
+
 func convertToTypedValues<M: RawRepresentable, A: RawRepresentable> (
     method: String,
     arguments: [String: Any]
