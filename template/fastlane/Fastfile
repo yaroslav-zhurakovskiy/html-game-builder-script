@@ -4,7 +4,7 @@ platform :ios do
   lane :build_game do |options|
     cert
     sigh
-    cocoapods
+    # cocoapods
     build_app(
       export_method: "app-store",
       export_xcargs: "-allowProvisioningUpdates"
@@ -13,7 +13,7 @@ platform :ios do
   lane :upload_game do |options|
     cert
     sigh
-    cocoapods
+    # cocoapods
     build_app(
       export_method: "app-store",
       export_xcargs: "-allowProvisioningUpdates"
