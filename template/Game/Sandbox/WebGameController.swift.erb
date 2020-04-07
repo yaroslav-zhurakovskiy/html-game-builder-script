@@ -1,4 +1,5 @@
 import UIKit
+import WebKit
 
 protocol WebGameControllerDelegate: class {
     func webGameWilLoad(_ controller: WebGameController)
@@ -8,7 +9,7 @@ protocol WebGameControllerDelegate: class {
 }
 
 class WebGameController: UIViewController {
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     
     private let rootURL: URL
     private let startingPage: String
@@ -26,16 +27,24 @@ class WebGameController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+   override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView.delegate = self
+        webView.scrollView.isScrollEnabled = false
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        webView.configuration.setValue(true, forKey: "allowUniversalAccessFromFileURLs");
+        
         
         delegate?.webGameWilLoad(self)
         
-        let indexHTML = rootURL.appendingPathComponent(startingPage)
-        let content = try! String(contentsOf: indexHTML)
-        webView.loadHTMLString(content, baseURL: rootURL)
+        webView.loadFileURL(rootURL.appendingPathComponent(startingPage), allowingReadAccessTo: rootURL)
+        
+    <% if @autoshowBanner %>
+        let request = SandboxObjectRequest(object: sandboxAdObjectSystemName, method: "showBanner", arguments: [:])
+        delegate?.webGameConroller(self, didReceiveRequest: request)
+    <% end %>
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -47,59 +56,44 @@ class WebGameController: UIViewController {
     }
 }
 
-extension WebGameController: UIWebViewDelegate {
-    
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+extension WebGameController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print(error)
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-<% if @autoshowBanner %>
-        let request = SandboxObjectRequest(object: sandboxAdObjectSystemName, method: "showBanner", arguments: [:])
-        delegate?.webGameConroller(self, didReceiveRequest: request)
-<% end %>
-    }
-    
     func webView(
-        _ webView: UIWebView,
-        shouldStartLoadWith request: URLRequest,
-        navigationType: UIWebView.NavigationType
-    ) -> Bool {
-        
-        guard decompser.isSandboxRequest(request) else {
-            return true
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        guard
+            decompser.isSandboxRequest(navigationAction.request),
+            let request = decompser.decomposeRequest(navigationAction.request)
+        else {
+            decisionHandler(.allow)
+            return
         }
+
+        delegate?.webGameConroller(self, didReceiveRequest: request)
+        decisionHandler(.cancel)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        if let request = decompser.decomposeRequest(request) {
-            delegate?.webGameConroller(self, didReceiveRequest: request)
-        }
-        
-        return false
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print(error)
     }
 }
 
-extension WebGameController {
-    @discardableResult
-    func notifyObservers(withEvent event: String, data: Any?) -> String? {
-        let params = buildParams(withEvent: event, data: data)
-        let code = "window.GlobalSandboxBridgeNotificationCenter.notify(\(params))"
-        return webView.stringByEvaluatingJavaScript(from: code)
-    }
+
+extension WebGameController: WKUIDelegate {
     
-    private func buildParams(withEvent event: String, data: Any?) -> String {
-        guard
-            let data = data,
-            let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []),
-            let jsonString = String(data: jsonData, encoding: .utf8)
-        else {
-            return "\(event)"
-        }
-        
-        return "\(event), \(jsonString)"
+}
+
+extension WebGameController {
+    func request(_ request: SandboxObjectRequest) {
+        delegate?.webGameConroller(self, didReceiveRequest: request)
     }
 }

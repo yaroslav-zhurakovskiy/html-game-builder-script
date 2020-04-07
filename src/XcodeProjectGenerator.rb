@@ -268,6 +268,8 @@ class XcodeProjectGenerator
                 type: application
                 platform: iOS
                 deploymentTarget: #{ios_sdk}
+                dependencies:
+                     - sdk: WebKit.framework 
                 sources:
                 - path: #{target_src}
                 - path: #{game_directory}

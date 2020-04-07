@@ -37,7 +37,7 @@ class ConfigurationParamsProcessor
     private def fill_in_empty_values(params)
         default_values = {
             xcodeProjectDir: "Xcode Project",
-            sdk: "9.0",
+            sdk: "11.0",
             developmentTeam: ""
         }
         default_values.each do |key, value|

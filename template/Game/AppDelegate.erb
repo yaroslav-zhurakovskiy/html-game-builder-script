@@ -16,10 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BUAdSDKManager.setAppID("<%= @BytedanceAppID %>")
         <% end %>
         window = UIWindow(frame: UIScreen.main.bounds)
-        let rootURL = Bundle.main.bundleURL.appendingPathComponent("html-game")
-        let controller = WebGameController(rootURL: rootURL, startingPage: "index.html")
-        controller.delegate = webGameControllerDelegateImpl
-        window?.rootViewController = controller
+        window?.rootViewController = {
+            let navController = UINavigationController(rootViewController: HomeController())
+            navController.navigationBar.isHidden = true
+            return navController
+        }()
         window?.makeKeyAndVisible()
 
         return true
