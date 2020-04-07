@@ -38,14 +38,15 @@ class GameContainer: UIViewController {
         webGameController.view.frame = view.bounds
         view.insertSubview(webGameController.view, belowSubview: backButton)
         addChild(webGameController)
-        
-//        webGameController.request(SandboxObjectRequest(
-//            object: objectName,
-//            method: methodName,
-//            arguments: [:]
-//        ))
-//        
-//        timer.start()
+
+        <% if @OnPlayRequest %>
+        if let url = URL(string: "sandbox://<%= @OnPlayRequest %>") {
+            webGameController.request(url: url)
+        }
+        <% end %>
+        <% if @game_timer_is_on %>        
+        timer.start()
+        <% end %>
     }
     
     @IBAction private func procesBack() {

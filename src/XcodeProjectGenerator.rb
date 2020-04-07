@@ -34,7 +34,8 @@ class XcodeProjectGenerator
         compile_fastlane_files(params)
         compile_plugins(params)
         compile_xcconfig_files(params)
-        compile_ads_timer(params)
+        compile_game_timer(params)
+        compile_game_container(params)
     end
 
     private def compile_xcconfig_files(params)
@@ -125,12 +126,21 @@ class XcodeProjectGenerator
         )
     end
 
-    private def compile_ads_timer(params)
+    private def compile_game_timer(params)
         compiler = ERBCompiler.new()
         compiler.compile(
             erb_file_path: target_file_path(params, 'GameTimer.erb'),
             result_file_path: target_file_path(params, 'GameTimer.swift'),
             input: GameTimerInput.new(params)
+        )
+    end
+
+    private def compile_game_container(params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, 'GameContainer.erb'),
+            result_file_path: target_file_path(params, 'GameContainer.swift'),
+            input: GameContainerInput.new(params)
         )
     end
 
