@@ -72,8 +72,8 @@ developmentTeam: "FSX848FP3F" // Apple dev team id
 ```yml
 name: "My super Game"
 xcodeProjectDir: "out" 
-templatePath: "../template" // If note speciied it will use the one that was installed during "make install" or "make"
-sdk: "9.0" // Minimum allowed version is 9.0
+templatePath: "../template" // If not specified it will use the one that was installed during "make install" or "make"
+sdk: "11.0" // Minimum allowed version is 11.0
 launchImageSrc: "LaunchImage.launchimage"
 
 supportedInterfaceOrientations: // iPhone
@@ -117,6 +117,14 @@ fastlane:
     appleID: "YOUR APPLE ID"
     teamID: "APPLE DEVELOPER TEAM ID"
     itcTeamID: "ITUNES CONNECT TEAM ID"
+    
+OnPlayRequest: "Mintegral/showVideoInterstitial" // A sandbox request that will be called on "play"
+
+// Timer that will be used started when the game is started
+GameTimer:
+   interval: 10 // Interval in seconds
+   request: "GoogleAdmob/showInterstitial" // A sandbox request that will be called every 10 seconds
+
 ```
 
 ## Using make
