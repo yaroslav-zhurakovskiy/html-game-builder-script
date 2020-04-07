@@ -34,6 +34,7 @@ class XcodeProjectGenerator
         compile_fastlane_files(params)
         compile_plugins(params)
         compile_xcconfig_files(params)
+        compile_ads_timer(params)
     end
 
     private def compile_xcconfig_files(params)
@@ -121,6 +122,15 @@ class XcodeProjectGenerator
             erb_file_path: target_file_path(params, 'AppBridgingHeader.erb'),
             result_file_path: target_file_path(params, 'AppBridgingHeader.h'),
             input: PofileInput.new(params)
+        )
+    end
+
+    private def compile_ads_timer(params)
+        compiler = ERBCompiler.new()
+        compiler.compile(
+            erb_file_path: target_file_path(params, 'GameTimer.erb'),
+            result_file_path: target_file_path(params, 'GameTimer.swift'),
+            input: GameTimerInput.new(params)
         )
     end
 

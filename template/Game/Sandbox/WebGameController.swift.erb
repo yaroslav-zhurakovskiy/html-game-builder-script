@@ -96,4 +96,17 @@ extension WebGameController {
     func request(_ request: SandboxObjectRequest) {
         delegate?.webGameConroller(self, didReceiveRequest: request)
     }
+
+    func request(url: URL) {
+        let request = URLRequest(url: url)
+        
+        guard
+            decompser.isSandboxRequest(request),
+            let sandboxRequest = decompser.decomposeRequest(request)
+        else {
+            return
+        }
+        
+        delegate?.webGameConroller(self, didReceiveRequest: sandboxRequest)
+    }
 }

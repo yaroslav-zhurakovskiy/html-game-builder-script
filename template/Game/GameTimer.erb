@@ -1,10 +1,13 @@
 import Foundation
 
-class AdsTimer {
+class GameTimer {
+    <% if @interval.nil? %>
     private let interval: TimeInterval = 600
+    <% else %>
+    private let interval: TimeInterval = <%= @interval %>
+    <% end %>
     private let webGameController: WebGameController
-    private let objectName: String = sandboxAdObjectSystemName
-    private let methodName: String = "showInterstitial"
+    private let request: String = "<%=@request%>"
     
     private var timer: Timer?
     
@@ -20,18 +23,15 @@ class AdsTimer {
             userInfo: nil,
             repeats: true
         )
-        
     }
     
     deinit {
         timer?.invalidate()
     }
-    
+
     @objc private func tick() {
-        webGameController.request(SandboxObjectRequest(
-            object: objectName,
-            method: methodName,
-            arguments: [:]
-        ))
+        if let url = URL(string: "sandbox://\(request)") {
+            webGameController.request(url: url)
+        }
     }
 }

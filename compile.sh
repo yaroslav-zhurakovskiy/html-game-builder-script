@@ -5,6 +5,7 @@ FILE_LIST=(
     AppfileInput.rb
     PluginFileInput.rb
     AppDelegateInput.rb
+    GameTimerInput.rb
     ERBCompiler.rb
     InfoPlistInput.rb
     PofileInput.rb

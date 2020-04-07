@@ -8,7 +8,7 @@ class GameContainer: UIViewController {
     
     private let webGameControllerDelegateImpl: WebGameControllerDelegateImpl
     private let webGameController: WebGameController
-    private let timer: AdsTimer
+    private let timer: GameTimer
     
     init() {
         webGameControllerDelegateImpl = WebGameControllerDelegateImpl()
@@ -17,7 +17,7 @@ class GameContainer: UIViewController {
             let controller = WebGameController(rootURL: rootURL, startingPage: "index.html")
             return controller
         }()
-        timer = AdsTimer(webGameController: webGameController)
+        timer = GameTimer(webGameController: webGameController)
         super.init(nibName: nil, bundle: nil)
     }
     
