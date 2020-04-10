@@ -50,9 +50,13 @@ class GoogleAdmob: SandboxAdObject {
         case .initializeInterstitial:
             if let adUnitID = input[.adUnitID] {
                 presenter.initialize(withAdUnitID: adUnitID)
+            } else if let adUnitID = Self.defaultInterstitialAdUnitID {
+                presenter.initialize(withAdUnitID: adUnitID)
             }
         case .showInterstitial:
-            if let adUnitID = Self.defaultInterstitialAdUnitID {
+            if let adUnitID = input[.adUnitID] {
+                presenter.initialize(withAdUnitID: adUnitID)
+            } else if let adUnitID = Self.defaultInterstitialAdUnitID {
                 presenter.initialize(withAdUnitID: adUnitID)
             }
             presenter.present(from: controller)
