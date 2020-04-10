@@ -2,9 +2,9 @@ import BUAdSDK
 
 class BytedanceRewardedPresenter: NSObject {
     private var videoAd: BUNativeExpressRewardedVideoAd?
-    private var viewController: UIViewController?
+    private var viewController: WebGameController?
     
-    func present(withSlotID slotID: String, from viewController: UIViewController) {
+    func present(withSlotID slotID: String, from viewController: WebGameController) {
         self.viewController = viewController
         
         let model = BURewardedVideoModel()
@@ -40,10 +40,19 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     }
     
     func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
+        viewController?.invokeCallback(withName: .onFailed, param: ["error": error!.localizedDescription])
         print("\(#function) \(error!)")
     }
     
     func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         videoAd = nil
+    }
+
+    func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
+        viewController?.invokeCallback(withName: .onReward, param: ["verify": verify])
+    }
+    
+    func nativeExpressRewardedVideoAdDidVisible(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        viewController?.invokeCallback(withName: .onShown)
     }
 }

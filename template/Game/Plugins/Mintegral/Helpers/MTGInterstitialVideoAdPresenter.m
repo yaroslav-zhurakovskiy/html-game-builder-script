@@ -1,9 +1,10 @@
 #import "MTGInterstitialVideoAdPresenter.h"
 #import "NSObject+Logging.h"
+#import "Game-Swift.h"
 
 @interface MTGInterstitialVideoAdPresenter () <MTGInterstitialVideoDelegate>
 
-@property (nonatomic, strong) UIViewController *viewController;
+@property (nonatomic, strong) WebGameController *viewController;
 @property (nonatomic, strong) MTGInterstitialVideoAdManager * ivAdManager;
 
 @end
@@ -11,8 +12,7 @@
 @implementation MTGInterstitialVideoAdPresenter
 
 
-- (void)presentFromViewController:(UIViewController *)viewController
-                           unitID:(NSString *)unitID {
+- (void)presentFromViewController:(WebGameController *)viewController unitID:(NSString *)unitID {
     self.viewController = viewController;
     
     if (!self.ivAdManager && ![[self.ivAdManager currentUnitId] isEqualToString:unitID]) {
@@ -33,13 +33,26 @@
     self.viewController = nil;
 }
 
-- (void)onInterstitialVideoLoadFail:(nonnull NSError *)error adManager:(MTGBidInterstitialVideoAdManager *_Nonnull)adManager {
+- (void)onInterstitialVideoLoadFail:(nonnull NSError *)error
+                          adManager:(MTGBidInterstitialVideoAdManager *_Nonnull)adManager {
     NSLog(@"%@", error);
+    NSDictionary *param = @{
+        @"error": @{@"code": @(error.code), @"msg": error.localizedDescription}
+    };
+    [self.viewController invokeCallbackWithName:@"onFailed" param:param];
 }
 
 
-- (void)onInterstitialVideoShowFail:(nonnull NSError *)error adManager:(MTGBidInterstitialVideoAdManager *_Nonnull)adManager {
+- (void)onInterstitialVideoShowFail:(nonnull NSError *)error
+                          adManager:(MTGBidInterstitialVideoAdManager *_Nonnull)adManager {
     NSLog(@"%@", error);
+    NSDictionary *param = @{
+        @"error": @{@"code": @(error.code), @"msg": error.localizedDescription}
+    };
+    [self.viewController invokeCallbackWithName:@"onFailed" param:param];
 }
 
+- (void)onInterstitialVideoShowSuccess:(MTGInterstitialVideoAdManager *)adManager {
+    [self.viewController invokeCallbackWithName:@"onShown" param:nil];
+}
 @end

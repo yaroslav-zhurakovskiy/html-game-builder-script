@@ -4,10 +4,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WebGameController;
+
 @interface MTGInterstitialVideoAdPresenter : NSObject
 
-- (void)presentFromViewController:(UIViewController *)viewController
-                           unitID:(NSString *)unitID;
+- (void)presentFromWebGameController:(WebGameController *)viewController
+                              unitID:(NSString *)unitID;
 
 @end
 

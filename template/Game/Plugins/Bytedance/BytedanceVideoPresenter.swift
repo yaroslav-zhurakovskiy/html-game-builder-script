@@ -2,9 +2,9 @@ import BUAdSDK
 
 class BytedanceVideoPresenter: NSObject {
     private var videoAd: BUNativeExpressFullscreenVideoAd?
-    private var viewController: UIViewController?
+    private var viewController: WebGameController?
         
-    func present(withSlotID slotID: String, from viewController: UIViewController) {
+    func present(withSlotID slotID: String, from viewController: WebGameController) {
         self.viewController = viewController
         
         videoAd = BUNativeExpressFullscreenVideoAd(slotID: slotID)

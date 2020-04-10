@@ -4,7 +4,7 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
     private var interstitial: GADInterstitial?
     private var adUnitID: String?
     
-    var viewControllerToPresentIn: UIViewController?
+    var viewControllerToPresentIn: WebGameController?
     
     override init() {
         super.init()
@@ -15,7 +15,7 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
         interstitial = createAndLoadInterstitial(delegate: self, adUnitID: id)
     }
     
-    func present(from viewController: UIViewController) {
+    func present(from viewController: WebGameController) {
         guard let interstitial = interstitial else {
             return
         }
@@ -29,10 +29,15 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
     }
     
     func interstitialDidDismissScreen(_ interstitial: GADInterstitial) {
+        viewControllerToPresentIn?.invokeCallback(withName: .onShown)
         reloadAd()
     }
     
     func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        viewControllerToPresentIn?.invokeCallback(
+            withName: .onFailed,
+            param: ["error": ["code": error.code, "msg": error.localizedDescription]]
+        )
         reloadAd()
     }
     

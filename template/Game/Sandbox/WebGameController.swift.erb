@@ -8,6 +8,7 @@ protocol WebGameControllerDelegate: class {
     func viewDidLayoutSubviews(_ view: UIView)
 }
 
+@objc(WebGameController)
 class WebGameController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     
@@ -168,9 +169,10 @@ extension WebGameController {
         
         static let onShown = CallbackName(rawValue: "onShown")
         static let onFailed = CallbackName(rawValue: "onFailed")
+        static let onReward = CallbackName(rawValue: "onReward")
     }
     
-    func invokeCallback(named name: CallbackName, with param: Any? = nil) {
+    func invokeCallback(withName name: CallbackName, param: Any? = nil) {
         let paramString: String
         if let param = param {
             paramString = "'\(encodeParam(param))'"
@@ -184,6 +186,11 @@ extension WebGameController {
                 print("Invoke JS method failed:", error)
             }
         }
+    }
+
+    // Support for calling from Obj-C
+    @objc func invokeCallbackWithName(_ name: String, param: Any? = nil) {
+        invokeCallback(withName: CallbackName(rawValue: name), param: param)
     }
     
     private func encodeParam(_ param: Any) -> String {
