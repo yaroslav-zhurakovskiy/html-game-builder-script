@@ -56,3 +56,29 @@ class Mintegral: SandboxAdObject {
         }
     }
 }
+
+extension Mintegral {
+    func showVideo(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showVideoInterstitial.rawValue,
+            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showBanner.rawValue,
+            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showInterstitial(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showStaticInterstitial.rawValue,
+            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+}

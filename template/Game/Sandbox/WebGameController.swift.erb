@@ -89,7 +89,54 @@ extension WebGameController: WKNavigationDelegate {
 
 
 extension WebGameController: WKUIDelegate {
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptAlertPanelWithMessage message: String,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping () -> Void
+    ) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _  in completionHandler() }))
+        present(alert, animated: true, completion: nil)
+    }
     
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptConfirmPanelWithMessage message: String,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _  in completionHandler(true) }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _  in completionHandler(false) }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptTextInputPanelWithPrompt prompt: String,
+        defaultText: String?,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping (String?) -> Void
+    ) {
+        let alert = UIAlertController(title: prompt, message: nil, preferredStyle: .alert)
+        var promptTextField: UITextField?
+        alert.addTextField { textField in
+            promptTextField = textField
+            promptTextField?.text = defaultText
+        }
+        alert.addAction(UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { _  in completionHandler(promptTextField?.text) }
+        ))
+        alert.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: { _  in completionHandler(nil) }
+        ))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension WebGameController {
@@ -108,5 +155,44 @@ extension WebGameController {
         }
         
         delegate?.webGameConroller(self, didReceiveRequest: sandboxRequest)
+    }
+}
+
+extension WebGameController {
+    struct CallbackName {
+        let rawValue: String
+        
+        init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+        
+        static let onShown = CallbackName(rawValue: "onShown")
+        static let onFailed = CallbackName(rawValue: "onFailed")
+    }
+    
+    func invokeCallback(named name: CallbackName, with param: Any? = nil) {
+        let paramString: String
+        if let param = param {
+            paramString = "'\(encodeParam(param))'"
+        } else {
+            paramString = ""
+        }
+        
+        
+        webView.evaluateJavaScript("window.\(name.rawValue)(\(paramString));") { _, error in
+            if let error = error {
+                print("Invoke JS method failed:", error)
+            }
+        }
+    }
+    
+    private func encodeParam(_ param: Any) -> String {
+        guard
+            let data = try? JSONSerialization.data(withJSONObject: param, options: [])
+        else {
+            return ""
+        }
+        
+        return data.base64EncodedString(options: [.endLineWithLineFeed])
     }
 }

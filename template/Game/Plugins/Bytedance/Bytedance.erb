@@ -136,3 +136,29 @@ class Bytedance: SandboxAdObject {
         }
     }
 }
+
+extension Bytedance {
+    func showVideo(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showVideo.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showBanner.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showInteractive(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showRewarded.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+}

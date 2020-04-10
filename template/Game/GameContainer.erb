@@ -40,7 +40,7 @@ class GameContainer: UIViewController {
         addChild(webGameController)
 
         <% if @OnPlayRequest %>
-        if let url = URL(string: "sandbox://<%= @OnPlayRequest %>") {
+        if let url = URL(string: "sandbox://<%= @    %>") {
             webGameController.request(url: url)
         }
         <% end %>

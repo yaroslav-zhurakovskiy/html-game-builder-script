@@ -102,3 +102,29 @@ class GoogleAdmob: SandboxAdObject {
         bannerPresenter.viewWillTransition(view, to: size, with: coordinator)
     }
 }
+
+extension GoogleAdmob {
+    func showInteractive(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showRewarded.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showBanner.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+    
+    func showInterstitial(adIdentifier: String?, from viewController: WebGameController) {
+        invoke(
+            Method.showInterstitial.rawValue,
+            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            from: viewController
+        )
+    }
+}
