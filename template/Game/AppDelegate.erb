@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = {
             let navController = UINavigationController(rootViewController: HomeController())
+            navController.interactivePopGestureRecognizer?.isEnabled = false
             navController.navigationBar.isHidden = true
             return navController
         }()
