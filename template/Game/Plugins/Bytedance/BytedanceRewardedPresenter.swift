@@ -3,9 +3,11 @@ import BUAdSDK
 class BytedanceRewardedPresenter: NSObject {
     private var videoAd: BUNativeExpressRewardedVideoAd?
     private var viewController: WebGameController?
+    private var callbacks: [Callback: String]?
     
-    func present(withSlotID slotID: String, from viewController: WebGameController) {
+    func present(withSlotID slotID: String, from viewController: WebGameController, callbacks: [Callback: String]) {
         self.viewController = viewController
+        self.callbacks = callbacks
         
         let model = BURewardedVideoModel()
         model.userId = "123"
@@ -40,7 +42,9 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     }
     
     func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
-        viewController?.invokeCallback(withName: .onFailed, param: ["error": error!.localizedDescription])
+        if let callback = callbacks?[.onFail] {
+            viewController?.invokeCallback(callback, param: ["error": error!.localizedDescription])
+        }
         print("\(#function) \(error!)")
     }
     
@@ -49,10 +53,14 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     }
 
     func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
-        viewController?.invokeCallback(withName: .onReward, param: ["verify": verify])
+        if let callback = callbacks?[.onRewarded] {
+            viewController?.invokeCallback(callback, param: ["verify": verify])
+        }
     }
     
     func nativeExpressRewardedVideoAdDidVisible(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-        viewController?.invokeCallback(withName: .onShown)
+        if let callback = callbacks?[.onShown] {
+            viewController?.invokeCallback(callback)
+        }
     }
 }

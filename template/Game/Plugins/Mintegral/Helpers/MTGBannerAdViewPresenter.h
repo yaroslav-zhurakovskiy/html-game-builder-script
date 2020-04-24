@@ -5,13 +5,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WebGameController;
+
 @interface MTGBannerAdViewPresenter : NSObject
 
-- (void)presentFromViewController:(UIViewController *)controller
-                             size:(MTGBannerSizeType)size
-                        placement:(NSInteger)placement
-                  autoRefreshTime:(nullable NSNumber *)autoRefreshTime
-                           unitID:(NSString *)unitID;
+- (void)presentFromWebGameController:(WebGameController *)controller
+                                size:(MTGBannerSizeType)sizeType
+                           placement:(NSInteger)placement
+                     autoRefreshTime:(nullable NSNumber *)autoRefreshTime
+                              unitID:(NSString *)unitID
+                           callbacks:(NSDictionary<NSString *, NSString *> *)callbacks;
 
 - (void)dismiss;
 

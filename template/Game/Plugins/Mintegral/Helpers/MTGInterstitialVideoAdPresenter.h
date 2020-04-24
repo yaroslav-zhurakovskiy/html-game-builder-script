@@ -9,7 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MTGInterstitialVideoAdPresenter : NSObject
 
 - (void)presentFromWebGameController:(WebGameController *)viewController
-                              unitID:(NSString *)unitID;
+                              unitID:(NSString *)unitID
+                           callbacks:(NSDictionary<NSString *, NSString *> *)callbacks;
 
 @end
 

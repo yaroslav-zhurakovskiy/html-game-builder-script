@@ -53,6 +53,7 @@ class Bytedance: SandboxAdObject {
         }
         
         let (method, input) = result
+        let callbacks = extractCallbacks(fromArguments: args)
         
         switch method {
         case .showBanner:
@@ -79,9 +80,9 @@ class Bytedance: SandboxAdObject {
             }
         case .showRewarded:
             if let unitID = input[.adUnitID] {
-                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController)
+                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController, callbacks: callbacks)
             } else if let unitID = Self.defaultRewardedAdUnitID {
-                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController)
+                rewardedVideoPresenter.present(withSlotID: unitID, from: viewController, callbacks: callbacks)
             }
         }
     }
@@ -138,27 +139,31 @@ class Bytedance: SandboxAdObject {
 }
 
 extension Bytedance {
-    func showVideo(adIdentifier: String?, from viewController: WebGameController) {
+    func showVideo(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showVideo.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
     }
     
-    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+    func showBanner(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showBanner.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
     }
     
-    func showInteractive(adIdentifier: String?, from viewController: WebGameController) {
+    func showSplash(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showRewarded.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
+    }
+
+    func showInterstitial(args: [String : Any], from viewController: WebGameController) {
+        // Do nothing
     }
 }

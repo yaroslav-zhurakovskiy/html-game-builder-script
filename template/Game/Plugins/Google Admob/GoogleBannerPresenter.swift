@@ -4,6 +4,9 @@ import GoogleMobileAds
 class GoogleBannerPresenter: NSObject {
     private let bannerView: GADBannerView
     
+    private weak var webGameController: WebGameController?
+    private var callbacks: [Callback: String]?
+    
     override init() {
         bannerView = GADBannerView()
         bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -11,12 +14,16 @@ class GoogleBannerPresenter: NSObject {
     }
     
     func present(
-        from viewController: UIViewController,
+        from viewController: WebGameController,
         placement: BannerPlacement,
-        withAdUnitID adUnitID: String
+        withAdUnitID adUnitID: String,
+        callbacks: [Callback: String]
     ) {
         bannerView.adUnitID = adUnitID
         bannerView.rootViewController = viewController
+        
+        self.webGameController = viewController
+        self.callbacks = callbacks
         
         if bannerView.superview == nil {
             viewController.view.addSubview(bannerView)
@@ -86,10 +93,15 @@ class GoogleBannerPresenter: NSObject {
 
 extension GoogleBannerPresenter: GADBannerViewDelegate {
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        
+        if let callback = callbacks?[.onShown] {
+            webGameController?.invokeCallback(callback)
+        }
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        
+        if let callback = callbacks?[.onFail] {
+            webGameController?.invokeCallback(callback, param: ["error": error.localizedRecoverySuggestion])
+        }
     }
+    
 }

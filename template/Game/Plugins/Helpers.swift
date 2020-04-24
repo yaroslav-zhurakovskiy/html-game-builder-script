@@ -30,6 +30,29 @@ func typedArguments<T: RawRepresentable>(
     return input
 }
 
+func extractCallbacks(fromArguments args: [String: Any]) -> [Callback: String] {
+    var result: [Callback: String] = [:]
+    
+    for callback in Callback.allCases {
+        if let value = args[callback.rawValue] as? String {
+            result[callback] = value
+        }
+    }
+    
+    return result
+}
+
+func extractCallbacksObjc(fromArguments args: [String: Any]) -> [String: String] {
+    var result: [String: String] = [:]
+    
+    for (key, value) in extractCallbacks(fromArguments: args) {
+        result[key.rawValue] = value
+    }
+    
+    return result
+}
+
+
 @objc(SandboxBannerPlacement) enum BannerPlacement: Int {
     case top
     case bottom

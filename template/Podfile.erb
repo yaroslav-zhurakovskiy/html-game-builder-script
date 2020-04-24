@@ -8,10 +8,10 @@ target '<%= @target_name %>' do
   pod 'Google-Mobile-Ads-SDK'
   <% end %>
   <% if @mintegral_ads %>
-  pod 'MintegralAdSDK'
-  pod 'MintegralAdSDK/BannerAd'
-  pod 'MintegralAdSDK/InterstitialVideoAd'
-  pod 'MintegralAdSDK/InterstitialAd'
+  pod 'MintegralAdSDK', "6.1.2.0"
+  pod 'MintegralAdSDK/BannerAd', "6.1.2.0"
+  pod 'MintegralAdSDK/InterstitialVideoAd', "6.1.2.0"
+  pod 'MintegralAdSDK/InterstitialAd', "6.1.2.0"
   <% end %>
   <% if @bytedance_ads %>
   pod 'Bytedance-UnionAD', "2.8.0.1"

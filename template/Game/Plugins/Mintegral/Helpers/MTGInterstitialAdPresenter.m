@@ -7,16 +7,20 @@
 
 @interface MTGInterstitialAdPresenter () <MTGInterstitialAdLoadDelegate, MTGInterstitialAdShowDelegate>
 
-@property (nonatomic, strong) WebGameController *viewController;
+@property (nonatomic, weak) WebGameController *viewController;
 @property (nonatomic, strong) MTGInterstitialAdManager * ivAdManager;
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *callbacks;
 
 @end
 
 @implementation MTGInterstitialAdPresenter
 
 - (void)presentFromWebGameController:(WebGameController *)viewController
-                              unitID:(NSString *)unitID {
+                              unitID:(NSString *)unitID
+                           callbacks:( NSDictionary<NSString *, NSString *> *)callbacks
+{
     self.viewController = viewController;
+    self.callbacks = callbacks;
     
     if (!self.ivAdManager && ![[self.ivAdManager currentUnitId] isEqualToString:unitID]) {
         self.ivAdManager = [[MTGInterstitialAdManager alloc] initWithUnitID:unitID
@@ -37,18 +41,18 @@
             @"msg": error.localizedDescription
         }
     };
-    [self.viewController invokeCallbackWithName:@"onFailed"
-                                          param:param];
+    NSString *callback = self.callbacks[CallbackName.onFail];
+    [self.viewController invokeCallback:callback param:param];
 }
 
 - (void)onInterstitialShowSuccess:(MTGInterstitialAdManager *)adManager {
-    [self.viewController invokeCallbackWithName:@"onShown"
-                                          param:nil];
+    NSString *callback = self.callbacks[CallbackName.onShown];
+    [self.viewController invokeCallback:callback param:nil];
 }
 
 - (void)onInterstitialAdClick:(MTGInterstitialAdManager *)adManager {
-    [self.viewController invokeCallbackWithName:@"onAdClicked"
-                                          param:nil];
+    NSString *callback = self.callbacks[CallbackName.onClicked];
+    [self.viewController invokeCallback:callback param:nil];
 }
 
 @end

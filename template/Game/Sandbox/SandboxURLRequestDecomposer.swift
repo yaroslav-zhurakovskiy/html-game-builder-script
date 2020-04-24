@@ -2,7 +2,7 @@ import Foundation
 
 struct SandboxObjectRequest {
     let object: String
-    let method: String
+    let method: String?
     let arguments: [String: String]
 }
 
@@ -31,11 +31,12 @@ class SandboxURLRequestDecomposer {
         )
     }
     
-    private func extractObjectAndMethodNames(from url: URL) -> (object: String, method: String)? {
-        guard let object = url.host, let method = extractMethod(from: url) else {
+    private func extractObjectAndMethodNames(from url: URL) -> (object: String, method: String?)? {
+        guard let object = url.host else {
             return nil
         }
         
+        let method = extractMethod(from: url)
         return (object, method)
     }
     

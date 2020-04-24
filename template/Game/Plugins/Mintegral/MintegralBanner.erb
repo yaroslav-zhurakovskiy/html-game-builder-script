@@ -43,24 +43,25 @@ public class MintegralBanner: SandboxObject {
         }
         
         let (method, input) = result
-    
+        let callbacks = extractCallbacksObjc(fromArguments: args)
             
         switch method {
         case .show:
-           show(from: viewController, with: input)
+           show(from: viewController, with: input, callbacks: callbacks)
         case .hide:
             presenter.dismiss()
         }
     }
     
-    private func show(from viewController: UIViewController, with input: [Argument: String]) {
-        if let unitID = input[.unitID]{
+        private func show(from viewController: WebGameController, with input: [Argument: String], callbacks: [String: String]) {
+        if let unitID = input[.unitID] {
             presenter.present(
                 from: viewController,
                 size: resolveSize(input: input),
                 placement: resolvePlacement(input: input).rawValue,
                 autoRefreshTime: resolveAutorefresh(input: input),
-                unitID: unitID
+                unitID: unitID,
+                callbacks: callbacks
             )
         } else if let unitID = Self.defaultAdUnitID {
             presenter.present(
@@ -68,7 +69,8 @@ public class MintegralBanner: SandboxObject {
                 size: resolveSize(input: input),
                 placement: resolvePlacement(input: input).rawValue,
                 autoRefreshTime: resolveAutorefresh(input: input),
-                unitID: unitID
+                unitID: unitID,
+                callbacks: callbacks
             )
         }
     }

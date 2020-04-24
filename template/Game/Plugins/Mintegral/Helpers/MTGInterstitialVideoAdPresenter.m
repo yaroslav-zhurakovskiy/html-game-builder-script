@@ -4,16 +4,20 @@
 
 @interface MTGInterstitialVideoAdPresenter () <MTGInterstitialVideoDelegate>
 
-@property (nonatomic, strong) WebGameController *viewController;
+@property (nonatomic, weak) WebGameController *viewController;
 @property (nonatomic, strong) MTGInterstitialVideoAdManager * ivAdManager;
+@property (nonatomic, copy) NSDictionary *callbacks;
 
 @end
 
 @implementation MTGInterstitialVideoAdPresenter
 
 
-- (void)presentFromViewController:(WebGameController *)viewController unitID:(NSString *)unitID {
+- (void)presentFromWebGameController:(WebGameController *)viewController
+                              unitID:(NSString *)unitID
+                           callbacks:(NSDictionary<NSString *, NSString *> *)callbacks {
     self.viewController = viewController;
+    self.callbacks = callbacks;
     
     if (!self.ivAdManager && ![[self.ivAdManager currentUnitId] isEqualToString:unitID]) {
         self.ivAdManager = [[MTGInterstitialVideoAdManager alloc] initWithUnitID:unitID
@@ -39,7 +43,8 @@
     NSDictionary *param = @{
         @"error": @{@"code": @(error.code), @"msg": error.localizedDescription}
     };
-    [self.viewController invokeCallbackWithName:@"onFailed" param:param];
+    
+    [self.viewController invokeCallback:self.callbacks[@"onFail"] param:param];
 }
 
 
@@ -49,10 +54,13 @@
     NSDictionary *param = @{
         @"error": @{@"code": @(error.code), @"msg": error.localizedDescription}
     };
-    [self.viewController invokeCallbackWithName:@"onFailed" param:param];
+    
+    NSString *callback = self.callbacks[CallbackName.onFail];
+    [self.viewController invokeCallback:callback param:param];
 }
 
 - (void)onInterstitialVideoShowSuccess:(MTGInterstitialVideoAdManager *)adManager {
-    [self.viewController invokeCallbackWithName:@"onShown" param:nil];
+    NSString *callback = self.callbacks[CallbackName.onShown];
+    [self.viewController invokeCallback:callback param:nil];
 }
 @end

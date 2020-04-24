@@ -11,26 +11,27 @@ public class SandboxObjectRequestHandler {
         _ request: SandboxObjectRequest,
         from viewController: WebGameController
     ) {
-        if let object = handlers[request.object] {
-            object.invoke(request.method, with: request.arguments, from: viewController)
-        } else if request.object == sandboxAdObjectSystemName {
-            forEachSandboxAdObject { $0.invoke(request.method, with: request.arguments, from: viewController) }
+        if let object = handlers[request.object], let method = request.method {
+            object.invoke(method, with: request.arguments, from: viewController)
+        } else if request.object == sandboxAdObjectSystemName, let method = request.method {
+            forEachSandboxAdObject { $0.invoke(method, with: request.arguments, from: viewController) }
         } else {
-            if request.method.starts(with: "banner_ads") {
-                let id = extractIdentifier(fromRequestMethod: request.method)
-                forEachSandboxAdObject { $0.showBanner(adIdentifier: id, from: viewController) }
-            } else if request.method.starts(with: "interstitial_ads") {
-                let id = extractIdentifier(fromRequestMethod: request.method)
-                forEachSandboxAdObject { $0.showInterstitial(adIdentifier: id, from: viewController) }
-            } else if request.method.starts(with: "video_ads") {
-                let id = extractIdentifier(fromRequestMethod: request.method)
-                forEachSandboxAdObject { $0.showVideo(adIdentifier: id, from: viewController) }
-            } else if request.method.starts(with: "interstitial_video") {
-                let id = extractIdentifier(fromRequestMethod: request.method)
-                forEachSandboxAdObject { $0.showInterstitialVideo(adIdentifier: id, from: viewController) }
-            } else if request.method.starts(with: "interactive_ads") {
-                let id = extractIdentifier(fromRequestMethod: request.method)
-                forEachSandboxAdObject { $0.showInteractive(adIdentifier: id, from: viewController) }
+            if request.object == "banner" {
+                var args: [String: Any] = request.arguments
+                args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
+                forEachSandboxAdObject { $0.showBanner(args: args, from: viewController) }
+            } else if request.object.starts(with: "interstitial") {
+                var args: [String: Any] = request.arguments
+                args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
+                forEachSandboxAdObject { $0.showInterstitial(args: args, from: viewController) }
+            } else if request.object == "video" {
+                var args: [String: Any] = request.arguments
+                args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
+                forEachSandboxAdObject { $0.showVideo(args: args, from: viewController) }
+            } else if request.object == "splash" {
+                var args: [String: Any] = request.arguments
+                args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
+                forEachSandboxAdObject { $0.showSplash(args: args, from: viewController) }
             }
         }
     }
@@ -43,7 +44,11 @@ public class SandboxObjectRequestHandler {
         }
     }
     
-    private func extractIdentifier(fromRequestMethod method: String) -> String? {
+    private func extractIdentifier(fromRequestMethod method: String?) -> String? {
+        guard let method = method else {
+            return nil
+        }
+        
         if method.contains("/") {
             return method.components(separatedBy: "/").last
         } else {

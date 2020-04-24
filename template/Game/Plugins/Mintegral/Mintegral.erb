@@ -35,19 +35,20 @@ class Mintegral: SandboxAdObject {
         }
         
         let (method, input) = result
+        let callbacks = extractCallbacksObjc(fromArguments: args)
         
         switch method {
         case .showVideoInterstitial:
             if let unitID = input[.unitID] {
-                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID)
+                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID, callbacks: callbacks)
             } else if let unitID = Self.videoInterstitialDefaultAdUnitID {
-                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID)
+                interstitialVideoAdPresenter.present(from: viewController, unitID: unitID, callbacks: callbacks)
             }
         case .showStaticInterstitial:
             if let unitID = input[.unitID] {
-                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID)
+                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID, callbacks: callbacks)
             } else if let unitID = Self.staticInterstitialDefaultAdUnitID {
-                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID)
+                interstitialStaticAdPresenter.present(from: viewController, unitID: unitID, callbacks: callbacks)
             }
         case .showBanner:
             bannerPresenter.invoke(MintegralBanner.Method.show.rawValue, with: args, from: viewController)
@@ -58,27 +59,31 @@ class Mintegral: SandboxAdObject {
 }
 
 extension Mintegral {
-    func showVideo(adIdentifier: String?, from viewController: WebGameController) {
+    func showVideo(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showVideoInterstitial.rawValue,
-            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
     }
     
-    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+    func showBanner(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showBanner.rawValue,
-            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
     }
     
-    func showInterstitial(adIdentifier: String?, from viewController: WebGameController) {
+    func showInterstitial(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showStaticInterstitial.rawValue,
-            with: adIdentifier != nil ? [Argument.unitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
+    }
+    
+    func showSplash(args: [String : Any], from viewController: WebGameController) {
+        // Do nothing
     }
 }

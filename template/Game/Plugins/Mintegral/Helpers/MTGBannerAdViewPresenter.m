@@ -1,20 +1,29 @@
 #import "MTGBannerAdViewPresenter.h"
+#import "Game-Swift.h"
 
 
 @interface MTGBannerAdViewPresenter() <MTGBannerAdViewDelegate>
 
 @property (nonatomic, strong) MTGBannerAdView *bannerAdView;
 
+@property (nonatomic, weak) WebGameController *webGameController;
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> *callbacks;
+
 @end
 
 @implementation MTGBannerAdViewPresenter
 
-- (void)presentFromViewController:(nonnull UIViewController *)controller
-                             size:(MTGBannerSizeType)sizeType
-                        placement:(NSInteger)placement
-                  autoRefreshTime:(NSNumber *)autoRefreshTime
-                           unitID:(nonnull NSString *)unitID {
+- (void)presentFromWebGameController:(nonnull WebGameController *)controller
+                                size:(MTGBannerSizeType)sizeType
+                           placement:(NSInteger)placement
+                     autoRefreshTime:(NSNumber *)autoRefreshTime
+                              unitID:(nonnull NSString *)unitID
+                           callbacks:(NSDictionary<NSString *, NSString *> *)callbacks
+{
     [self dismiss];
+    
+    self.webGameController = controller;
+    self.callbacks = callbacks;
     self.bannerAdView = [[MTGBannerAdView alloc] initBannerAdViewWithBannerSizeType:sizeType
                                                                              unitId:unitID
                                                                  rootViewController:controller];
@@ -71,17 +80,23 @@
 }
 
 - (void)adViewDidClicked:(MTGBannerAdView *)adView {
-    
+    NSString *callback = self.callbacks[CallbackName.onClicked];
+    [self.webGameController invokeCallback:callback param:nil];
 }
 
 - (void)adViewLoadFailedWithError:(NSError *)error adView:(MTGBannerAdView *)adView {
     NSLog(@"Failed to load ads, error:%@", error.localizedDescription);
+    
+    NSString *callback = self.callbacks[CallbackName.onFail];
+    [self.webGameController invokeCallback:callback param:@{@"error": error.localizedDescription}];
+    
     [adView loadBannerAd];
 
 }
 
 - (void)adViewLoadSuccess:(MTGBannerAdView *)adView {
-    
+    NSString *callback = self.callbacks[CallbackName.onShown];
+    [self.webGameController invokeCallback:callback param:nil];
 }
 
 - (void)adViewWillLeaveApplication:(MTGBannerAdView *)adView {

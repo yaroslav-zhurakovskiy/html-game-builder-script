@@ -45,6 +45,7 @@ class GoogleAdmob: SandboxAdObject {
         }
 
         let (method, input) = result
+        let callbacks = extractCallbacks(fromArguments: args)
 
         switch method {
         case .initializeInterstitial:
@@ -59,26 +60,28 @@ class GoogleAdmob: SandboxAdObject {
             } else if let adUnitID = Self.defaultInterstitialAdUnitID {
                 presenter.initialize(withAdUnitID: adUnitID)
             }
-            presenter.present(from: controller)
+            presenter.present(from: controller, callbacks: callbacks)
         case .showBanner:
             if let adUnitID = input[.adUnitID] {
                 bannerPresenter.present(
                     from: controller,
                     placement: resolvePlacement(input: input),
-                    withAdUnitID: adUnitID
+                    withAdUnitID: adUnitID,
+                    callbacks: callbacks
                 )
             } else if let adUnit = Self.defaultBannerAdUnitID {
                 bannerPresenter.present(
                     from: controller,
                     placement: resolvePlacement(input: input),
-                    withAdUnitID: adUnit
+                    withAdUnitID: adUnit,
+                    callbacks: callbacks
                 )
             }
         case .showRewarded:
             if let adUnitID = input[.adUnitID] {
-                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID)
+                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID, callbacks: callbacks)
             } else if let adUnitID = Self.defaultRewardedAdUnitID {
-                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID)
+                rewardedPresenter.present(from: controller, withAdUnitID: adUnitID, callbacks: callbacks)
             }
         }
     }
@@ -108,27 +111,31 @@ class GoogleAdmob: SandboxAdObject {
 }
 
 extension GoogleAdmob {
-    func showInteractive(adIdentifier: String?, from viewController: WebGameController) {
-        invoke(
-            Method.showRewarded.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
-            from: viewController
-        )
-    }
-    
-    func showBanner(adIdentifier: String?, from viewController: WebGameController) {
+    func showBanner(args: [String: Any], from viewController: WebGameController) {
         invoke(
             Method.showBanner.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
     }
     
-    func showInterstitial(adIdentifier: String?, from viewController: WebGameController) {
+    func showVideo(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showInterstitial.rawValue,
-            with: adIdentifier != nil ? [Argument.adUnitID.rawValue: adIdentifier!] : [:],
+            with: args,
             from: viewController
         )
+    }
+    
+    func showSplash(args: [String : Any], from viewController: WebGameController) {
+        invoke(
+            Method.showRewarded.rawValue,
+            with: args,
+            from: viewController
+        )
+    }
+    
+    func showInterstitial(args: [String : Any], from viewController: WebGameController) {
+        // Do nothing
     }
 }

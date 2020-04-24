@@ -4,9 +4,11 @@ import GoogleMobileAds
 class GoogleRewardedBannerPresenter: NSObject {
     private var rewardedAd: GADRewardedAd?
     private var webGameController: WebGameController?
+    private var callbacks: [Callback: String]?
     
-    func present(from viewController: WebGameController, withAdUnitID adUnitID: String) {
+    func present(from viewController: WebGameController, withAdUnitID adUnitID: String, callbacks: [Callback: String]) {
         rewardedAd = GADRewardedAd(adUnitID: adUnitID)
+        self.callbacks = callbacks
        
         rewardedAd?.load(GADRequest()) { [weak self] error in
             guard let self = self else { return }
@@ -22,13 +24,17 @@ class GoogleRewardedBannerPresenter: NSObject {
 
 extension GoogleRewardedBannerPresenter: GADRewardedAdDelegate {
      func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
-        webGameController?.invokeCallback(
-            withName: .onShown,
-            param: ["reward": ["type": reward.type, "amount": reward.amount]]
-        )
+        if let callback = callbacks?[.onRewarded] {
+            webGameController?.invokeCallback(
+                callback,
+                param: ["reward": ["type": reward.type, "amount": reward.amount]]
+            )
+        }
     }
     
     func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
-        webGameController?.invokeCallback(withName: .onFailed, param: ["error": ["msg": error.localizedDescription]])
+        if let callback = callbacks?[.onFail] {
+            webGameController?.invokeCallback(callback, param: ["error": ["msg": error.localizedDescription]])
+        }
     }
 }

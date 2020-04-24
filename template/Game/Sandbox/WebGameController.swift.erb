@@ -160,19 +160,7 @@ extension WebGameController {
 }
 
 extension WebGameController {
-    struct CallbackName {
-        let rawValue: String
-        
-        init(rawValue: String) {
-            self.rawValue = rawValue
-        }
-        
-        static let onShown = CallbackName(rawValue: "onShown")
-        static let onFailed = CallbackName(rawValue: "onFailed")
-        static let onReward = CallbackName(rawValue: "onReward")
-    }
-    
-    func invokeCallback(withName name: CallbackName, param: Any? = nil) {
+    @objc func invokeCallback(_ callback: String, param: Any? = nil) {
         let paramString: String
         if let param = param {
             paramString = "'\(encodeParam(param))'"
@@ -181,16 +169,11 @@ extension WebGameController {
         }
         
         
-        webView.evaluateJavaScript("window.\(name.rawValue)(\(paramString));") { _, error in
+        webView.evaluateJavaScript("\(callback)(\(paramString));") { _, error in
             if let error = error {
                 print("Invoke JS method failed:", error)
             }
         }
-    }
-
-    // Support for calling from Obj-C
-    @objc func invokeCallbackWithName(_ name: String, param: Any? = nil) {
-        invokeCallback(withName: CallbackName(rawValue: name), param: param)
     }
     
     private func encodeParam(_ param: Any) -> String {
@@ -202,4 +185,22 @@ extension WebGameController {
         
         return data.base64EncodedString(options: [.endLineWithLineFeed])
     }
+}
+
+enum Callback: String, CaseIterable {
+    case onFail
+    case onShown
+    case onClicked
+    case onDismissed
+    case onRewarded
+}
+
+@objc class CallbackName: NSObject {
+    private override init() {}
+    
+    @objc static let onFail: String  = Callback.onFail.rawValue
+    @objc static let onShown: String = Callback.onShown.rawValue
+    @objc static let onClicked: String = Callback.onClicked.rawValue
+    @objc static let onDismissed: String = Callback.onDismissed.rawValue
+    @objc static let onRewarded: String = Callback.onRewarded.rawValue
 }
