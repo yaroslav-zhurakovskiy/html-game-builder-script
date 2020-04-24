@@ -1,8 +1,6 @@
 import UIKit
 
-class GameContainer: UIViewController {
-    @IBOutlet private weak var backButton: UIButton!
-    
+class GameContainer: UIViewController {    
     private let objectName: String = sandboxAdObjectSystemName
     private let methodName: String = "showInterstitial"
     
@@ -25,19 +23,20 @@ class GameContainer: UIViewController {
         fatalError()
     }
     
-    var isBackButtonHiden: Bool {
-        get { backButton.isHidden }
-        set { backButton.isHidden = newValue }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         webGameController.delegate = webGameControllerDelegateImpl
-        webGameController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        webGameController.view.frame = view.bounds
-        view.insertSubview(webGameController.view, belowSubview: backButton)
+        webGameController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webGameController.view)
+        NSLayoutConstraint.activate([
+            webGameController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            webGameController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            webGameController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            webGameController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+        ])
         addChild(webGameController)
+        didMove(toParent: self)
 
         <% if @OnPlayRequest %>
         if let url = URL(string: "sandbox://<%= @OnPlayRequest %>") {
