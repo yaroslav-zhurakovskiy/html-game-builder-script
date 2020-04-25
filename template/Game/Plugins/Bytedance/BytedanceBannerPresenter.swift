@@ -1,22 +1,25 @@
 import BUAdSDK
 
 class BytedanceBannerPresenter: NSObject {
-    private var controller: UIViewController?
+    private var controller: WebGameController?
     private var bannerView: BUNativeExpressBannerView?
     private var placement: BannerPlacement?
     private var size: BUProposalSize?
     private var slotID: String?
+    private var callbacks: [Callback: String]?
     
     func present(
         withSlotID slotID: String,
         size: BUProposalSize,
         placement: BannerPlacement,
-        from viewController: UIViewController
+        from viewController: WebGameController,
+        callbacks: [Callback: String]
     ) {
         self.controller = viewController
         self.placement = placement
         self.size = size
         self.slotID = slotID
+        self.callbacks = callbacks
         
         recreateBanner()
         bannerView?.loadAdData()
@@ -138,12 +141,31 @@ extension BytedanceBannerPresenter: BUNativeExpressBannerViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             bannerAdView.loadAdData()
         }
+        if let callback = callbacks?[.onFail] {
+            controller?.invokeCallback(callback, param: ["error": error?.localizedDescription])
+        }
     }
     
     func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: Error?) {
         print("Failed to load banner due to: \(error!)")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             bannerAdView.loadAdData()
+        }
+        
+        if let callback = callbacks?[.onFail] {
+            controller?.invokeCallback(callback, param: ["error": error?.localizedDescription])
+        }
+    }
+    
+    func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {
+        if let callback = callbacks?[.onClicked] {
+            controller?.invokeCallback(callback)
+        }
+    }
+    
+    func nativeExpressBannerAdViewWillBecomVisible(_ bannerAdView: BUNativeExpressBannerView) {
+        if let callback = callbacks?[.onShown] {
+            controller?.invokeCallback(callback)
         }
     }
 }

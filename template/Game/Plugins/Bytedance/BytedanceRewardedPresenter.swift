@@ -38,6 +38,9 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     
     func nativeExpressRewardedVideoAdViewRenderFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
         print("\(#function) \(error!)")
+        if let callback = callbacks?[.onFail] {
+            viewController?.invokeCallback(callback, param: ["error": error!.localizedDescription])
+        }
         videoAd?.loadData()
     }
     
@@ -49,6 +52,9 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     }
     
     func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        if let callback = callbacks?[.onDismissed] {
+            viewController?.invokeCallback(callback)
+        }
         videoAd = nil
     }
 
@@ -60,6 +66,12 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
     
     func nativeExpressRewardedVideoAdDidVisible(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         if let callback = callbacks?[.onShown] {
+            viewController?.invokeCallback(callback)
+        }
+    }
+    
+    func nativeExpressRewardedVideoAdDidClick(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        if let callback = callbacks?[.onClicked] {
             viewController?.invokeCallback(callback)
         }
     }

@@ -62,21 +62,23 @@ class Bytedance: SandboxAdObject {
                     withSlotID: unitID,
                     size: resolveBannerSize(input: input),
                     placement: resolvePlacement(input: input),
-                    from: viewController
+                    from: viewController,
+                    callbacks: callbacks
                 )
             } else if let unitID = Self.defaultBannerAdUnitID {
                 bannerPresenter.present(
                     withSlotID: unitID,
                     size: resolveBannerSize(input: input),
                     placement: resolvePlacement(input: input),
-                    from: viewController
+                    from: viewController,
+                    callbacks: callbacks
                 )
             }
         case .showVideo:
             if let unitID = input[.adUnitID] {
-                videoPresenter.present(withSlotID: unitID, from: viewController)
+                videoPresenter.present(withSlotID: unitID, from: viewController, callbacks: callbacks)
             } else if let unitID = Self.defaultVideoAdUnitID {
-                videoPresenter.present(withSlotID: unitID, from: viewController)
+                videoPresenter.present(withSlotID: unitID, from: viewController, callbacks: callbacks)
             }
         case .showRewarded:
             if let unitID = input[.adUnitID] {
