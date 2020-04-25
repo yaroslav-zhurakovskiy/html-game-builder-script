@@ -137,3 +137,14 @@ make test
 ```sh
 make install
 ```
+
+## Sandbox Javascript URL API
+### List of supported sandbox request
+- ```sandbox://video/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://banner/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://splash/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+```
+{ad_id} is optional
+Callbacks are optional
+```
+
