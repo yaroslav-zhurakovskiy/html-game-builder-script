@@ -37,7 +37,9 @@ class GameContainer: UIViewController {
         ])
         addChild(webGameController)
         didMove(toParent: self)
-
+    }
+    
+    func playGame() {
         <% if @OnPlayRequest %>
         if let url = URL(string: "sandbox://<%= @OnPlayRequest %>") {
             webGameController.request(url: url)
@@ -46,9 +48,6 @@ class GameContainer: UIViewController {
         <% if @game_timer_is_on %>        
         timer.start()
         <% end %>
-    }
-    
-    func playGame() {
         webGameController.playGame()
     }
 }
