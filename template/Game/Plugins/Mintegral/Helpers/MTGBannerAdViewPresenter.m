@@ -76,19 +76,26 @@
 }
 
 - (void)adViewClosed:(MTGBannerAdView *)adView {
-    
+    NSString *callback = self.callbacks[CallbackName.onDismissed];
+    if (callback) {
+        [self.webGameController invokeCallback:callback param:nil];
+    }
 }
 
 - (void)adViewDidClicked:(MTGBannerAdView *)adView {
     NSString *callback = self.callbacks[CallbackName.onClicked];
-    [self.webGameController invokeCallback:callback param:nil];
+    if (callback) {
+        [self.webGameController invokeCallback:callback param:nil];
+    }
 }
 
 - (void)adViewLoadFailedWithError:(NSError *)error adView:(MTGBannerAdView *)adView {
     NSLog(@"Failed to load ads, error:%@", error.localizedDescription);
     
     NSString *callback = self.callbacks[CallbackName.onFail];
-    [self.webGameController invokeCallback:callback param:@{@"error": error.localizedDescription}];
+    if (callback) {
+        [self.webGameController invokeCallback:callback param:@{@"error": error.localizedDescription}];
+    }
     
     [adView loadBannerAd];
 
@@ -96,7 +103,9 @@
 
 - (void)adViewLoadSuccess:(MTGBannerAdView *)adView {
     NSString *callback = self.callbacks[CallbackName.onShown];
-    [self.webGameController invokeCallback:callback param:nil];
+    if (callback) {
+        [self.webGameController invokeCallback:callback param:nil];
+    }
 }
 
 - (void)adViewWillLeaveApplication:(MTGBannerAdView *)adView {

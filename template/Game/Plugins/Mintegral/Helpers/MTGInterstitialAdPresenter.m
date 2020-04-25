@@ -42,17 +42,43 @@
         }
     };
     NSString *callback = self.callbacks[CallbackName.onFail];
-    [self.viewController invokeCallback:callback param:param];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:param];
+    }
+}
+
+- (void)onInterstitialLoadFail:(NSError *)error adManager:(MTGInterstitialAdManager *)adManager {
+    NSDictionary *param = @{
+        @"error": @{
+                @"code": @(error.code),
+                @"msg": error.localizedDescription
+        }
+    };
+    NSString *callback = self.callbacks[CallbackName.onFail];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:param];
+    }
 }
 
 - (void)onInterstitialShowSuccess:(MTGInterstitialAdManager *)adManager {
     NSString *callback = self.callbacks[CallbackName.onShown];
-    [self.viewController invokeCallback:callback param:nil];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
+}
+
+- (void)onInterstitialClosed:(MTGInterstitialAdManager *)adManager {
+    NSString *callback = self.callbacks[CallbackName.onDismissed];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
 }
 
 - (void)onInterstitialAdClick:(MTGInterstitialAdManager *)adManager {
     NSString *callback = self.callbacks[CallbackName.onClicked];
-    [self.viewController invokeCallback:callback param:nil];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
 }
 
 @end

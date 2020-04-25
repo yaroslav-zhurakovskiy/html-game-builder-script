@@ -34,7 +34,6 @@
 
 - (void)onInterstitialVideoLoadSuccess:(MTGInterstitialVideoAdManager *)adManager {
     [self.ivAdManager showFromViewController:self.viewController];
-    self.viewController = nil;
 }
 
 - (void)onInterstitialVideoLoadFail:(nonnull NSError *)error
@@ -44,7 +43,10 @@
         @"error": @{@"code": @(error.code), @"msg": error.localizedDescription}
     };
     
-    [self.viewController invokeCallback:self.callbacks[@"onFail"] param:param];
+    NSString *callback = self.callbacks[@"onFail"];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:param];
+    }
 }
 
 
@@ -56,11 +58,31 @@
     };
     
     NSString *callback = self.callbacks[CallbackName.onFail];
-    [self.viewController invokeCallback:callback param:param];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:param];
+    }
 }
 
 - (void)onInterstitialVideoShowSuccess:(MTGInterstitialVideoAdManager *)adManager {
     NSString *callback = self.callbacks[CallbackName.onShown];
-    [self.viewController invokeCallback:callback param:nil];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
 }
+
+- (void)onInterstitialVideoAdClick:(MTGInterstitialVideoAdManager *)adManager {
+    NSString *callback = self.callbacks[CallbackName.onClicked];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
+}
+
+- (void)onInterstitialVideoAdDidClosed:(MTGInterstitialVideoAdManager *)adManager {
+    NSString *callback = self.callbacks[CallbackName.onDismissed];
+    if (callback) {
+        [self.viewController invokeCallback:callback param:nil];
+    }
+    self.viewController = nil;
+}
+
 @end
