@@ -48,7 +48,7 @@ class GameContainer: UIViewController {
         <% end %>
     }
     
-    @IBAction private func procesBack() {
-        navigationController?.popViewController(animated: true)
+    func playGame() {
+        webGameController.playGame()
     }
 }

@@ -35,6 +35,7 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewControllerToPresentIn?.invokeCallback(callback)
         }
+        viewControllerToPresentIn = nil
         reloadAd()
     }
     
@@ -48,10 +49,21 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
         reloadAd()
     }
     
+     func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        if let callback = callbacks?[.onShown] {
+            viewControllerToPresentIn?.invokeCallback(callback)
+        }
+    }
+    
     func interstitialDidReceiveAd(_ interstitial: GADInterstitial) {
         if let controller = viewControllerToPresentIn {
-            viewControllerToPresentIn = nil
             interstitial.present(fromRootViewController: controller)
+        }
+    }
+
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        if let callback = callbacks?[.onClicked] {
+            viewControllerToPresentIn?.invokeCallback(callback)
         }
     }
     

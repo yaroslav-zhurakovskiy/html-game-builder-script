@@ -23,7 +23,7 @@ class GoogleRewardedBannerPresenter: NSObject {
 }
 
 extension GoogleRewardedBannerPresenter: GADRewardedAdDelegate {
-     func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
         if let callback = callbacks?[.onRewarded] {
             webGameController?.invokeCallback(
                 callback,
@@ -35,6 +35,18 @@ extension GoogleRewardedBannerPresenter: GADRewardedAdDelegate {
     func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
         if let callback = callbacks?[.onFail] {
             webGameController?.invokeCallback(callback, param: ["error": ["msg": error.localizedDescription]])
+        }
+    }
+    
+    func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
+        if let callback = callbacks?[.onShown] {
+            webGameController?.invokeCallback(callback)
+        }
+    }
+    
+    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
+        if let callback = callbacks?[.onDismissed] {
+            webGameController?.invokeCallback(callback)
         }
     }
 }

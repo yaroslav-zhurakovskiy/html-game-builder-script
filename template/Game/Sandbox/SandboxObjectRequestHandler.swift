@@ -52,7 +52,7 @@ public class SandboxObjectRequestHandler {
         if method.contains("/") {
             return method.components(separatedBy: "/").last
         } else {
-            return nil
+            return method
         }
     }
     

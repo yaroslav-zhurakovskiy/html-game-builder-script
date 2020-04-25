@@ -92,8 +92,26 @@ class GoogleBannerPresenter: NSObject {
 }
 
 extension GoogleBannerPresenter: GADBannerViewDelegate {
+    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        if let callback = callbacks?[.onClicked] {
+            webGameController?.invokeCallback(callback)
+        }
+    }
+    
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        if let callback = callbacks?[.onClicked] {
+            webGameController?.invokeCallback(callback)
+        }
+    }
+    
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         if let callback = callbacks?[.onShown] {
+            webGameController?.invokeCallback(callback)
+        }
+    }
+    
+    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        if let callback = callbacks?[.onDismissed] {
             webGameController?.invokeCallback(callback)
         }
     }
@@ -103,5 +121,4 @@ extension GoogleBannerPresenter: GADBannerViewDelegate {
             webGameController?.invokeCallback(callback, param: ["error": error.localizedRecoverySuggestion])
         }
     }
-    
 }

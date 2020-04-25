@@ -4,12 +4,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeController" customModule="Game" customModuleProvider="target">
             <connections>
+                <outlet property="overlayView" destination="WPd-Sm-yUe" id="xHQ-0e-qNf"/>
                 <outlet property="playButton" destination="qCt-Jn-nv5" id="WgE-00-v7J"/>
                 <outlet property="view" destination="iN0-l3-epB" id="PKk-0V-mZa"/>
             </connections>
@@ -19,30 +21,42 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-7a-yez">
-                    <rect key="frame" x="126.5" y="368" width="161" height="160"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPd-Sm-yUe">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qCt-Jn-nv5">
-                            <rect key="frame" x="0.0" y="0.0" width="161" height="160"/>
-                            <state key="normal" image="play1">
-                                <attributedString key="attributedTitle"/>
-                            </state>
-                            <connections>
-                                <action selector="processPlay" destination="-1" eventType="touchUpInside" id="Vz7-Ep-NhQ"/>
-                            </connections>
-                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-7a-yez">
+                            <rect key="frame" x="126.5" y="368" width="161" height="160"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qCt-Jn-nv5">
+                                    <rect key="frame" x="0.0" y="0.0" width="161" height="160"/>
+                                    <state key="normal" image="play1">
+                                        <attributedString key="attributedTitle"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="processPlay" destination="-1" eventType="touchUpInside" id="Vz7-Ep-NhQ"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="boy1" translatesAutoresizingMaskIntoConstraints="NO" id="gp9-1W-Xyl">
+                            <rect key="frame" x="297" y="773" width="117" height="123"/>
+                        </imageView>
                     </subviews>
-                </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="boy1" translatesAutoresizingMaskIntoConstraints="NO" id="gp9-1W-Xyl">
-                    <rect key="frame" x="297" y="773" width="117" height="123"/>
-                </imageView>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="sqH-7a-yez" firstAttribute="centerY" secondItem="WPd-Sm-yUe" secondAttribute="centerY" id="80p-d7-Hzz"/>
+                        <constraint firstItem="sqH-7a-yez" firstAttribute="centerX" secondItem="WPd-Sm-yUe" secondAttribute="centerX" id="EZi-5K-R6B"/>
+                        <constraint firstAttribute="bottom" secondItem="gp9-1W-Xyl" secondAttribute="bottom" id="Kjv-aF-FUa"/>
+                        <constraint firstAttribute="trailing" secondItem="gp9-1W-Xyl" secondAttribute="trailing" id="dqC-fa-A0d"/>
+                    </constraints>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="0.031372549019607843" green="0.027450980392156862" blue="0.043137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" name="Black"/>
             <constraints>
-                <constraint firstItem="sqH-7a-yez" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AEj-PV-by0"/>
-                <constraint firstItem="sqH-7a-yez" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DYo-pd-uzE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gp9-1W-Xyl" secondAttribute="trailing" id="IPt-yn-eTP"/>
-                <constraint firstAttribute="bottom" secondItem="gp9-1W-Xyl" secondAttribute="bottom" id="xWr-z8-OGE"/>
+                <constraint firstAttribute="trailing" secondItem="WPd-Sm-yUe" secondAttribute="trailing" id="B7O-Io-5dV"/>
+                <constraint firstItem="WPd-Sm-yUe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="HmT-iD-jZ4"/>
+                <constraint firstAttribute="bottom" secondItem="WPd-Sm-yUe" secondAttribute="bottom" id="JXf-kB-LKE"/>
+                <constraint firstItem="WPd-Sm-yUe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Nn0-fU-Vvd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="139" y="145"/>
@@ -51,5 +65,8 @@
     <resources>
         <image name="boy1" width="117" height="123"/>
         <image name="play1" width="161" height="160"/>
+        <namedColor name="Black">
+            <color red="0.031372549019607843" green="0.027450980392156862" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -39,12 +39,9 @@ class WebGameController: UIViewController {
         
         
         delegate?.webGameWilLoad(self)
-        
-        webView.loadFileURL(rootURL.appendingPathComponent(startingPage), allowingReadAccessTo: rootURL)
-        
+
     <% if @autoshowBanner %>
-        let request = SandboxObjectRequest(object: sandboxAdObjectSystemName, method: "showBanner", arguments: [:])
-        delegate?.webGameConroller(self, didReceiveRequest: request)
+        request(url: URL(string: "sandbox://banner")!)
     <% end %>
     }
     
@@ -54,6 +51,11 @@ class WebGameController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         delegate?.viewDidLayoutSubviews(view)
+    }
+
+    func playGame() {
+        webView.isHidden = false
+        webView.loadFileURL(rootURL.appendingPathComponent(startingPage), allowingReadAccessTo: rootURL)
     }
 }
 
