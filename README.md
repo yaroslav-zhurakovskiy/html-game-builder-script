@@ -85,14 +85,14 @@ supportedInterfaceOrientationsIPad: // iPad only supported device orientation (O
     - landscapeLeft
     - landspaceRight
 
-statusBar: "hidden" | "light" | "dark" // Status bar style. You can hide it or change its color.
+statusBar: "hidden" | "light" | "dark" // Status bar style. Pick one of these values
 autoshowBanner: true // Automatically shows banner on launch. You need to have only one active ad banner id, otherwise it will use the first it finds.
 
 // Google Admob plugin fields
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 GADInterstitialAdUnitID: "ca-app-pub-3940256099942544/4411468910"
 GADBannerAdUnitID: "ca-app-pub-3940256099942544/2435281174"
-GADBannerPlacement: "top" | "bottom"
+GADBannerPlacement: "top" | "bottom" // Pick one of these values
 GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 
 // Mintegral plugin fields
@@ -101,7 +101,7 @@ MintegralAppID: "123727"
 MintegralVideoAdUnitID: "193835"
 MintegralInterstitialAdUnitID: "193836"
 MintegralBannerAdUnitID: "193837"
-MintegralBannerSize: "mediumRectangularBanner300x250" | "largeBannerType320x90" | "smartBannerType" | "standardBannerType320x50"
+MintegralBannerSize: "mediumRectangularBanner300x250" | "largeBannerType320x90" | "smartBannerType" | "standardBannerType320x50" // Pick one of these values
 MintegralBannerPlacement: "top" | "bottom"
 
 
@@ -109,7 +109,7 @@ MintegralBannerPlacement: "top" | "bottom"
 BytedanceAppID: "5000546"
 BytedanceBannerAdUnitID: "900546198"
 BytedanceBannerPlacement: "top" | "bottom"
-BytedanceBannerSize: "600_90" | "600_100" | "600_150" | "600_260" | "600_286" | "600_300" | "600_388" | "600_400"
+BytedanceBannerSize: "600_90" | "600_100" | "600_150" | "600_260" | "600_286" | "600_300" | "600_388" | "600_400" // Pick one of these values
 BytedanceVideoAdUnitID: "900546831"
 BytedanceRewardedVideoAdUnitID: "900546566"
 
