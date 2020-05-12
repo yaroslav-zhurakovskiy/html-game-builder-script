@@ -60,42 +60,42 @@ sandbox-build -c <FILE_NAME> -g
 ### Configuration file format Game.yml
 #### Required fields
 ```yml
-gameSrc: "../html-game"
-bundleId: "com.company-name.my-game"
-version: "1.0.0" 
-buildNumber: 1
-appiconsetSrc: "AppIcon.appiconset"
+gameSrc: "../html-game" // A path to the source code of html game
+bundleId: "com.company-name.my-game" // Apple game id 
+version: "1.0.0" // App Store game version
+buildNumber: 1 // App Store game build version
+appiconsetSrc: "AppIcon.appiconset" // A path to iOS icon file
 developmentTeam: "FSX848FP3F" // Apple dev team id
 ```
 
 #### Optional fields
 ```yml
-name: "My super Game"
-xcodeProjectDir: "out" 
+name: "My super Game" // Display name of the game
+xcodeProjectDir: "out"  // A destination directory where an Xcode project wil be generated. But default it is "out"
 templatePath: "../template" // If not specified it will use the one that was installed during "make install" or "make"
 sdk: "11.0" // Minimum allowed version is 11.0
-launchImageSrc: "LaunchImage.launchimage"
+launchImageSrc: "LaunchImage.launchimage" // A path to an iOS splash screen image set
 
-supportedInterfaceOrientations: // iPhone
+supportedInterfaceOrientations: // iPhone & iPad supported device orientation
     - portrait
     - portraitUpsideDown
     - landscapeLeft
     - landspaceRight
-supportedInterfaceOrientationsIPad: // iPad
+supportedInterfaceOrientationsIPad: // iPad only supported device orientation (Overrites supportedInterfaceOrientations)
     - landscapeLeft
     - landspaceRight
 
-statusBar: "hidden" | "light" | "dark"
+statusBar: "hidden" | "light" | "dark" // Status bar style. You can hide it or change its color.
 autoshowBanner: true // Automatically shows banner on launch. You need to have only one active ad banner id, otherwise it will use the first it finds.
 
-// Google Admob plugin
+// Google Admob plugin fields
 GADApplicationIdentifier: "ca-app-pub-5014586027013097~8955954505"
 GADInterstitialAdUnitID: "ca-app-pub-3940256099942544/4411468910"
 GADBannerAdUnitID: "ca-app-pub-3940256099942544/2435281174"
 GADBannerPlacement: "top" | "bottom"
 GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 
-// Mintegral plugin
+// Mintegral plugin fields
 MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
 MintegralAppID: "123727"
 MintegralVideoAdUnitID: "193835"
@@ -105,7 +105,7 @@ MintegralBannerSize: "mediumRectangularBanner300x250" | "largeBannerType320x90" 
 MintegralBannerPlacement: "top" | "bottom"
 
 
-// Bytedance plugin
+// Bytedance plugin fields
 BytedanceAppID: "5000546"
 BytedanceBannerAdUnitID: "900546198"
 BytedanceBannerPlacement: "top" | "bottom"
@@ -113,17 +113,19 @@ BytedanceBannerSize: "600_90" | "600_100" | "600_150" | "600_260" | "600_286" | 
 BytedanceVideoAdUnitID: "900546831"
 BytedanceRewardedVideoAdUnitID: "900546566"
 
+// Fastlane is required for uploading build to TestFlight using CLI
 fastlane:
-    appleID: "YOUR APPLE ID"
-    teamID: "APPLE DEVELOPER TEAM ID"
-    itcTeamID: "ITUNES CONNECT TEAM ID"
+    appleID: "YOUR APPLE ID" // Your apple ID
+    teamID: "APPLE DEVELOPER TEAM ID" // Company ID that can be found on https://developer.apple.com
+    itcTeamID: "ITUNES CONNECT TEAM ID" // Company ID that can be found on https://itunesconnect.apple.com/
     
-OnPlayRequest: "Mintegral/showVideoInterstitial" // A sandbox request that will be called on "play"
-
-// Timer that will be used started when the game is started
+OnPlayRequest: "video" // A sandbox request that will be called on "play". It is equivalent to "sandbox://video 
+"
+// Timer that will be started when the game is started
 GameTimer:
    interval: 10 // Interval in seconds
-   request: "GoogleAdmob/showInterstitial" // A sandbox request that will be called every 10 seconds
+   request: "splash" // A sandbox request that will be called every 10 seconds. It is equivalent to "sandbox://splash 
+"
 
 ```
 
@@ -140,7 +142,7 @@ make install
 
 ## Sandbox Javascript URL API
 ### List of supported sandbox request
-- ```sandbox://video/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://video/{ad_id}?onFail=onFailed&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://banner/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://splash/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 ```
