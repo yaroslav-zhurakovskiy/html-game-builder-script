@@ -81,7 +81,7 @@ supportedInterfaceOrientations: // iPhone & iPad supported device orientation
     - portraitUpsideDown
     - landscapeLeft
     - landspaceRight
-supportedInterfaceOrientationsIPad: // iPad only supported device orientation (Overrites supportedInterfaceOrientations)
+supportedInterfaceOrientationsIPad: // iPad only supported device orientation (Overwrites supportedInterfaceOrientations)
     - landscapeLeft
     - landspaceRight
 
