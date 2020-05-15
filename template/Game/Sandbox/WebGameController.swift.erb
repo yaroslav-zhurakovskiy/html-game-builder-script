@@ -37,6 +37,13 @@ class WebGameController: UIViewController {
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.setValue(true, forKey: "allowUniversalAccessFromFileURLs");
         
+    <% if !@InjectJavaScript.nil? %>
+        webView.configuration.userContentController.addUserScript(WKUserScript(
+            source: "<%= @InjectJavaScript["code"] %>",
+            injectionTime: <%= "." + @InjectJavaScript["time"] %>,
+            forMainFrameOnly: true
+        ))
+    <% end %>
         
         delegate?.webGameWilLoad(self)
 

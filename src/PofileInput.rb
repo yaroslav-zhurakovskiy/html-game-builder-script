@@ -10,6 +10,7 @@ class PofileInput
         @mintegral_ads = params.key?(:MintegralApiKey) && params.key?(:MintegralAppID)
         @bytedance_ads = params.key?(:BytedanceAppID)
         @autoshowBanner = params[:autoshowBanner] == true
+        @InjectJavaScript = params[:InjectJavaScript]
     end
 
     def get_binding
