@@ -127,6 +127,13 @@ GameTimer:
    request: "splash" // A sandbox request that will be called every 10 seconds. It is equivalent to "sandbox://splash 
 "
 
+// Inject custom javascript code into your html
+InjectJavaScript:
+    time: atDocumentEnd // Specifies when to inject the code. Possible options: atDocumentStart or atDocumentEnd(preferred) . 
+    code: // Specifies js code to be inserted
+        document.documentElement.style.webkitUserSelect='none';\n
+        document.documentElement.style.webkitTouchCallout='none';
+
 ```
 
 ## Using make
