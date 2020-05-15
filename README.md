@@ -119,13 +119,11 @@ fastlane:
     teamID: "APPLE DEVELOPER TEAM ID" // Company ID that can be found on https://developer.apple.com
     itcTeamID: "ITUNES CONNECT TEAM ID" // Company ID that can be found on https://itunesconnect.apple.com/
     
-OnPlayRequest: "video" // A sandbox request that will be called on "play". It is equivalent to "sandbox://video 
-"
+OnPlayRequest: "video" // A sandbox request that will be called on "play". It is equivalent to "sandbox://video"
 // Timer that will be started when the game is started
 GameTimer:
    interval: 10 // Interval in seconds
-   request: "splash" // A sandbox request that will be called every 10 seconds. It is equivalent to "sandbox://splash 
-"
+   request: "splash" // A sandbox request that will be called every 10 seconds. It is equivalent to "sandbox://splash "
 
 // Inject custom javascript code into your html
 InjectJavaScript:
