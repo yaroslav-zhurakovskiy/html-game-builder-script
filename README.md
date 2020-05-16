@@ -31,7 +31,7 @@ sandbox-build -h
 ```
 Note: If 'sandbox-build' command cannot be found just reload your terminal.
 
-## Example uage
+## Example usage
 ### Printing help
 ``` sh
 sandbox-build -h
@@ -132,6 +132,13 @@ InjectJavaScript:
         document.documentElement.style.webkitUserSelect='none';\n
         document.documentElement.style.webkitTouchCallout='none';
 
+```
+
+## Using dotenv
+Place ```.env.default``` file in output directory
+```sh
+# Example .env.default content
+FASTLANE_PASSWORD="password"
 ```
 
 ## Using make
