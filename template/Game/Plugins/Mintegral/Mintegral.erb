@@ -112,16 +112,15 @@ class Mintegral: SandboxAdObject {
                 )
             }
         case .showRewardedVideo:
-            if
-                let unitID = input[.unitID] ?? Self.defaultRewardedVideoAdUnitID,
-                let rewardId = input[.rewardID] ?? Self.defaultRewardedVideoRewardID,
-                let userID = input[.userID] ?? Self.defaultRewardedVideoUserID
-            {
+            let rewardIdOrNil = input[.rewardID] ?? Self.defaultRewardedVideoRewardID
+            let userIdOrNil = input[.userID] ?? Self.defaultRewardedVideoUserID
+            
+            if let unitID = input[.unitID] ?? Self.defaultRewardedVideoAdUnitID {
                 rewardedVideoPresenter.present(
                     from: viewController,
                     unitID: unitID,
-                    rewardId: rewardId,
-                    userId: userID,
+                    rewardId: rewardIdOrNil,
+                    userId: userIdOrNil,
                     callbacks: callbacks
                 )
             }

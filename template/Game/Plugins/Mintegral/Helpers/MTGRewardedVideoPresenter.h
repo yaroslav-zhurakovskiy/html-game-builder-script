@@ -8,9 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentFromWebGameController:(WebGameController *)viewController
                               unitID:(NSString *)unitID
-                            rewardId:(NSString *)rewardId
-                              userId:(NSString *)userId
-                           callbacks:( NSDictionary<NSString *, NSString *> *)callbacks;
+                            rewardId:(nullable NSString *)rewardId
+                              userId:(nullable NSString *)userId
+                           callbacks:(NSDictionary<NSString *, NSString *> *)callbacks;
 
 @end
 
