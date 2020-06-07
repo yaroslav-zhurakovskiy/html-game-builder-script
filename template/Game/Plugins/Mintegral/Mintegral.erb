@@ -26,6 +26,24 @@ class Mintegral: SandboxAdObject {
     <% else %>
     private static let defaultSplashAdAllowSkip: String? = nil
     <% end %>
+
+    <% if !@MintegralRewardedVideoRewardID.nil? %>
+    private static let defaultRewardedVideoRewardID: String? = "<%= @MintegralRewardedVideoRewardID %>"
+    <% else %>
+    private static let defaultRewardedVideoRewardID: String? = nil
+    <% end %>
+
+    <% if !@MintegralRewardedVideoAdUnitID.nil? %>
+    private static let defaultRewardedVideoAdUnitID: String? = "<%= @MintegralRewardedVideoAdUnitID %>"
+    <% else %>
+    private static let defaultRewardedVideoAdUnitID: String? = nil
+    <% end %>
+    
+    <% if !@MintegralRewardedVideoUserID.nil? %>
+    private static let defaultRewardedVideoUserID: String? = "<%= @MintegralRewardedVideoUserID %>"
+    <% else %>
+    private static let defaultRewardedVideoUserID: String? = nil
+    <% end %>
     
     enum Method: String {
         case showVideoInterstitial
@@ -33,6 +51,7 @@ class Mintegral: SandboxAdObject {
         case showBanner
         case hideBanner
         case showSplash
+        case showRewardedVideo
     }
     
     enum Argument: String, Hashable {
@@ -41,12 +60,15 @@ class Mintegral: SandboxAdObject {
         case autoRefreshTime
         case countdown
         case allowSkip
+        case rewardID
+        case userID
     }
     
     private let interstitialVideoAdPresenter = MTGInterstitialVideoAdPresenter()
     private let interstitialStaticAdPresenter = MTGInterstitialAdPresenter()
     private let bannerPresenter = MintegralBanner()
     private let splashPresenter = MTGSplashAdPresenter()
+    private let rewardedVideoPresenter = MTGRewardedVideoPresenter()
     
     func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
         guard let result: (Method, [Argument: String]) = convertToTypedValues(method: method, arguments: args) else {
@@ -86,6 +108,20 @@ class Mintegral: SandboxAdObject {
                     unitID: unitID,
                     countdown: countdown,
                     allowSkip: allowSkip,
+                    callbacks: callbacks
+                )
+            }
+        case .showRewardedVideo:
+            if
+                let unitID = input[.unitID] ?? Self.defaultRewardedVideoAdUnitID,
+                let rewardId = input[.rewardID] ?? Self.defaultRewardedVideoRewardID,
+                let userID = input[.userID] ?? Self.defaultRewardedVideoUserID
+            {
+                rewardedVideoPresenter.present(
+                    from: viewController,
+                    unitID: unitID,
+                    rewardId: rewardId,
+                    userId: userID,
                     callbacks: callbacks
                 )
             }

@@ -27,6 +27,10 @@ class PluginFileInput
         @MintegralSplashAdUnitID = params[:MintegralSplashAdUnitID]
         @MintegralSplashAdCountdown = params[:MintegralSplashAdCountdown]
         @MintegralSplashAdAllowSkip = params[:MintegralSplashAdAllowSkip]
+
+        @MintegralRewardedVideoAdUnitID = params[:MintegralRewardedVideoAdUnitID]
+        @MintegralRewardedVideoRewardID = params[:MintegralRewardedVideoRewardID]
+        @MintegralRewardedVideoUserID = params[:MintegralRewardedVideoUserID]
     end
 
     def get_binding
