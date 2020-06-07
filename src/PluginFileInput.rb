@@ -16,6 +16,9 @@ class PluginFileInput
         @BytedanceBannerPlacement = params[:BytedanceBannerPlacement]
         @BytedanceVideoAdUnitID = params[:BytedanceVideoAdUnitID]
         @BytedanceRewardedVideoAdUnitID = params[:BytedanceRewardedVideoAdUnitID]
+
+        @BytedanceInterstitialAdUnitID = params[:BytedanceInterstitialAdUnitID]
+        @BytedanceInterstitialAdSize = params[:BytedanceInterstitialAdSize]
     end
 
     def get_binding

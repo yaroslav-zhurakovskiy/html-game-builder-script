@@ -29,11 +29,23 @@ class Bytedance: SandboxAdObject {
     <% else %>
     private static let defaultRewardedAdUnitID: String? = nil
     <% end %>
+
+    <% if !@BytedanceInterstitialAdUnitID.nil? %>
+    private static let defaultInterstitialAdUnitID: String? = "<%= @BytedanceInterstitialAdUnitID %>"
+    <% else %>
+    private static let defaultInterstitialAdUnitID: String? = nil
+    <% end %>
+    <% if !@BytedanceInterstitialAdSize.nil? %>
+    private static let defaultInterstitialAdSize: String? = "<%= @BytedanceInterstitialAdSize %>"
+    <% else %>
+    private static let defaultInterstitialAdSize: String? = "full"
+    <% end %>
     
     enum Method: String {
         case showVideo
         case showBanner
         case showRewarded
+        case showInterstitial
     }
     
     enum Argument: String, Hashable {
@@ -45,6 +57,7 @@ class Bytedance: SandboxAdObject {
     private let bannerPresenter = BytedanceBannerPresenter()
     private let videoPresenter = BytedanceVideoPresenter()
     private let rewardedVideoPresenter = BytedanceRewardedPresenter()
+    private let interstitialPresenter = BytedanceInterstitialPresenter()
     
     func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
      
@@ -86,6 +99,45 @@ class Bytedance: SandboxAdObject {
             } else if let unitID = Self.defaultRewardedAdUnitID {
                 rewardedVideoPresenter.present(withSlotID: unitID, from: viewController, callbacks: callbacks)
             }
+        case .showInterstitial:
+            if
+                let unitID = input[.adUnitID] ?? Self.defaultInterstitialAdUnitID,
+                let adSizeString = input[.size] ?? Self.defaultInterstitialAdSize
+            {
+                interstitialPresenter.present(
+                    withSlotID: unitID,
+                    adSize: adSize(from: adSizeString),
+                    from: viewController,
+                    callbacks: callbacks
+                )
+            }
+        }
+    }
+    
+    private func adSize(from string: String) -> CGSize {
+        if string == "full" {
+            return UIScreen.main.bounds.size
+        } else if let size = cgSize(from: string) {
+            return size
+        } else {
+            return UIScreen.main.bounds.size
+        }
+    }
+    
+    private func cgSize(from string: String) -> CGSize? {
+        let components = string.components(separatedBy: "x")
+        
+        guard components.count == 2 else {
+            return nil
+        }
+        
+        let widthStr = components[0].trimmingCharacters(in: .whitespaces)
+        let heightStr = components[1].trimmingCharacters(in: .whitespaces)
+        
+        if let width = Double(widthStr), let height = Double(heightStr) {
+            return CGSize(width: width, height: height)
+        } else {
+            return nil
         }
     }
     
@@ -166,6 +218,6 @@ extension Bytedance {
     }
 
     func showInterstitial(args: [String : Any], from viewController: WebGameController) {
-        // Do nothing
+        invoke(Method.showInterstitial.rawValue, with: args, from: viewController)
     }
 }

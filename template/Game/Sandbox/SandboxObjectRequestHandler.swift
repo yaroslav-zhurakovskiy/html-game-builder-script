@@ -20,7 +20,7 @@ public class SandboxObjectRequestHandler {
                 var args: [String: Any] = request.arguments
                 args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
                 forEachSandboxAdObject { $0.showBanner(args: args, from: viewController) }
-            } else if request.object.starts(with: "interstitial") {
+            } else if request.object == "interstitial" {
                 var args: [String: Any] = request.arguments
                 args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
                 forEachSandboxAdObject { $0.showInterstitial(args: args, from: viewController) }
