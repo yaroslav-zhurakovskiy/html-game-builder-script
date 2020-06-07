@@ -157,4 +157,12 @@ extension Mintegral {
     func showSplash(args: [String : Any], from viewController: WebGameController) {
         invoke(Method.showSplash.rawValue, with: args, from: viewController)
     }
+    
+    func showRewarded(args: [String : Any], from viewController: WebGameController) {
+        invoke(
+            Method.showRewardedVideo.rawValue,
+            with: args,
+            from: viewController
+        )
+    }
 }

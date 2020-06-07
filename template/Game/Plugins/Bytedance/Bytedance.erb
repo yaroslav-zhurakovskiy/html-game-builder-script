@@ -246,7 +246,7 @@ extension Bytedance {
     
     func showSplash(args: [String : Any], from viewController: WebGameController) {
         invoke(
-            Method.showRewarded.rawValue,
+            Method.showSplash.rawValue,
             with: args,
             from: viewController
         )
@@ -254,5 +254,13 @@ extension Bytedance {
 
     func showInterstitial(args: [String : Any], from viewController: WebGameController) {
         invoke(Method.showInterstitial.rawValue, with: args, from: viewController)
+    }
+    
+    func showRewarded(args: [String : Any], from viewController: WebGameController) {
+        invoke(
+            Method.showRewarded.rawValue,
+            with: args,
+            from: viewController
+        )
     }
 }

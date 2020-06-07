@@ -32,6 +32,10 @@ public class SandboxObjectRequestHandler {
                 var args: [String: Any] = request.arguments
                 args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
                 forEachSandboxAdObject { $0.showSplash(args: args, from: viewController) }
+             } else if request.object == "rewarded" {
+                var args: [String: Any] = request.arguments
+                args["adUnitID"] = extractIdentifier(fromRequestMethod: request.method)
+                forEachSandboxAdObject { $0.showRewarded(args: args, from: viewController) }
             }
         }
     }

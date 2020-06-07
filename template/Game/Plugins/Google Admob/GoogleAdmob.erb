@@ -128,6 +128,10 @@ extension GoogleAdmob {
     }
     
     func showSplash(args: [String : Any], from viewController: WebGameController) {
+       // Do nothing
+    }
+    
+    func showRewarded(args: [String : Any], from viewController: WebGameController) {
         invoke(
             Method.showRewarded.rawValue,
             with: args,

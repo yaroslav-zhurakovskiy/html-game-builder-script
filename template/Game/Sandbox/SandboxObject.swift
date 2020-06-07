@@ -35,6 +35,7 @@ protocol SandboxAdObject: SandboxObject {
     func showBanner(args: [String: Any], from viewController: WebGameController)
     func showVideo(args: [String: Any], from viewController: WebGameController)
     func showInterstitial(args: [String: Any], from viewController: WebGameController)
+    func showRewarded(args: [String: Any], from viewController: WebGameController)
     func showSplash(args: [String: Any], from viewController: WebGameController)
 }
 
