@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SCRIPT_VERSION='2.0'
 BUILD_FILE=$1
 FILE_LIST=(
     AppfileInput.rb
@@ -21,6 +22,7 @@ FILE_LIST=(
     main.rb
 )
 
+
 insert_file_content()
 {
     FILE=$1
@@ -38,6 +40,7 @@ fi
 insert_file_content "src/header.rb" $BUILD_FILE
 
 echo "SCRIPT_NAME = '${BUILD_FILE}'\n" >> $BUILD_FILE
+echo "SCRIPT_VERSION='${SCRIPT_VERSION}'\n" >> $BUILD_FILE
 
 for FILE in "${FILE_LIST[@]}" 
 do

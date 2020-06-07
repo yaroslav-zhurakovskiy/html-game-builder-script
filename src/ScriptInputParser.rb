@@ -23,6 +23,10 @@ class ScriptInputParser
             opts.on("-h", "--help", "Prints this help") do
               @args[:action] = :help
             end
+
+            opts.on("-v", "--version", "Prints the script version") do
+              @args[:action] = :version
+            end
         end
     end
 

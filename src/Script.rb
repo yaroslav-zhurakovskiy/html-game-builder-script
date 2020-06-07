@@ -14,6 +14,11 @@ class Script
             exit
         end
 
+        if @input_provider.get_action == :version
+            puts "Version #{SCRIPT_VERSION}"
+            exit
+        end
+
         loaded_params = @params_loader.load(@input_provider)
         final_params = @configuration_params_processor.process(loaded_params)
 
