@@ -135,10 +135,16 @@ InjectJavaScript:
 ```
 
 ## Using dotenv
-Place ```.env.default``` file in output directory
+You can set the environment variables by create a file in the output directory(the path is specified in Game.yml). 
+For example ```Game.yml```
+```yml
+xcodeProjectDir: "out" // output dir
+```
+Content of ```.env.default```. It is located in ```out/.env.default```
 ```sh
 # Example .env.default content
 FASTLANE_PASSWORD="password"
+MATCH_KEYCHAIN_PASSWORD="password"
 ```
 
 ## Using make
