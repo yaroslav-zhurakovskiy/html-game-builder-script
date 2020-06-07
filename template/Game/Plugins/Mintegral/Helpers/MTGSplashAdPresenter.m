@@ -27,7 +27,9 @@
                                          customViewSize:CGSizeZero
                                    preferredOrientation:MTGInterfaceOrientationAll];
     self.splashAD.delegate = self;
-    [self.splashAD preload];
+    
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    [self.splashAD loadAndShowInKeyWindow:keyWindow customView:nil timeout:60000];
 }
 
 - (void)splashAD:(nonnull MTGSplashAD *)splashAD timeLeft:(NSUInteger)time {
@@ -64,8 +66,7 @@
 }
 
 - (void)splashADLoadSuccess:(nonnull MTGSplashAD *)splashAD {
-    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-    [self.splashAD showInKeyWindow:keyWindow customView:nil];
+    
 }
 
 - (void)splashADPreloadFail:(nonnull MTGSplashAD *)splashAD error:(nonnull NSError *)error {
