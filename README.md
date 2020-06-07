@@ -14,11 +14,6 @@
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
 ```
 
-## Insallation
-```sh
-make install
-```
-
 ## Read about Fastlane authentication
 https://github.com/fastlane/fastlane/tree/master/credentials_manager
 
@@ -29,7 +24,7 @@ https://docs.fastlane.tools/codesigning/getting-started/
 - Download this git project
 - Open the terminal and run the following commands
 - cd <PROJECT_DIRECTORY>
-- make
+- make install
 
 Now you should be able to run 
 ``` sh
