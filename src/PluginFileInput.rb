@@ -19,6 +19,10 @@ class PluginFileInput
 
         @BytedanceInterstitialAdUnitID = params[:BytedanceInterstitialAdUnitID]
         @BytedanceInterstitialAdSize = params[:BytedanceInterstitialAdSize]
+
+        @BytedanceSplashAdUnitID = params[:BytedanceSplashAdUnitID]
+        @BytedanceSplashAdSize = params[:BytedanceSplashAdSize]
+        @BytedanceSplashAdTolerateTimeout = params[:BytedanceSplashAdTolerateTimeout]
     end
 
     def get_binding

@@ -40,24 +40,43 @@ class Bytedance: SandboxAdObject {
     <% else %>
     private static let defaultInterstitialAdSize: String? = "full"
     <% end %>
+
+    <% if !@BytedanceSplashAdUnitID.nil? %>
+    private static let defaultSplashAdUnitID: String? = "<%= @BytedanceSplashAdUnitID %>"
+    <% else %>
+    private static let defaultSplashAdUnitID: String? = nil
+    <% end %>
+    <% if !@BytedanceSplashAdSize.nil? %>
+    private static let defaultSplashAdSize: String? = "<%= @BytedanceSplashAdSize %>"
+    <% else %>
+    private static let defaultSplashAdSize: String? = nil
+    <% end %>
+    <% if !@BytedanceSplashAdTolerateTimeout.nil? %>
+    private static let defaultTolerateTimeout: String? = "<%= @BytedanceSplashAdTolerateTimeout %>"
+    <% else %>
+    private static let defaultTolerateTimeout: String? = nil
+    <% end %>
     
     enum Method: String {
         case showVideo
         case showBanner
         case showRewarded
         case showInterstitial
+        case showSplash
     }
     
     enum Argument: String, Hashable {
         case adUnitID
         case size
         case placement
+        case tolerateTimeout
     }
     
     private let bannerPresenter = BytedanceBannerPresenter()
     private let videoPresenter = BytedanceVideoPresenter()
     private let rewardedVideoPresenter = BytedanceRewardedPresenter()
     private let interstitialPresenter = BytedanceInterstitialPresenter()
+    private let splashPresenter = BytedanceSplashPresenter()
     
     func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
      
@@ -107,6 +126,22 @@ class Bytedance: SandboxAdObject {
                 interstitialPresenter.present(
                     withSlotID: unitID,
                     adSize: adSize(from: adSizeString),
+                    from: viewController,
+                    callbacks: callbacks
+                )
+            }
+        case .showSplash:
+            let tolerateTimeoutStringOrNil = input[.tolerateTimeout] ?? Self.defaultTolerateTimeout
+            let tolerateTimeoutOrNil = TimeInterval(tolerateTimeoutStringOrNil ?? "")
+            if
+                let unitID = input[.adUnitID] ?? Self.defaultSplashAdUnitID,
+                let adSizeString = input[.size] ?? Self.defaultSplashAdSize
+            {
+                
+                splashPresenter.present(
+                    withSlotID: unitID,
+                    adSize: adSize(from: adSizeString),
+                    tolerateTimeout: tolerateTimeoutOrNil,
                     from: viewController,
                     callbacks: callbacks
                 )
