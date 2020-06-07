@@ -89,4 +89,21 @@
     }
 }
 
+- (void)onVideoAdDismissed:(NSString *)unitId
+             withConverted:(BOOL)converted
+            withRewardInfo:(MTGRewardAdInfo *)rewardInfo
+{
+    NSString *callback = self.callbacks[CallbackName.onRewarded];
+    if (converted && callback) {
+        NSDictionary *params = @{
+            @"reward": @{
+                    @"rewardName": rewardInfo.rewardName,
+                    @"amount": @(rewardInfo.rewardAmount),
+                    @"rewardId": rewardInfo.rewardId
+                }
+            };
+        [self.viewController invokeCallback:callback param:params];
+    }
+}
+
 @end
