@@ -14,6 +14,11 @@
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
 ```
 
+## Insallation
+```sh
+make install
+```
+
 ## Read about Fastlane authentication
 https://github.com/fastlane/fastlane/tree/master/credentials_manager
 
@@ -97,14 +102,19 @@ GADBannerPlacement: "top" | "bottom" // Pick one of these values
 GADRewardedAdUnitID: "ca-app-pub-3940256099942544/1712485313"
 
 // Mintegral plugin fields
-MintegralApiKey: "fb1eba8f974622524f29bc12bc8cb6e5"
-MintegralAppID: "123727"
-MintegralVideoAdUnitID: "193835"
-MintegralInterstitialAdUnitID: "193836"
-MintegralBannerAdUnitID: "193837"
+MintegralApiKey: "7c22942b749fe6a6e361b675e96b3ee9"
+MintegralAppID: "118692"
+MintegralVideoAdUnitID: "146894"
+MintegralInterstitialAdUnitID: "146896"
+MintegralBannerAdUnitID: "146898"
 MintegralBannerSize: "mediumRectangularBanner300x250" | "largeBannerType320x90" | "smartBannerType" | "standardBannerType320x50" // Pick one of these values
 MintegralBannerPlacement: "top" | "bottom"
-
+MintegralSplashAdUnitID: "215246"
+MintegralSplashAdCountdown: 2 // Value in seconds between 2 and 10
+MintegralSplashAdAllowSkip: true
+MintegralRewardedVideoAdUnitID: "146892"
+MintegralRewardedVideoRewardID: "reward_id" // Optional
+MintegralRewardedVideoUserID: "user_id"  // Optional
 
 // Bytedance plugin fields
 BytedanceAppID: "5000546"
@@ -113,6 +123,11 @@ BytedanceBannerPlacement: "top" | "bottom"
 BytedanceBannerSize: "600_90" | "600_100" | "600_150" | "600_260" | "600_286" | "600_300" | "600_388" | "600_400" // Pick one of these values
 BytedanceVideoAdUnitID: "900546831"
 BytedanceRewardedVideoAdUnitID: "900546566"
+BytedanceSplashAdUnitID: "800546851"
+BytedanceSplashAdSize: "100x100" // Optional, by default full screen is used
+BytedanceSplashAdTolerateTimeout: 10
+BytedanceInterstitialAdUnitID: "900546270"
+BytedanceInterstitialAdSize: "100x100" // Optional, by default full screen is used
 
 // Fastlane is required for uploading build to TestFlight using CLI
 fastlane:
