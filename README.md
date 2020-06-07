@@ -182,7 +182,7 @@ make install
 - ```sandbox://banner/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://splash/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://interstitial/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
-- ```sandbox://rewarded/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://rewarded/{ad_id}onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed&onRewarded=onRewarded```
 ```
 {ad_id} is optional
 Callbacks are optional
