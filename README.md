@@ -135,6 +135,13 @@ InjectJavaScript:
 
 ```
 
+## Setting up passwords
+In order to build and upload games to ITunes Connect you need to setup ```FASTLANE_PASSWORD``` and ```MATCH_KEYCHAIN_PASSWORD``` environment variables. You can do it however you want. For instance you can use ~/.bash_profile
+```sh
+export FASTLANE_PASSWORD="password"
+export MATCH_KEYCHAIN_PASSWORD="password"
+```
+
 ## Using dotenv
 You can set the environment variables by create a file in the output directory(the path is specified in Game.yml). 
 For example ```Game.yml```
