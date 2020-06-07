@@ -1,6 +1,7 @@
 
 ## Requirements
 - Ruby 2.4+
+- [Latest Ruby Bundler](https://bundler.io/)
 - Xcode 11+
 - Xcode Command Line Tools (xcode-select --install)
 - [Cocoapods](https://cocoapods.org/)
