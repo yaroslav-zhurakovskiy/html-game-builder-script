@@ -27,8 +27,13 @@ class ScriptInputParser
     end
 
   def parse(options)
-    @opt_parser.parse!(options)
-    @args
+    begin
+      @opt_parser.parse!(options)
+      return @args
+    rescue OptionParser::InvalidOption => error
+      puts error
+      exit(-1)
+    end
   end
 
   def print_help
