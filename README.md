@@ -181,6 +181,8 @@ make install
 - ```sandbox://video/{ad_id}?onFail=onFailed&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://banner/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 - ```sandbox://splash/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://interstitial/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
+- ```sandbox://rewarded/{ad_id}?onFail=onFail&onShown=onShown&onClicked=onClicked&onDismissed=onDismissed```
 ```
 {ad_id} is optional
 Callbacks are optional
