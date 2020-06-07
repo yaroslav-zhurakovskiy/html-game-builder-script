@@ -23,6 +23,10 @@ class PluginFileInput
         @BytedanceSplashAdUnitID = params[:BytedanceSplashAdUnitID]
         @BytedanceSplashAdSize = params[:BytedanceSplashAdSize]
         @BytedanceSplashAdTolerateTimeout = params[:BytedanceSplashAdTolerateTimeout]
+
+        @MintegralSplashAdUnitID = params[:MintegralSplashAdUnitID]
+        @MintegralSplashAdCountdown = params[:MintegralSplashAdCountdown]
+        @MintegralSplashAdAllowSkip = params[:MintegralSplashAdAllowSkip]
     end
 
     def get_binding

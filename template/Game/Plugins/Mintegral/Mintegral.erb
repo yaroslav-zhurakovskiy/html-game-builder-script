@@ -11,23 +11,42 @@ class Mintegral: SandboxAdObject {
     private static let staticInterstitialDefaultAdUnitID: String? = nil
     <% end %>
     
+    <% if !@MintegralSplashAdUnitID.nil? %>
+    private static let defaultSplashAdUnitID: String? = "<%= @MintegralSplashAdUnitID %>"
+    <% else %>
+    private static let defaultSplashAdUnitID: String? = nil
+    <% end %>
+    <% if !@MintegralSplashAdCountdown.nil? %>
+    private static let defaultSplashAdCountdown: String? = "<%= @MintegralSplashAdCountdown %>"
+    <% else %>
+    private static let defaultSplashAdCountdown: String? = nil
+    <% end %>
+    <% if !@MintegralSplashAdAllowSkip.nil? %>
+    private static let defaultSplashAdAllowSkip: String? = "<%= @MintegralSplashAdAllowSkip %>"
+    <% else %>
+    private static let defaultSplashAdAllowSkip: String? = nil
+    <% end %>
     
     enum Method: String {
         case showVideoInterstitial
         case showStaticInterstitial
         case showBanner
         case hideBanner
+        case showSplash
     }
     
     enum Argument: String, Hashable {
         case unitID
         case size
         case autoRefreshTime
+        case countdown
+        case allowSkip
     }
     
     private let interstitialVideoAdPresenter = MTGInterstitialVideoAdPresenter()
     private let interstitialStaticAdPresenter = MTGInterstitialAdPresenter()
     private let bannerPresenter = MintegralBanner()
+    private let splashPresenter = MTGSplashAdPresenter()
     
     func invoke(_ method: String, with args: [String : Any], from viewController: WebGameController) {
         guard let result: (Method, [Argument: String]) = convertToTypedValues(method: method, arguments: args) else {
@@ -54,6 +73,22 @@ class Mintegral: SandboxAdObject {
             bannerPresenter.invoke(MintegralBanner.Method.show.rawValue, with: args, from: viewController)
         case .hideBanner:
             bannerPresenter.invoke(MintegralBanner.Method.hide.rawValue, with: args, from: viewController)
+        case .showSplash:
+            if
+                let unitID = input[.unitID] ?? Self.defaultSplashAdUnitID,
+                let countdownStr = input[.countdown] ?? Self.defaultSplashAdCountdown,
+                let countdown = UInt(countdownStr),
+                let allowSkipStr = input[.allowSkip] ?? Self.defaultSplashAdAllowSkip,
+                let allowSkip = Bool(allowSkipStr)
+            {
+                splashPresenter.present(
+                    from: viewController,
+                    unitID: unitID,
+                    countdown: countdown,
+                    allowSkip: allowSkip,
+                    callbacks: callbacks
+                )
+            }
         }
     }
 }
@@ -84,6 +119,6 @@ extension Mintegral {
     }
     
     func showSplash(args: [String : Any], from viewController: WebGameController) {
-        // Do nothing
+        invoke(Method.showSplash.rawValue, with: args, from: viewController)
     }
 }
