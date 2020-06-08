@@ -26,13 +26,12 @@ class BytedanceSplashPresenter: NSObject  {
             splashView?.tolerateTimeout = tolerateTimeout
         }
         splashView?.loadAdData()
-        viewController.view.addSubview(splashView!)
     }
 }
 
 extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
     func nativeExpressSplashViewRenderSuccess(_ splashAdView: BUNativeExpressSplashView) {
-        
+        viewController?.view.addSubview(splashAdView)
     }
     
     func nativeExpressSplashViewDidLoad(_ splashAdView: BUNativeExpressSplashView) {
