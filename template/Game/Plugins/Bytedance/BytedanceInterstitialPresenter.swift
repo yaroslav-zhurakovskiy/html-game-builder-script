@@ -32,6 +32,8 @@ extension BytedanceInterstitialPresenter: BUNativeExpresInterstitialAdDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewController?.invokeCallback(callback)
         }
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpresInterstitialAdWillVisible(_ interstitialAd: BUNativeExpressInterstitialAd) {

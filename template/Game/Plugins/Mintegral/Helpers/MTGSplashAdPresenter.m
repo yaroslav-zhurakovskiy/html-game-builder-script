@@ -48,6 +48,7 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:nil];
     }
+    [GameTimer notifyRestart];
 }
 
 - (void)splashADDidLeaveApplication:(nonnull MTGSplashAD *)splashAD {

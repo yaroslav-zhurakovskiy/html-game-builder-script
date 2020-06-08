@@ -114,6 +114,7 @@ extension GoogleBannerPresenter: GADBannerViewDelegate {
         if let callback = callbacks?[.onDismissed] {
             webGameController?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {

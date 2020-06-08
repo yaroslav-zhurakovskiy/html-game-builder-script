@@ -55,6 +55,7 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewController?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
         videoAd = nil
     }
 

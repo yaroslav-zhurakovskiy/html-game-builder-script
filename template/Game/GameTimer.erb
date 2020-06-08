@@ -1,6 +1,12 @@
 import Foundation
 
-class GameTimer {
+@objc(GameTimer) class GameTimer: NSObject {
+    static let RestartNotificationName = Notification.Name(rawValue: "GameTimer.RestartNotificationName")
+    
+    @objc class func notifyRestart() {
+        NotificationCenter.default.post(name: RestartNotificationName, object: nil)
+    }
+
     <% if @interval.nil? %>
     private let interval: TimeInterval = 600
     <% else %>
@@ -13,9 +19,19 @@ class GameTimer {
     
     init(webGameController: WebGameController) {
         self.webGameController = webGameController
+
+        super.init()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(restart(notification:)),
+            name: Self.RestartNotificationName,
+            object: nil
+        )
     }
     
     func start() {
+    <% if @game_timer_is_on %>        
         timer = Timer.scheduledTimer(
             timeInterval: interval,
             target: self,
@@ -23,6 +39,7 @@ class GameTimer {
             userInfo: nil,
             repeats: true
         )
+    <% end %>
     }
     
     deinit {
@@ -30,8 +47,14 @@ class GameTimer {
     }
 
     @objc private func tick() {
+        timer?.invalidate()
+
         if let url = URL(string: "sandbox://\(request)") {
             webGameController.request(url: url)
         }
+    }
+    
+    @objc private func restart(notification: Notification) {
+        start()
     }
 }

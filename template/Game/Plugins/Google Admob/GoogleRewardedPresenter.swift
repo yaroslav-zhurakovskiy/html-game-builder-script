@@ -48,5 +48,6 @@ extension GoogleRewardedBannerPresenter: GADRewardedAdDelegate {
         if let callback = callbacks?[.onDismissed] {
             webGameController?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
     }
 }

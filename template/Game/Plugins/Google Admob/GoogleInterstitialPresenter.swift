@@ -35,6 +35,7 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewControllerToPresentIn?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
         viewControllerToPresentIn = nil
         reloadAd()
     }

@@ -72,6 +72,7 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:nil];
     }
+    [GameTimer notifyRestart];
 }
 
 - (void)onInterstitialAdClick:(MTGInterstitialAdManager *)adManager {

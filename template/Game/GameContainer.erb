@@ -45,9 +45,9 @@ class GameContainer: UIViewController {
             webGameController.request(url: url)
         }
         <% end %>
-        <% if @game_timer_is_on %>        
+        
         timer.start()
-        <% end %>
+        
         webGameController.playGame()
     }
 }

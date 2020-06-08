@@ -80,6 +80,7 @@
     if (callback) {
         [self.webGameController invokeCallback:callback param:nil];
     }
+    [GameTimer notifyRestart];
 }
 
 - (void)adViewDidClicked:(MTGBannerAdView *)adView {

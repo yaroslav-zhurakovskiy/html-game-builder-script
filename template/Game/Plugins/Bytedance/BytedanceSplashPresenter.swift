@@ -67,6 +67,7 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewController?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressSplashViewCountdown(toZero splashAdView: BUNativeExpressSplashView) {
@@ -77,6 +78,7 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
         if let callback = callbacks?[.onDismissed] {
             viewController?.invokeCallback(callback)
         }
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressSplashViewFinishPlayDidPlayFinish(_ splashView: BUNativeExpressSplashView, didFailWithError error: Error) {
