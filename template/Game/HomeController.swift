@@ -19,6 +19,8 @@ class HomeController: UIViewController {
         ])
         addChild(controller)
         controller.didMove(toParent: self)
+        
+        processPlay()
     }
         
     @IBAction func processPlay() {
