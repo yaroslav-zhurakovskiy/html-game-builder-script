@@ -7,7 +7,8 @@ platform :ios do
     # cocoapods
     build_app(
       export_method: "app-store",
-      export_xcargs: "-allowProvisioningUpdates"
+      export_xcargs: "-allowProvisioningUpdates",
+      xcargs: "-allowProvisioningUpdates"
     )
   end
   lane :upload_game do |options|
@@ -16,7 +17,8 @@ platform :ios do
     # cocoapods
     build_app(
       export_method: "app-store",
-      export_xcargs: "-allowProvisioningUpdates"
+      export_xcargs: "-allowProvisioningUpdates",
+      xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
