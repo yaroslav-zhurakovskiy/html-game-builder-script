@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SCRIPT_VERSION='2.0'
+SCRIPT_VERSION='2.1'
 BUILD_FILE=$1
 FILE_LIST=(
     AppfileInput.rb
