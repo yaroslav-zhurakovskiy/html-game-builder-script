@@ -40,12 +40,16 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
     }
     
     func nativeExpressSplashView(_ splashAdView: BUNativeExpressSplashView, didFailWithError error: Error?) {
+        splashView.removeSplashView()
+        
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
     }
     
     func nativeExpressSplashViewRenderFail(_ splashAdView: BUNativeExpressSplashView, error: Error?) {
+        splashView.removeSplashView()
+
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
@@ -75,6 +79,8 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
     }
     
     func nativeExpressSplashViewDidClose(_ splashAdView: BUNativeExpressSplashView) {
+        splashView.removeSplashView()
+
         if let callback = callbacks?[.onDismissed] {
             viewController?.invokeCallback(callback)
         }
