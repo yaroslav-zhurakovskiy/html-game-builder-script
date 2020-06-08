@@ -45,6 +45,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)onInterstitialLoadFail:(NSError *)error adManager:(MTGInterstitialAdManager *)adManager {
@@ -58,6 +60,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+    
+    [GameTimer notifyRestart];
 }
 
 - (void)onInterstitialShowSuccess:(MTGInterstitialAdManager *)adManager {

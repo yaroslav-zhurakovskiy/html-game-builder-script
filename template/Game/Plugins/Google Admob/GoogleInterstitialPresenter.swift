@@ -48,6 +48,8 @@ class GoogleInterstitialPresenter: NSObject, GADInterstitialDelegate {
             )
         }
         reloadAd()
+
+        GameTimer.notifyRestart()
     }
     
      func interstitialWillPresentScreen(_ ad: GADInterstitial) {

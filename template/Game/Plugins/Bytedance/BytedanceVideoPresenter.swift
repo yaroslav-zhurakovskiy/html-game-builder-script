@@ -28,6 +28,8 @@ extension BytedanceVideoPresenter: BUNativeExpressFullscreenVideoAdDelegate {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
         videoAd?.loadData()
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressFullscreenVideoAd(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd, didFailWithError error: Error?) {
@@ -35,6 +37,8 @@ extension BytedanceVideoPresenter: BUNativeExpressFullscreenVideoAdDelegate {
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressFullscreenVideoAdDidClose(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {

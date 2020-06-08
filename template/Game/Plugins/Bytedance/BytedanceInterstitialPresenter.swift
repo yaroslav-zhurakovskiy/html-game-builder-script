@@ -46,11 +46,15 @@ extension BytedanceInterstitialPresenter: BUNativeExpresInterstitialAdDelegate {
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpresInterstitialAd(_ interstitialAd: BUNativeExpressInterstitialAd, didFailWithError error: Error?) {
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
+
+        GameTimer.notifyRestart()
     }
 }

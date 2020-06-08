@@ -53,6 +53,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)onVideoAdLoadFailed:(NSString *)unitId error:(NSError *)error {
@@ -66,6 +68,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)onVideoAdShowSuccess:(NSString *)unitId {

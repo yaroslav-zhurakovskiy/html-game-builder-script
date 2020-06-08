@@ -61,6 +61,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)onInterstitialVideoShowSuccess:(MTGInterstitialVideoAdManager *)adManager {

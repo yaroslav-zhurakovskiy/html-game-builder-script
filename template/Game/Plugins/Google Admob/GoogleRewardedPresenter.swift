@@ -36,6 +36,8 @@ extension GoogleRewardedBannerPresenter: GADRewardedAdDelegate {
         if let callback = callbacks?[.onFail] {
             webGameController?.invokeCallback(callback, param: ["error": ["msg": error.localizedDescription]])
         }
+
+        GameTimer.notifyRestart()
     }
     
     func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {

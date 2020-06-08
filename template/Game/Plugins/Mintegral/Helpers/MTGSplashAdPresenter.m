@@ -64,6 +64,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)splashADLoadSuccess:(nonnull MTGSplashAD *)splashAD {
@@ -79,6 +81,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)splashADPreloadSuccess:(nonnull MTGSplashAD *)splashAD {
@@ -94,6 +98,8 @@
     if (callback) {
         [self.viewController invokeCallback:callback param:param];
     }
+
+    [GameTimer notifyRestart];
 }
 
 - (void)splashADShowSuccess:(nonnull MTGSplashAD *)splashAD {

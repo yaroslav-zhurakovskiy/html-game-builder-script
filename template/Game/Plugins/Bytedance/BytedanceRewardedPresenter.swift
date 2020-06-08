@@ -42,6 +42,8 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
             viewController?.invokeCallback(callback, param: ["error": error!.localizedDescription])
         }
         videoAd?.loadData()
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
@@ -49,6 +51,8 @@ extension BytedanceRewardedPresenter: BUNativeExpressRewardedVideoAdDelegate {
             viewController?.invokeCallback(callback, param: ["error": error!.localizedDescription])
         }
         print("\(#function) \(error!)")
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {

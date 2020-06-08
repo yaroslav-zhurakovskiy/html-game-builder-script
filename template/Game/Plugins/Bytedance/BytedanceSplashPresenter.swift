@@ -45,6 +45,8 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressSplashViewRenderFail(_ splashAdView: BUNativeExpressSplashView, error: Error?) {
@@ -55,6 +57,8 @@ extension BytedanceSplashPresenter: BUNativeExpressSplashViewDelegate {
         if let callback = callbacks?[.onFail] {
             viewController?.invokeCallback(callback, param: ["error": error?.localizedDescription])
         }
+
+        GameTimer.notifyRestart()
     }
     
     func nativeExpressSplashViewWillVisible(_ splashAdView: BUNativeExpressSplashView) {
