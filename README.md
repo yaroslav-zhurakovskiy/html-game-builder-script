@@ -81,10 +81,10 @@ supportedInterfaceOrientations: // iPhone & iPad supported device orientation
     - portrait
     - portraitUpsideDown
     - landscapeLeft
-    - landspaceRight
+    - landscapeRight
 supportedInterfaceOrientationsIPad: // iPad only supported device orientation (Overwrites supportedInterfaceOrientations)
     - landscapeLeft
-    - landspaceRight
+    - landscapeRight
 
 statusBar: "hidden" | "light" | "dark" // Status bar style. Pick one of these values
 autoshowBanner: true // Automatically shows banner on launch. You need to have only one active ad banner id, otherwise it will use the first it finds.
